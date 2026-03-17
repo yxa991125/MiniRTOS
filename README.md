@@ -13,7 +13,7 @@
 ## RTOS 框架结构
 - 启动层: `cortex-m-rt` + `src/arch/cortex_m/boot.S` + `src/arch/cortex_m/pendsv.S`
 - 内核门面: `src/kernel.rs`（任务、延时、定时器、同步调用统一入口）
-- 调度层: `src/task/scheduler.rs` + `src/task/tcb.rs` + `src/task/context.rs`
+- 调度层: `src/task/scheduler.rs` + `src/task/tcb.rs` + `src/task/context.rs`（ready queue + timeout wheel）
 - 时间系统: `src/timer/systick.rs` + `src/timer/soft_timer.rs` + `src/timer/hw_timer.rs`
 - 同步与 IPC: `src/sync/*` + `src/ipc/*`
 - 设备/驱动层: `src/device/*` + `src/driver/*`
@@ -34,7 +34,7 @@
 - `.cargo/config.toml`: target、runner、bench alias
 
 ## 待办事项
-- 调度器 O(1) 化: 当前 `pick_next_ready` 仍是线性扫描任务表，具体改造思路见 `DEVELOPMENT_PLAN.md`
+- 超时路径验证: 增加 timeout wheel 在跨桶、跨轮、长延时场景下的回归测试
 - 互斥锁增强: 增加阻塞式 mutex 与优先级继承
 - 完善驱动: 扩展更多外设中断/DMA 场景
 - 工程化测试: 增加 host 侧单元测试与自动化回归脚本
@@ -70,6 +70,7 @@
 - 修改 `src/timer/systick.rs` 的 `TICK_HZ`
 - 同步调整 `src/main.rs` 里 `cp.SYST.set_reload(sysclk_hz / TICK_HZ - 1)` 的配置逻辑
 - 时间片: 修改 `src/task/scheduler.rs` 的 `DEFAULT_TIME_SLICE_TICKS`
+- 超时轮尺寸: 修改 `src/task/scheduler.rs` 的 `TIMEOUT_WHEEL_SIZE`（建议保持 2 的幂）
 - 调度容量: 修改 `src/task/scheduler.rs` 的 `MAX_TASKS`（bench 与默认路径分开配置）
 - 任务优先级: 调整 `kernel::create_task(..., priority)` 的 `priority`
 - 任务栈大小: 调整 `src/main.rs` 的 `STACK_TASK*_WORDS`
@@ -115,10 +116,3 @@ fn my_task(_arg: usize) -> ! {
 ```rust
 kernel::create_task(my_task, 0, stack, 1);
 ```
-
-## 文档约定
-- `README.md`: 架构/使用说明
-- `CODEX_LOG.md`: 开发变更日志
-- `TESTING.md`: 规范测试矩阵、通过标准与最近一次测试结果
-- `Prompt.md`: 当前项目协作 Prompt（完整执行约束）
-- `DEVELOPMENT_PLAN.md`: 未来开发计划与讨论文档

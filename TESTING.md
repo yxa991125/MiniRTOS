@@ -2,8 +2,7 @@
 
 ## 1. 文档目的
 - 给出可复现的测试流程、通过标准和最新结果。
-- `TESTING.md` 只保留规范化测试信息，不再保存逐次开发流水日志。
-- 详细迭代过程统一记录到 `CODEX_LOG.md`。
+- `TESTING.md` 只保留规范化测试信息。
 
 ## 2. 测试范围
 - 构建可用性：默认固件、bench 固件（debug/release）。
@@ -45,19 +44,18 @@
 - `scheduler_o1_check`
 - 最终结束标志：`bench complete`
 
-## 6. 最近一次执行结果（2026-03-13）
+## 6. 最近一次执行结果（2026-03-17）
 | ID | 结果 | 备注 |
 |---|---|---|
-| T01 | PASS | 构建通过 |
-| T02 | PASS | 构建通过 |
-| T03 | PASS | 构建通过 |
+| T01 | PASS | `cargo build` 通过 |
+| T02 | PASS | `cargo build --features bench` 通过 |
+| T03 | PASS | `cargo build --release --features bench` 通过 |
 | T04 | NOT RUN | 本次未执行硬件烧录 |
 | T05 | NOT RUN | 本次未执行串口观测 |
 | T06 | NOT RUN | 本次未执行整轮 bench 跑测 |
 | T07 | NOT RUN | 本次未执行串口指标验收 |
-- 文档更新说明（2026-03-13）：本次 `Prompt.md` 重写属于 docs-only 变更，测试结果沿用本节最近一次执行结果。
-- 文档更新说明（2026-03-17）：新增 `DEVELOPMENT_PLAN.md`，属于 docs-only 变更，本次未执行新的构建或硬件测试。
-- 文档更新说明（2026-03-17）：补充了调度器 O(1) 改造计划说明，属于 docs-only 变更，本次未执行新的构建或硬件测试。
+- 调度器 O(1) 重构说明（2026-03-17）：完成 ready queue 重构，已验证默认固件、bench debug、bench release 构建通过；硬件运行与串口验收未执行。
+- 调度器 timeout wheel 优化说明（2026-03-17）：`tick_at` 已移除全表超时扫描，默认固件、bench debug、bench release 构建通过；硬件运行与串口验收未执行。
 
 ## 7. 已知限制与说明
 - `cargo test` / `cargo check --all-targets` 在裸机 `no_std` 目标下会触发 `can't find crate for test`，不作为本项目通过标准。
@@ -69,4 +67,3 @@
 - 测试矩阵（若新增/删除测试项）
 - 最近一次执行结果
 - 已知限制
-- 不在 `TESTING.md` 追加流水式开发日志；流水日志写入 `CODEX_LOG.md`。

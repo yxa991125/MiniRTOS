@@ -13,6 +13,8 @@ pub const MAX_TASKS: usize = 40;
 pub const MAX_TASKS: usize = 8;
 pub const MAX_PRIORITY: usize = 8;
 pub const DEFAULT_TIME_SLICE_TICKS: u32 = 10;
+const TIMEOUT_WHEEL_SIZE: usize = 256;
+const TIMEOUT_WHEEL_MASK: usize = TIMEOUT_WHEEL_SIZE - 1;
 const INVALID_PID: usize = usize::MAX;
 const IDLE_PID: usize = 0;
 const IDLE_STACK_WORDS: usize = 128;
@@ -26,15 +28,55 @@ static mut IDLE_STACK: AlignedStack<IDLE_STACK_WORDS> = AlignedStack([0; IDLE_ST
 static TASKS: Mutex<RefCell<[Option<Tcb>; MAX_TASKS]>> =
     Mutex::new(RefCell::new([const{None}; MAX_TASKS]));
 
-/* // Ready set represented as a bitmap of priorities.
-static READY_SET: Mutex<RefCell<[bool; MAX_PRIORITY]>> =
-    Mutex::new(RefCell::new([false; MAX_PRIORITY])); */
-static READY_COUNTS: Mutex<RefCell<[u8; MAX_PRIORITY]>> =
-    Mutex::new(RefCell::new([0; MAX_PRIORITY]));
-static READY_MASK: AtomicU32 = AtomicU32::new(0);
+struct ReadyQueues {
+    heads: [Option<usize>; MAX_PRIORITY],
+    tails: [Option<usize>; MAX_PRIORITY],
+    counts: [u8; MAX_PRIORITY],
+}
 
-/* static CURRENT_PID: Mutex<RefCell<usize>> =
-    Mutex::new(RefCell::new(0)); */
+impl ReadyQueues {
+    const fn new() -> Self {
+        Self {
+            heads: [const { None }; MAX_PRIORITY],
+            tails: [const { None }; MAX_PRIORITY],
+            counts: [0; MAX_PRIORITY],
+        }
+    }
+
+    fn clear(&mut self) {
+        self.heads = [const { None }; MAX_PRIORITY];
+        self.tails = [const { None }; MAX_PRIORITY];
+        self.counts = [0; MAX_PRIORITY];
+    }
+}
+
+struct TimeoutWheel {
+    heads: [Option<usize>; TIMEOUT_WHEEL_SIZE],
+    tails: [Option<usize>; TIMEOUT_WHEEL_SIZE],
+    last_tick: u32,
+}
+
+impl TimeoutWheel {
+    const fn new() -> Self {
+        Self {
+            heads: [const { None }; TIMEOUT_WHEEL_SIZE],
+            tails: [const { None }; TIMEOUT_WHEEL_SIZE],
+            last_tick: 0,
+        }
+    }
+
+    fn clear(&mut self, now: u32) {
+        self.heads = [const { None }; TIMEOUT_WHEEL_SIZE];
+        self.tails = [const { None }; TIMEOUT_WHEEL_SIZE];
+        self.last_tick = now;
+    }
+}
+
+static READY_QUEUES: Mutex<RefCell<ReadyQueues>> =
+    Mutex::new(RefCell::new(ReadyQueues::new()));
+static TIMEOUT_WHEEL: Mutex<RefCell<TimeoutWheel>> =
+    Mutex::new(RefCell::new(TimeoutWheel::new()));
+static READY_MASK: AtomicU32 = AtomicU32::new(0);
 
 static CURRENT_PID: AtomicUsize = AtomicUsize::new(INVALID_PID);
 
@@ -48,22 +90,17 @@ unsafe extern "C" {
 pub fn init() {
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
+        let mut timeout_wheel = TIMEOUT_WHEEL.borrow(cs).borrow_mut();
 
         tasks.iter_mut().for_each(|slot| *slot = None);
-
-/*         READY_SET
-            .borrow(cs)
-            .borrow_mut()
-            .iter_mut()
-            .for_each(|flag| *flag = false); */
-        ready_counts.iter_mut().for_each(|count| *count = 0);
+        ready_queues.clear();
+        timeout_wheel.clear(systick::now());
         READY_MASK.store(0, Ordering::Relaxed);
 
-        // *CURRENT_PID.borrow(cs).borrow_mut() = 0;
         CURRENT_PID.store(INVALID_PID, Ordering::Relaxed);
 
-        init_idle_task(&mut tasks, &mut ready_counts);
+        init_idle_task(&mut tasks, &mut ready_queues);
     });
 }
 
@@ -91,19 +128,15 @@ pub fn create_task(
 
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
 
-        if let Some((pid, slot)) = tasks
-            .iter_mut()
-            .enumerate()
-            .find(|(_, task)| task.is_none())
-        {
+        if let Some(pid) = tasks.iter().position(|task| task.is_none()) {
             // Stack grows downwards: end points to the current top (empty stack).
             let stack_start = stack.as_mut_ptr();
             let stack_end = unsafe { stack_start.add(stack.len()) };
             let sp = init_stack_frame(stack_start, stack_end, entry, arg);
 
-            *slot = Some(Tcb::init(
+            tasks[pid] = Some(Tcb::init(
                 pid,
                 sp,
                 priority,
@@ -113,15 +146,7 @@ pub fn create_task(
                 entry,
                 arg,
             ));
-            ready_inc(&mut ready_counts, priority);
-
-/*             if let Some(flag) = READY_SET
-                .borrow(cs)
-                .borrow_mut()
-                .get_mut(priority as usize)
-            {
-                *flag = true;
-            } */
+            let _ = ready_push_back(&mut ready_queues, &mut tasks, pid);
             created_pid = Some(pid);
         }
     });
@@ -143,37 +168,25 @@ pub fn tick_at(now: u32) {
 
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
+        let mut timeout_wheel = TIMEOUT_WHEEL.borrow(cs).borrow_mut();
 
-        // Wake sleeping tasks or blocked tasks with timeout.
-        for slot in tasks.iter_mut() {
-            let Some(task) = slot.as_mut() else {
-                continue;
-            };
-
-            match task.state {
-                TaskState::Sleeping => {
-                    if time_after_eq(now, task.wake_tick) {
-                        task.state = TaskState::Ready;
-                        task.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
-                        ready_inc(&mut ready_counts, task.priority);
-                        pend_switch = true;
-                    }
-                }
-                TaskState::Blocked => {
-                    if task.has_timeout && time_after_eq(now, task.wake_tick) {
-                        task.state = TaskState::Ready;
-                        task.has_timeout = false;
-                        task.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
-                        ready_inc(&mut ready_counts, task.priority);
-                        pend_switch = true;
-                    }
-                }
-                _ => {}
-            }
+        let mut processed_tick = timeout_wheel.last_tick;
+        while processed_tick != now {
+            processed_tick = processed_tick.wrapping_add(1);
+            process_timeout_slot(
+                &mut timeout_wheel,
+                &mut ready_queues,
+                &mut tasks,
+                processed_tick,
+                &mut pend_switch,
+            );
         }
+        timeout_wheel.last_tick = now;
 
         let current_pid = CURRENT_PID.load(Ordering::Relaxed);
+        let mut requeue_current = false;
+
         if let Some(current) = tasks.get_mut(current_pid).and_then(|t| t.as_mut()) {
             if current.state == TaskState::Running {
                 if current.remaining_slice > 0 {
@@ -183,15 +196,13 @@ pub fn tick_at(now: u32) {
                 if current.remaining_slice == 0 {
                     current.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
                     current.state = TaskState::Ready;
-                    ready_inc(&mut ready_counts, current.priority);
+                    requeue_current = true;
                     pend_switch = true;
-                }
-
-                if !pend_switch {
+                } else if !pend_switch {
                     if let Some(best_prio) = highest_ready_priority(READY_MASK.load(Ordering::Relaxed)) {
                         if best_prio < current.priority {
                             current.state = TaskState::Ready;
-                            ready_inc(&mut ready_counts, current.priority);
+                            requeue_current = true;
                             pend_switch = true;
                         }
                     }
@@ -201,6 +212,10 @@ pub fn tick_at(now: u32) {
             }
         } else {
             pend_switch = true;
+        }
+
+        if requeue_current {
+            let _ = ready_push_back(&mut ready_queues, &mut tasks, current_pid);
         }
     });
 
@@ -216,32 +231,13 @@ pub fn start_first_task() -> ! {
 
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
 
-        // 选择优先级最高（priority 数值最小）的 Ready 任务
-        let mut best: Option<(usize, u8, *mut u32)> = None;
-
-        for (pid, slot) in tasks.iter_mut().enumerate() {
-            if let Some(t) = slot.as_mut() {
-                if t.state == TaskState::Ready {
-                    match best {
-                        None => best = Some((pid, t.priority, t.sp)),
-                        Some((_, best_prio, _)) if t.priority < best_prio => {
-                            best = Some((pid, t.priority, t.sp))
-                        }
-                        _ => {}
-                    }
-                }
-            }
-        }
-
-        let (pid, _prio, sp) = best.expect("no ready task to start");
+        let pid = ready_pop_highest(&mut ready_queues, &mut tasks).expect("no ready task to start");
+        let sp = tasks[pid].as_ref().map(|task| task.sp).expect("ready task missing");
 
         // 标记为 Running
         if let Some(t) = tasks[pid].as_mut() {
-            if t.state == TaskState::Ready {
-                ready_dec(&mut ready_counts, t.priority);
-            }
             t.state = TaskState::Running;
             if t.remaining_slice == 0 {
                 t.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
@@ -295,51 +291,33 @@ pub fn context_switch(save_sp: *mut u32) -> *mut u32 {
 
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
-        // let current_pid = *CURRENT_PID.borrow(cs).borrow();
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
         let current_pid = CURRENT_PID.load(Ordering::Relaxed);
-        let mut fallback: Option<(usize, u8, *mut u32)> = None;
+        let mut requeue_current = false;
 
-        // Save current task context and mark it ready.
+        // Save current task context and requeue the running task if it is still runnable.
         if let Some(current) = tasks.get_mut(current_pid).and_then(|t| t.as_mut()) {
-            fallback = Some((current_pid, current.priority, save_sp));
             current.sp = save_sp;
             if current.state == TaskState::Running {
                 current.state = TaskState::Ready;
-                ready_inc(&mut ready_counts, current.priority);
+                requeue_current = true;
             }
-/*             if let Some(flag) = READY_SET
-                .borrow(cs)
-                .borrow_mut()
-                .get_mut(current.priority as usize)
-            {
-                *flag = true;
-            } */
         }
 
-        let (pid, _prio, sp) = pick_next_ready(&mut tasks, current_pid)
-            .or(fallback)
-            .unwrap_or((current_pid, 0, ptr::null_mut()));
-        
+        if requeue_current {
+            let _ = ready_push_back(&mut ready_queues, &mut tasks, current_pid);
+        }
+
+        let pid = ready_pop_highest(&mut ready_queues, &mut tasks).unwrap_or(IDLE_PID);
+        let sp = tasks.get(pid).and_then(|task| task.as_ref()).map(|task| task.sp).unwrap_or(ptr::null_mut());
+
         if let Some(task) = tasks.get_mut(pid).and_then(|t| t.as_mut()) {
-            if task.state == TaskState::Ready {
-                ready_dec(&mut ready_counts, task.priority);
-            }
             task.state = TaskState::Running;
             if task.remaining_slice == 0 {
                 task.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
             }
         }
-        // *CURRENT_PID.borrow(cs).borrow_mut() = pid;
         CURRENT_PID.store(pid, Ordering::Relaxed);
-
-/*         if let Some(flag) = READY_SET
-            .borrow(cs)
-            .borrow_mut()
-            .get_mut(prio as usize)
-        {
-            *flag = false;
-        } */
 
         next_sp = sp;
     });
@@ -350,13 +328,21 @@ pub fn context_switch(save_sp: *mut u32) -> *mut u32 {
 pub fn sleep_ms(ms: u32) {
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
+        let mut timeout_wheel = TIMEOUT_WHEEL.borrow(cs).borrow_mut();
         let current_pid = CURRENT_PID.load(Ordering::Relaxed);
+        let mut queue_timeout = false;
+        let now = systick::now();
         if let Some(current) = tasks.get_mut(current_pid).and_then(|t| t.as_mut()) {
             let now = systick::now();
-            let wake = now.wrapping_add(systick::ms_to_ticks(ms));
+            let wake = now.wrapping_add(timeout_delay_ticks(ms));
             current.state = TaskState::Sleeping;
             current.wake_tick = wake;
             current.has_timeout = false;
+            queue_timeout = true;
+        }
+
+        if queue_timeout {
+            let _ = timeout_push(&mut timeout_wheel, &mut tasks, current_pid, now);
         }
     });
 
@@ -366,11 +352,13 @@ pub fn sleep_ms(ms: u32) {
 pub fn block_current(timeout_ms: Option<u32>) {
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
+        let mut timeout_wheel = TIMEOUT_WHEEL.borrow(cs).borrow_mut();
         let current_pid = CURRENT_PID.load(Ordering::Relaxed);
+        let now = systick::now();
+        let mut queue_timeout = false;
         if let Some(current) = tasks.get_mut(current_pid).and_then(|t| t.as_mut()) {
             let (has_timeout, wake_tick) = if let Some(ms) = timeout_ms {
-                let now = systick::now();
-                (true, now.wrapping_add(systick::ms_to_ticks(ms)))
+                (true, now.wrapping_add(timeout_delay_ticks(ms)))
             } else {
                 (false, 0)
             };
@@ -378,6 +366,11 @@ pub fn block_current(timeout_ms: Option<u32>) {
             current.state = TaskState::Blocked;
             current.has_timeout = has_timeout;
             current.wake_tick = wake_tick;
+            queue_timeout = has_timeout;
+        }
+
+        if queue_timeout {
+            let _ = timeout_push(&mut timeout_wheel, &mut tasks, current_pid, now);
         }
     });
 
@@ -388,16 +381,30 @@ pub fn unblock(pid: usize) -> bool {
     let mut unblocked = false;
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
-        if let Some(task) = tasks.get_mut(pid).and_then(|t| t.as_mut()) {
-            if task.state != TaskState::Ready {
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
+        let mut timeout_wheel = TIMEOUT_WHEEL.borrow(cs).borrow_mut();
+        let mut remove_timeout = false;
+        let mut make_ready = false;
+        if let Some(task) = tasks.get(pid).and_then(|t| t.as_ref()) {
+            remove_timeout = task.in_timeout_queue;
+            if task.state != TaskState::Ready || !task.in_ready_queue {
+                make_ready = true;
+                unblocked = true;
+            }
+        }
+
+        if remove_timeout {
+            let _ = timeout_remove(&mut timeout_wheel, &mut tasks, pid);
+        }
+
+        if make_ready {
+            if let Some(task) = tasks.get_mut(pid).and_then(|t| t.as_mut()) {
                 task.state = TaskState::Ready;
                 task.has_timeout = false;
                 task.wake_tick = 0;
                 task.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
-                ready_inc(&mut ready_counts, task.priority);
-                unblocked = true;
             }
+            let _ = ready_push_back(&mut ready_queues, &mut tasks, pid);
         }
     });
 
@@ -418,22 +425,34 @@ pub fn delete_task(pid: usize) -> bool {
 
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
+        let mut timeout_wheel = TIMEOUT_WHEEL.borrow(cs).borrow_mut();
 
-        if let Some(task) = tasks.get_mut(pid).and_then(|t| t.as_mut()) {
-            match task.state {
-                TaskState::Ready => ready_dec(&mut ready_counts, task.priority),
-                TaskState::Running => need_switch = true,
-                _ => {}
-            }
+        let Some(task) = tasks.get(pid).and_then(|t| t.as_ref()) else {
+            return;
+        };
 
-            tasks[pid] = None;
-            removed = true;
+        let was_ready = task.state == TaskState::Ready && task.in_ready_queue;
+        let was_running = task.state == TaskState::Running;
+        let was_timed = task.in_timeout_queue;
 
-            if CURRENT_PID.load(Ordering::Relaxed) == pid {
-                CURRENT_PID.store(INVALID_PID, Ordering::Relaxed);
-                need_switch = true;
-            }
+        if was_ready {
+            let _ = ready_remove(&mut ready_queues, &mut tasks, pid);
+        }
+        if was_timed {
+            let _ = timeout_remove(&mut timeout_wheel, &mut tasks, pid);
+        }
+
+        if was_running {
+            need_switch = true;
+        }
+
+        tasks[pid] = None;
+        removed = true;
+
+        if CURRENT_PID.load(Ordering::Relaxed) == pid {
+            CURRENT_PID.store(INVALID_PID, Ordering::Relaxed);
+            need_switch = true;
         }
     });
 
@@ -463,9 +482,9 @@ pub fn set_priority(pid: usize, new_prio: u8) -> bool {
 
     free(|cs| {
         let mut tasks = TASKS.borrow(cs).borrow_mut();
-        let mut ready_counts = READY_COUNTS.borrow(cs).borrow_mut();
+        let mut ready_queues = READY_QUEUES.borrow(cs).borrow_mut();
 
-        let Some(task) = tasks.get_mut(pid).and_then(|t| t.as_mut()) else {
+        let Some(task) = tasks.get(pid).and_then(|t| t.as_ref()) else {
             return;
         };
 
@@ -475,24 +494,37 @@ pub fn set_priority(pid: usize, new_prio: u8) -> bool {
             return;
         }
 
-        if task.state == TaskState::Ready {
-            ready_dec(&mut ready_counts, old_prio);
-            ready_inc(&mut ready_counts, new_prio);
+        let was_ready = task.state == TaskState::Ready && task.in_ready_queue;
+        let was_running = task.state == TaskState::Running;
+        let current_pid = CURRENT_PID.load(Ordering::Relaxed);
+
+        if was_ready {
+            let _ = ready_remove(&mut ready_queues, &mut tasks, pid);
         }
 
-        task.priority = new_prio;
+        if let Some(task) = tasks.get_mut(pid).and_then(|t| t.as_mut()) {
+            task.priority = new_prio;
+        }
+
+        if was_ready {
+            let _ = ready_push_back(&mut ready_queues, &mut tasks, pid);
+        }
+
         updated = true;
 
-        let current_pid = CURRENT_PID.load(Ordering::Relaxed);
-        if current_pid != pid {
+        if was_ready && current_pid != pid {
             if let Some(current) = tasks.get(current_pid).and_then(|t| t.as_ref()) {
                 if current.state == TaskState::Running && new_prio < current.priority {
                     need_switch = true;
                 }
             }
-        } else if let Some(best_prio) = highest_ready_priority(READY_MASK.load(Ordering::Relaxed)) {
-            if best_prio < new_prio {
-                need_switch = true;
+        }
+
+        if was_running {
+            if let Some(best_prio) = highest_ready_priority(READY_MASK.load(Ordering::Relaxed)) {
+                if best_prio < new_prio {
+                    need_switch = true;
+                }
             }
         }
     });
@@ -504,71 +536,282 @@ pub fn set_priority(pid: usize, new_prio: u8) -> bool {
     updated
 }
 
-fn pick_next_ready(
-    tasks: &mut [Option<Tcb>; MAX_TASKS],
-    current_pid: usize,
-) -> Option<(usize, u8, *mut u32)> {
-    let best_prio = highest_ready_priority(READY_MASK.load(Ordering::Relaxed))?;
-    let start = if current_pid == INVALID_PID {
-        0
-    } else {
-        (current_pid + 1) % MAX_TASKS
-    };
-
-    for i in 0..MAX_TASKS {
-        let idx = (start + i) % MAX_TASKS;
-        if let Some(task) = tasks[idx].as_ref() {
-            if task.state == TaskState::Ready && task.priority == best_prio {
-                return Some((idx, task.priority, task.sp));
-            }
-        }
-    }
-
-    None
-}
-
 #[inline]
 fn time_after_eq(now: u32, target: u32) -> bool {
     now.wrapping_sub(target) < 0x8000_0000
 }
 
 #[inline]
-fn ready_inc(ready_counts: &mut [u8; MAX_PRIORITY], prio: u8) {
-    let idx = prio as usize;
-    if idx >= MAX_PRIORITY {
-        return;
+fn ready_push_back(
+    ready_queues: &mut ReadyQueues,
+    tasks: &mut [Option<Tcb>; MAX_TASKS],
+    pid: usize,
+) -> bool {
+    let Some(task) = tasks.get(pid).and_then(|slot| slot.as_ref()) else {
+        return false;
+    };
+
+    let prio = task.priority as usize;
+    if prio >= MAX_PRIORITY || task.in_ready_queue {
+        return false;
     }
-    ready_counts[idx] = ready_counts[idx].saturating_add(1);
-    if ready_counts[idx] == 1 {
-        READY_MASK.fetch_or(1u32 << idx, Ordering::Relaxed);
+
+    let prev_tail = ready_queues.tails[prio];
+
+    if let Some(task) = tasks.get_mut(pid).and_then(|slot| slot.as_mut()) {
+        task.ready_prev = prev_tail;
+        task.ready_next = None;
+        task.in_ready_queue = true;
     }
+
+    if let Some(tail_pid) = prev_tail {
+        if let Some(tail) = tasks.get_mut(tail_pid).and_then(|slot| slot.as_mut()) {
+            tail.ready_next = Some(pid);
+        }
+    } else {
+        ready_queues.heads[prio] = Some(pid);
+    }
+
+    ready_queues.tails[prio] = Some(pid);
+    ready_queues.counts[prio] = ready_queues.counts[prio].saturating_add(1);
+    if ready_queues.counts[prio] == 1 {
+        READY_MASK.fetch_or(1u32 << prio, Ordering::Relaxed);
+    }
+
+    true
 }
 
 #[inline]
-fn ready_dec(ready_counts: &mut [u8; MAX_PRIORITY], prio: u8) {
-    let idx = prio as usize;
-    if idx >= MAX_PRIORITY {
-        return;
+fn ready_remove(
+    ready_queues: &mut ReadyQueues,
+    tasks: &mut [Option<Tcb>; MAX_TASKS],
+    pid: usize,
+) -> bool {
+    let Some(task) = tasks.get(pid).and_then(|slot| slot.as_ref()) else {
+        return false;
+    };
+
+    let prio = task.priority as usize;
+    if prio >= MAX_PRIORITY || !task.in_ready_queue {
+        return false;
     }
-    if ready_counts[idx] > 0 {
-        ready_counts[idx] -= 1;
-        if ready_counts[idx] == 0 {
-            READY_MASK.fetch_and(!(1u32 << idx), Ordering::Relaxed);
+
+    let prev = task.ready_prev;
+    let next = task.ready_next;
+
+    if let Some(prev_pid) = prev {
+        if let Some(prev_task) = tasks.get_mut(prev_pid).and_then(|slot| slot.as_mut()) {
+            prev_task.ready_next = next;
+        }
+    } else {
+        ready_queues.heads[prio] = next;
+    }
+
+    if let Some(next_pid) = next {
+        if let Some(next_task) = tasks.get_mut(next_pid).and_then(|slot| slot.as_mut()) {
+            next_task.ready_prev = prev;
+        }
+    } else {
+        ready_queues.tails[prio] = prev;
+    }
+
+    if let Some(task) = tasks.get_mut(pid).and_then(|slot| slot.as_mut()) {
+        task.ready_prev = None;
+        task.ready_next = None;
+        task.in_ready_queue = false;
+    }
+
+    if ready_queues.counts[prio] > 0 {
+        ready_queues.counts[prio] -= 1;
+        if ready_queues.counts[prio] == 0 {
+            READY_MASK.fetch_and(!(1u32 << prio), Ordering::Relaxed);
         }
     }
+
+    true
+}
+
+#[inline]
+fn ready_pop_highest(
+    ready_queues: &mut ReadyQueues,
+    tasks: &mut [Option<Tcb>; MAX_TASKS],
+) -> Option<usize> {
+    let prio = highest_ready_priority(READY_MASK.load(Ordering::Relaxed))? as usize;
+    let pid = ready_queues.heads[prio]?;
+    let removed = ready_remove(ready_queues, tasks, pid);
+    if removed { Some(pid) } else { None }
 }
 
 #[inline]
 fn highest_ready_priority(mask: u32) -> Option<u8> {
-    for prio in 0..MAX_PRIORITY {
-        if (mask & (1u32 << prio)) != 0 {
-            return Some(prio as u8);
-        }
+    if mask == 0 {
+        None
+    } else {
+        Some(mask.trailing_zeros() as u8)
     }
-    None
 }
 
-fn init_idle_task(tasks: &mut [Option<Tcb>; MAX_TASKS], ready_counts: &mut [u8; MAX_PRIORITY]) {
+#[inline]
+fn timeout_delay_ticks(ms: u32) -> u32 {
+    let ticks = systick::ms_to_ticks(ms);
+    if ticks == 0 { 1 } else { ticks }
+}
+
+#[inline]
+fn timeout_bucket_index(tick: u32) -> usize {
+    (tick as usize) & TIMEOUT_WHEEL_MASK
+}
+
+#[inline]
+fn timeout_push(
+    timeout_wheel: &mut TimeoutWheel,
+    tasks: &mut [Option<Tcb>; MAX_TASKS],
+    pid: usize,
+    now: u32,
+) -> bool {
+    let Some(task) = tasks.get(pid).and_then(|slot| slot.as_ref()) else {
+        return false;
+    };
+
+    if task.in_timeout_queue {
+        return false;
+    }
+
+    let wake_tick = task.wake_tick;
+    let delta = wake_tick.wrapping_sub(now);
+    if delta == 0 {
+        return false;
+    }
+
+    let bucket = timeout_bucket_index(wake_tick);
+    let prev_tail = timeout_wheel.tails[bucket];
+    let rounds = (delta - 1) / (TIMEOUT_WHEEL_SIZE as u32);
+
+    if let Some(task) = tasks.get_mut(pid).and_then(|slot| slot.as_mut()) {
+        task.timeout_prev = prev_tail;
+        task.timeout_next = None;
+        task.in_timeout_queue = true;
+        task.timeout_rounds = rounds;
+    }
+
+    if let Some(tail_pid) = prev_tail {
+        if let Some(tail) = tasks.get_mut(tail_pid).and_then(|slot| slot.as_mut()) {
+            tail.timeout_next = Some(pid);
+        }
+    } else {
+        timeout_wheel.heads[bucket] = Some(pid);
+    }
+
+    timeout_wheel.tails[bucket] = Some(pid);
+    true
+}
+
+#[inline]
+fn timeout_remove(
+    timeout_wheel: &mut TimeoutWheel,
+    tasks: &mut [Option<Tcb>; MAX_TASKS],
+    pid: usize,
+) -> bool {
+    let Some(task) = tasks.get(pid).and_then(|slot| slot.as_ref()) else {
+        return false;
+    };
+
+    if !task.in_timeout_queue {
+        return false;
+    }
+
+    let bucket = timeout_bucket_index(task.wake_tick);
+    let prev = task.timeout_prev;
+    let next = task.timeout_next;
+
+    if let Some(prev_pid) = prev {
+        if let Some(prev_task) = tasks.get_mut(prev_pid).and_then(|slot| slot.as_mut()) {
+            prev_task.timeout_next = next;
+        }
+    } else {
+        timeout_wheel.heads[bucket] = next;
+    }
+
+    if let Some(next_pid) = next {
+        if let Some(next_task) = tasks.get_mut(next_pid).and_then(|slot| slot.as_mut()) {
+            next_task.timeout_prev = prev;
+        }
+    } else {
+        timeout_wheel.tails[bucket] = prev;
+    }
+
+    if let Some(task) = tasks.get_mut(pid).and_then(|slot| slot.as_mut()) {
+        task.timeout_prev = None;
+        task.timeout_next = None;
+        task.in_timeout_queue = false;
+        task.timeout_rounds = 0;
+    }
+
+    true
+}
+
+fn process_timeout_slot(
+    timeout_wheel: &mut TimeoutWheel,
+    ready_queues: &mut ReadyQueues,
+    tasks: &mut [Option<Tcb>; MAX_TASKS],
+    tick: u32,
+    pend_switch: &mut bool,
+) {
+    let bucket = timeout_bucket_index(tick);
+    let mut cursor = timeout_wheel.heads[bucket];
+
+    while let Some(pid) = cursor {
+        let next = tasks
+            .get(pid)
+            .and_then(|slot| slot.as_ref())
+            .and_then(|task| task.timeout_next);
+
+        let mut due = false;
+        if let Some(task) = tasks.get_mut(pid).and_then(|slot| slot.as_mut()) {
+            if task.timeout_rounds > 0 {
+                task.timeout_rounds -= 1;
+            } else if time_after_eq(tick, task.wake_tick) {
+                due = true;
+            }
+        }
+
+        if due {
+            let _ = timeout_remove(timeout_wheel, tasks, pid);
+
+            let mut became_ready = false;
+            if let Some(task) = tasks.get_mut(pid).and_then(|slot| slot.as_mut()) {
+                match task.state {
+                    TaskState::Sleeping => {
+                        task.state = TaskState::Ready;
+                        task.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
+                        task.wake_tick = 0;
+                        became_ready = true;
+                    }
+                    TaskState::Blocked if task.has_timeout => {
+                        task.state = TaskState::Ready;
+                        task.has_timeout = false;
+                        task.wake_tick = 0;
+                        task.remaining_slice = DEFAULT_TIME_SLICE_TICKS;
+                        became_ready = true;
+                    }
+                    _ => {
+                        task.has_timeout = false;
+                        task.wake_tick = 0;
+                    }
+                }
+            }
+
+            if became_ready {
+                let _ = ready_push_back(ready_queues, tasks, pid);
+                *pend_switch = true;
+            }
+        }
+
+        cursor = next;
+    }
+}
+
+fn init_idle_task(tasks: &mut [Option<Tcb>; MAX_TASKS], ready_queues: &mut ReadyQueues) {
     let stack = unsafe {
         let stack_ptr = core::ptr::addr_of_mut!(IDLE_STACK.0) as *mut u32;
         core::slice::from_raw_parts_mut(stack_ptr, IDLE_STACK_WORDS)
@@ -588,7 +831,18 @@ fn init_idle_task(tasks: &mut [Option<Tcb>; MAX_TASKS], ready_counts: &mut [u8; 
         idle_task,
         0,
     ));
-    ready_inc(ready_counts, IDLE_PRIORITY);
+    let _ = ready_push_back(ready_queues, tasks, IDLE_PID);
+}
+
+#[allow(dead_code)]
+#[inline]
+fn ready_count(ready_queues: &ReadyQueues, prio: u8) -> u8 {
+    let idx = prio as usize;
+    if idx >= MAX_PRIORITY {
+        0
+    } else {
+        ready_queues.counts[idx]
+    }
 }
 
 fn idle_task(_arg: usize) -> ! {
