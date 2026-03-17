@@ -1,0 +1,30 @@
+[package]
+name = "CortexOS"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+bench = []
+
+[dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+panic-halt = "1.0.0"
+
+[dependencies.stm32f4xx-hal]
+version = "0.23.0"
+features = ["stm32f411"]
+
+[build-dependencies]
+cc = "1.0"
+
+[profile.dev]
+codegen-units = 1
+debug = true
+lto = false
+
+[profile.release]
+codegen-units = 1
+debug = true
+lto = true

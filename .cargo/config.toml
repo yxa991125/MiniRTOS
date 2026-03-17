@@ -1,0 +1,13 @@
+[build]
+target = "thumbv7em-none-eabihf"
+
+[alias]
+bench-dev = "run --features bench"
+bench-release = "run --release --features bench"
+bench-release-build = "build --release --features bench"
+
+[target.thumbv7em-none-eabihf]
+runner = "probe-rs run --chip STM32F411RETx --protocol swd --speed 100"
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+]
