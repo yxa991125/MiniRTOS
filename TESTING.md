@@ -307,6 +307,32 @@
 - 说明：
 - 新增板时无需再修改 `build.rs` 的板名分支，只需补齐 feature 与 `memory/<board>.x`
 
+### 6.15 新板脚手架与回归入口复验（2026-04-14）
+- 新增：
+- `scripts/new_board_scaffold.ps1`
+- `scripts/new_board_scaffold.md`
+- dry-run 验证命令：
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/new_board_scaffold.ps1 -Board demo-m3-board -Chip STM32F103RC -Target thumbv7m-none-eabi -RegisterInBoardProfiles -DryRun`
+- 结果：
+- PASS（仅输出拟写入文件与后续步骤，不实际落盘）
+- 回归入口复验：
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_multiboard_regression.ps1 -SkipSmoke`
+- 结果：
+- PASS，目录：`regression_runs/20260414_161915/`
+
+### 6.16 soak 脚本多板化回归（2026-04-14）
+- 变更点：
+- `scripts/soak_default_app.ps1` 支持 `-Board/-Probe/-NoReset`，并使用 `board_profiles` 自动解析 `chip/target`
+- `scripts/start_24h_soak.ps1` 支持 `-Board/-Probe/-NoReset` 并透传到 soak 执行体
+- 板级样本：
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/soak_default_app.ps1 -Board f103rct6-generic -Port COM17 -Probe 0483:3748 -DurationSec 20 -ReadSliceMs 1800`
+- PASS：`app_soak_runs/20260414_163043/`（`commands_failed=0`）
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/soak_default_app.ps1 -Board f411-nucleo -Port COM6 -NoFlash -NoReset -DurationSec 20`
+- PASS：`app_soak_runs/20260414_163002/`（`commands_failed=0`）
+- 后台启动烟雾：
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_24h_soak.ps1 -Board f103rct6-generic -Port COM17 -DurationSec 5 -NoFlash -NoReset`
+- PASS：`app_soak_runs/20260414_163411/`（生成 `job.json + summary.*`）
+
 ## 7. 已知限制与说明
 - `cargo test` / `cargo check --all-targets` 在裸机 `no_std` 目标上会触发 `can't find crate for test`，不作为本项目通过标准
 - 当前仍存在较多 `unused` 警告，不影响固件生成

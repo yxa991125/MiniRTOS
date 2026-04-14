@@ -1,0 +1,15 @@
+﻿{
+    "pid":  29212,
+    "run_id":  "20260414_163633",
+    "board":  "f411-nucleo",
+    "chip":  "",
+    "probe":  "",
+    "output_dir":  "app_soak_runs\\20260414_163633",
+    "started_at":  "2026-04-14T16:36:33",
+    "port":  "COM6",
+    "duration_sec":  3600,
+    "flashed":  false,
+    "reset":  false,
+    "stdout_log":  "app_soak_runs\\20260414_163633\\launcher.stdout.log",
+    "stderr_log":  "app_soak_runs\\20260414_163633\\launcher.stderr.log"
+}

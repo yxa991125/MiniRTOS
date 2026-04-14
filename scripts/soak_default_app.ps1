@@ -1,22 +1,33 @@
-﻿param(
-    [string]$Chip = "STM32F411RETx",
+param(
+    [Parameter(Mandatory = $true)]
     [string]$Port,
+    [string]$Board = "f411-nucleo",
+    [string]$Chip,
     [int]$Baud = 115200,
-    [string]$Binary = "target/thumbv7em-none-eabihf/release/CortexOS",
+    [string]$Binary,
     [string]$OutputRoot = "app_soak_runs",
     [int]$Speed = 100,
+    [string]$Probe,
     [int]$DurationSec = 60,
     [int]$ResetDelayMs = 200,
-    [int]$ReadSliceMs = 1200,
+    [int]$ReadSliceMs = 1800,
     [int]$PauseMs = 100,
     [string]$RunId,
-    [switch]$NoFlash
+    [switch]$NoFlash,
+    [switch]$NoReset
 )
 
 $ErrorActionPreference = "Stop"
 
-if (-not $Port) {
-    throw "请使用 -Port 指定串口，例如: .\scripts\soak_default_app.ps1 -Port COM6"
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+. (Join-Path $scriptDir "lib/board_profiles.ps1")
+
+$boardConfig = Resolve-BoardConfig -Name $Board
+if ([string]::IsNullOrWhiteSpace($Chip)) {
+    $Chip = $boardConfig.chip
+}
+if ([string]::IsNullOrWhiteSpace($Binary)) {
+    $Binary = Join-Path (Join-Path (Join-Path "target" $boardConfig.target) "release") "CortexOS"
 }
 
 $timestamp = if ($RunId) { $RunId } else { Get-Date -Format "yyyyMMdd_HHmmss" }
@@ -49,7 +60,7 @@ function Read-Lines {
     $items = New-Object System.Collections.Generic.List[string]
     while ((Get-Date) -lt $end) {
         try {
-            $line = $Serial.ReadLine().TrimEnd("`r")
+            $line = $Serial.ReadLine().TrimEnd("`r", "`n")
             $items.Add($line) | Out-Null
             Add-LogLine $line
         }
@@ -62,8 +73,8 @@ function Read-Lines {
 $commandPlan = @(
     @{ name = "PING"; cmd = "PING"; expect = '^PONG$' },
     @{ name = "ECHO"; cmd = "ECHO soak"; expect = '^soak$' },
-    @{ name = "LED"; cmd = "LED TOGGLE"; expect = '^OK$' },
-    @{ name = "PWM"; cmd = "PWM 50"; expect = '^OK$' },
+    @{ name = "LED"; cmd = "LED TOGGLE"; expect = '^OK$|^ERR led_unavailable$' },
+    @{ name = "PWM"; cmd = "PWM 50"; expect = '^OK$|^ERR pwm_unavailable$' },
     @{ name = "STAT"; cmd = "STAT"; expect = '^STAT ' }
 )
 
@@ -73,7 +84,18 @@ try {
 
     if (-not $NoFlash) {
         Write-Host "flashing $Binary"
-        & probe-rs download --chip $Chip --protocol swd --speed $Speed --verify $Binary
+        $downloadArgs = @(
+            'download',
+            '--chip', $Chip,
+            '--protocol', $boardConfig.probe_protocol,
+            '--speed', $Speed,
+            '--verify',
+            $Binary
+        )
+        if ($Probe) {
+            $downloadArgs += @('--probe', $Probe)
+        }
+        & probe-rs $downloadArgs
         if ($LASTEXITCODE -ne 0) {
             throw "probe-rs download failed"
         }
@@ -86,16 +108,28 @@ try {
     $serial.DiscardInBuffer()
     $serial.DiscardOutBuffer()
 
-    Write-Host "resetting target"
-    & probe-rs reset --chip $Chip --protocol swd --speed $Speed
-    if ($LASTEXITCODE -ne 0) {
-        throw "probe-rs reset failed"
+    if (-not $NoReset) {
+        Write-Host "resetting target"
+        $resetArgs = @(
+            'reset',
+            '--chip', $Chip,
+            '--protocol', $boardConfig.probe_protocol,
+            '--speed', $Speed
+        )
+        if ($Probe) {
+            $resetArgs += @('--probe', $Probe)
+        }
+        & probe-rs $resetArgs
+        if ($LASTEXITCODE -ne 0) {
+            throw "probe-rs reset failed"
+        }
+
+        Start-Sleep -Milliseconds $ResetDelayMs
     }
 
-    Start-Sleep -Milliseconds $ResetDelayMs
     $bootLines = Read-Lines -Serial $serial -WindowMs 2500
 
-    $bootSeen = @($bootLines | Where-Object { $_ -match '^boot ok \(F411\)$' }).Count -gt 0
+    $bootSeen = @($bootLines | Where-Object { $_ -match '^boot ok \(' }).Count -gt 0
     $taskBannerSeen = @($bootLines | Where-Object { $_ -match '^app tasks created:' }).Count -gt 0
 
     $commandsSent = 0
@@ -120,7 +154,7 @@ try {
         Start-Sleep -Milliseconds $PauseMs
     }
 
-    $tailLines = Read-Lines -Serial $serial -WindowMs 1500
+    $null = Read-Lines -Serial $serial -WindowMs 1500
 }
 finally {
     if ($null -ne $serial) {
@@ -153,9 +187,13 @@ foreach ($line in $healthLines) {
 
 $summary = [pscustomobject]@{
     timestamp = $timestamp
+    board = $boardConfig.name
+    chip = $Chip
+    probe = if ($Probe) { $Probe } else { '' }
     port = $Port
     duration_sec = $DurationSec
     flashed = (-not $NoFlash)
+    reset = (-not $NoReset)
     boot_seen = $bootSeen
     task_banner_seen = $taskBannerSeen
     commands_sent = $commandsSent

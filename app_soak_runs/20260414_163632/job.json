@@ -1,0 +1,15 @@
+﻿{
+    "pid":  32700,
+    "run_id":  "20260414_163632",
+    "board":  "f103rct6-generic",
+    "chip":  "",
+    "probe":  "",
+    "output_dir":  "app_soak_runs\\20260414_163632",
+    "started_at":  "2026-04-14T16:36:32",
+    "port":  "COM17",
+    "duration_sec":  3600,
+    "flashed":  false,
+    "reset":  false,
+    "stdout_log":  "app_soak_runs\\20260414_163632\\launcher.stdout.log",
+    "stderr_log":  "app_soak_runs\\20260414_163632\\launcher.stderr.log"
+}

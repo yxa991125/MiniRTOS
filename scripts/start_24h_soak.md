@@ -1,24 +1,40 @@
-# 24h soak 后台启动脚本
+# start_24h_soak.ps1
 
-## 目的
-- 以隐藏窗口方式启动默认 APP 的长稳 soak，避免误关交互式 PowerShell 窗口导致测试中断。
+## 用途
+- 以后台进程方式启动长时 soak，避免误关交互式 PowerShell 窗口导致中断。
+- 实际执行体是 `scripts/soak_default_app.ps1`。
 
-## 命令
+## 常用命令
+
+### 1) F411 后台 24h soak
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_24h_soak.ps1 -Port COM6
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_24h_soak.ps1 -Board f411-nucleo -Port COM6
 ```
 
-## 行为
-- 默认启动 `86400s`（`24h`） soak
-- 后台启动 `scripts/soak_default_app.ps1`
-- 自动生成唯一 `run_id`
-- 在 `app_soak_runs/<run_id>/job.json` 中记录：
-- 进程 `pid`
-- 输出目录
-- 启动时间
-- 端口和持续时长
+### 2) F103 后台 24h soak（多探针场景）
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_24h_soak.ps1 -Board f103rct6-generic -Port COM17 -Probe 0483:3748
+```
 
-## 结果查看
-- 日志：`app_soak_runs/<run_id>/session.log`
-- 结果汇总：`app_soak_runs/<run_id>/summary.csv`
-- JSON 摘要：`app_soak_runs/<run_id>/summary.json`
+### 3) 不烧录不复位（仅串口轮询）
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_24h_soak.ps1 -Board f103rct6-generic -Port COM17 -NoFlash -NoReset
+```
+
+## 参数
+- `-Port`：必填，串口号
+- `-Board`：板型，默认 `f411-nucleo`
+- `-Probe`：可选，探针 `VID:PID[:SERIAL]`
+- `-DurationSec`：默认 `86400`（24h）
+- `-NoFlash`：跳过烧录
+- `-NoReset`：跳过复位
+
+其余参数（`-Baud`、`-Binary`、`-Chip`、`-Speed`、`-ReadSliceMs`、`-PauseMs`）会透传给 `soak_default_app.ps1`。
+
+## 输出
+- `app_soak_runs/<run_id>/job.json`
+- `app_soak_runs/<run_id>/launcher.stdout.log`
+- `app_soak_runs/<run_id>/launcher.stderr.log`
+- `app_soak_runs/<run_id>/session.log`
+- `app_soak_runs/<run_id>/summary.csv`
+- `app_soak_runs/<run_id>/summary.json`

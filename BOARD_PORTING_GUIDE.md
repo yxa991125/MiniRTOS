@@ -18,6 +18,26 @@
 
 ---
 
+## 2.1 一键脚手架（推荐）
+
+可以先用脚手架脚本生成模板，再补实现：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/new_board_scaffold.ps1 `
+  -Board myboard `
+  -Chip STM32XXXX `
+  -Target thumbv7m-none-eabi `
+  -RegisterInBoardProfiles `
+  -DryRun
+```
+
+去掉 `-DryRun` 后会实际生成：
+- `memory/myboard.x`
+- `src/bsp/myboard.rs`
+- （可选）更新 `scripts/board_profiles.json`
+
+---
+
 ## 3. 具体步骤
 
 ### 步骤 A：注册 feature 与依赖

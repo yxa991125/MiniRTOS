@@ -1,22 +1,22 @@
-﻿param(
+param(
+    [Parameter(Mandatory = $true)]
     [string]$Port,
-    [string]$Chip = "STM32F411RETx",
+    [string]$Board = "f411-nucleo",
+    [string]$Chip,
     [int]$Baud = 115200,
-    [string]$Binary = "target/thumbv7em-none-eabihf/release/CortexOS",
+    [string]$Binary,
     [string]$OutputRoot = "app_soak_runs",
     [int]$Speed = 100,
+    [string]$Probe,
     [int]$DurationSec = 86400,
     [int]$ResetDelayMs = 200,
-    [int]$ReadSliceMs = 1200,
+    [int]$ReadSliceMs = 1800,
     [int]$PauseMs = 100,
-    [switch]$NoFlash
+    [switch]$NoFlash,
+    [switch]$NoReset
 )
 
 $ErrorActionPreference = "Stop"
-
-if (-not $Port) {
-    throw "Use -Port, for example: .\\scripts\\start_24h_soak.ps1 -Port COM6"
-}
 
 $runId = Get-Date -Format "yyyyMMdd_HHmmss"
 $outputDir = Join-Path $OutputRoot $runId
@@ -30,10 +30,9 @@ $argList = @(
     "-NoProfile",
     "-ExecutionPolicy", "Bypass",
     "-File", $scriptPath,
-    "-Chip", $Chip,
+    "-Board", $Board,
     "-Port", $Port,
     "-Baud", $Baud,
-    "-Binary", $Binary,
     "-OutputRoot", $OutputRoot,
     "-Speed", $Speed,
     "-DurationSec", $DurationSec,
@@ -43,8 +42,20 @@ $argList = @(
     "-RunId", $runId
 )
 
+if ($Chip) {
+    $argList += @("-Chip", $Chip)
+}
+if ($Binary) {
+    $argList += @("-Binary", $Binary)
+}
+if ($Probe) {
+    $argList += @("-Probe", $Probe)
+}
 if ($NoFlash) {
     $argList += "-NoFlash"
+}
+if ($NoReset) {
+    $argList += "-NoReset"
 }
 
 $process = Start-Process `
@@ -59,11 +70,15 @@ $process = Start-Process `
 $meta = [pscustomobject]@{
     pid = $process.Id
     run_id = $runId
+    board = $Board
+    chip = if ($Chip) { $Chip } else { "" }
+    probe = if ($Probe) { $Probe } else { "" }
     output_dir = $outputDir
     started_at = (Get-Date).ToString("s")
     port = $Port
     duration_sec = $DurationSec
     flashed = (-not $NoFlash)
+    reset = (-not $NoReset)
     stdout_log = $stdoutLog
     stderr_log = $stderrLog
 }
@@ -74,4 +89,3 @@ Write-Host "pid:      $($process.Id)"
 Write-Host "run_id:   $runId"
 Write-Host "output:   $outputDir"
 Write-Host "job_meta: $jobMeta"
-

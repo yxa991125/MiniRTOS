@@ -67,6 +67,8 @@
 - `scripts/run_host_tests.md`：host 测试脚本文档
 - `scripts/run_multiboard_regression.ps1`：多板回归入口（compile-only + 可选 smoke）
 - `scripts/run_multiboard_regression.md`：多板回归脚本文档
+- `scripts/new_board_scaffold.ps1`：新增开发板模板生成脚本
+- `scripts/new_board_scaffold.md`：新增开发板模板脚本文档
 - `scripts/soak_default_app.ps1`：默认 APP 长稳/命令轮询脚本
 - `scripts/soak_default_app.md`：默认 APP soak 脚本文档
 - `scripts/start_24h_soak.ps1`：后台启动 `24h` soak 的脚本
@@ -121,6 +123,8 @@
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_multiboard_regression.ps1 -F103Port COMx -FlashOnSmoke true`
 - 多板回归入口（通用多板参数，推荐）：
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_multiboard_regression.ps1 -SmokeBoardPorts "f103rct6-generic:COM17,f411-nucleo:COM6" -SmokeBoardProbes "f103rct6-generic:0483:3748,f411-nucleo:0483:374b:SERIAL" -FlashOnSmoke true`
+- 新增开发板模板（先预演，不写文件）：
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/new_board_scaffold.ps1 -Board myboard -Chip STM32XXXX -Target thumbv7m-none-eabi -RegisterInBoardProfiles -DryRun`
 - 若当前没有可用 ST-Link，可自动降级为“不烧录，仅串口 smoke”：
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run_multiboard_regression.ps1 -F103Port COMx -FlashOnSmoke true -AutoDisableFlashWhenProbeMissing`
 - 多探针场景建议在烧录/烟雾脚本显式使用 `-Probe`，避免 `probe-rs` 进入交互式 probe 选择
@@ -129,11 +133,13 @@
 - 已预烧录 bench 后的快速重采样：
 - `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/collect_release_bench.ps1 -Port COMx -Runs 30 -ReadTimeoutMs 180000 -NoFlash`
 - 默认 APP 短时 soak：
-- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/soak_default_app.ps1 -Port COMx -DurationSec 60`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/soak_default_app.ps1 -Board f411-nucleo -Port COMx -DurationSec 60`
 - 默认 APP 长时 soak：
-- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/soak_default_app.ps1 -Port COMx -DurationSec 86400`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/soak_default_app.ps1 -Board f411-nucleo -Port COMx -DurationSec 86400`
 - 默认 APP 后台 `24h` soak 启动：
-- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_24h_soak.ps1 -Port COMx`
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_24h_soak.ps1 -Board f411-nucleo -Port COMx`
+- F103 典型 soak（多探针场景）：
+- `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/soak_default_app.ps1 -Board f103rct6-generic -Port COMx -Probe VID:PID[:SERIAL] -DurationSec 60`
 - 采集脚本执行流程是“烧录 -> 打开串口 -> `probe-rs reset` -> 串口采集”
 - 若使用 `-NoFlash`，需要先顺序执行 `cargo build --release --features bench` 并手动烧录一次 bench 固件
 - 若只采到部分日志，可追加 `-ReadTimeoutMs 180000`
@@ -142,6 +148,8 @@
 - `app_soak_runs/20260325_201735/`（`60s`）
 - `app_soak_runs/20260325_202530/`（`600s`）
 - `app_soak_runs/20260331_150313/`（后台 soak 启动脚本 `5s` 烟雾样本）
+- `app_soak_runs/20260414_163043/`（F103，`20s`，`flashed/reset/probe` 路径）
+- `app_soak_runs/20260414_163411/`（F103，后台脚本 `5s`，`NoFlash+NoReset` 烟雾样本）
 
 当前已完成的更长周期 bench 复验：
 - 目录：`bench_runs/20260331_143830/`
