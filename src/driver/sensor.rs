@@ -1,4 +1,4 @@
-use stm32f4xx_hal::hal::digital::InputPin;
+use embedded_hal::digital::InputPin;
 
 pub struct DigitalSensor<P> {
     pin: P,

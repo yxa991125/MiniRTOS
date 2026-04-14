@@ -1,6 +1,6 @@
 use core::cell::RefCell;
 
-use cortex_m::interrupt::{free, Mutex};
+use cortex_m::interrupt::{Mutex, free};
 use stm32f4xx_hal::pac;
 use stm32f4xx_hal::pac::interrupt;
 

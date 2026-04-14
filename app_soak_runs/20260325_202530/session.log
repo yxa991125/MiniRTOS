@@ -1,0 +1,1008 @@
+﻿boot ok (F411)
+reset=software
+MSP=0x2001ff88 PSP=0x00000000 VTOR=0x00000000
+VEC PendSV=0x08008101 SysTick=0x08000201
+cpu=84000000Hz
+app tasks created: rx=1 cmd=2 tx=3 health=4, start_first_task()
+PONG
+soak
+health: uptime=5005ms reset=software wd=true feeds=20 live=5 hb=4 stale=0 stack_warn=0 rx=17 tx=76 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=8432ms reset=software wd=true feeds=33 live=5 hb=4 stale=0 stack_warn=0 rx=43 tx=229 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=8411 stack_used=18/128w stack_free_low=110w hb=false age=8432 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=0 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=1 stack_used=192/768w stack_free_low=576w hb=true age=133 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=20 stack_used=32/384w stack_free_low=352w hb=true age=132 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=0 stack_used=196/384w stack_free_low=188w hb=true age=164 timeout=1000 stale=false warn=false
+PONG
+health: uptime=10018ms reset=software wd=true feeds=40 live=5 hb=4 stale=0 stack_warn=0 rx=49 tx=1094 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+health: uptime=15032ms reset=software wd=true feeds=60 live=5 hb=4 stale=0 stack_warn=0 rx=80 tx=1256 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=15571ms reset=software wd=true feeds=62 live=5 hb=4 stale=0 stack_warn=0 rx=86 tx=1404 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=15442 stack_used=18/128w stack_free_low=110w hb=false age=15571 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=1 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=3 stack_used=192/768w stack_free_low=576w hb=true age=107 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=125 stack_used=32/384w stack_free_low=352w hb=true age=125 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=0 stack_used=196/384w stack_free_low=188w hb=true age=25 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=20046ms reset=software wd=true feeds=80 live=5 hb=4 stale=0 stack_warn=0 rx=115 tx=2283 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=22573ms reset=software wd=true feeds=90 live=5 hb=4 stale=0 stack_warn=0 rx=129 tx=2436 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=22352 stack_used=18/128w stack_free_low=110w hb=false age=22574 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=1 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=5 stack_used=192/768w stack_free_low=576w hb=true age=166 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=215 stack_used=32/384w stack_free_low=352w hb=true age=166 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=1 stack_used=196/384w stack_free_low=188w hb=true age=14 timeout=1000 stale=false warn=false
+PONG
+health: uptime=25060ms reset=software wd=true feeds=100 live=5 hb=4 stale=0 stack_warn=0 rx=135 tx=3306 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=29477ms reset=software wd=true feeds=117 live=5 hb=4 stale=0 stack_warn=0 rx=172 tx=3470 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=29165 stack_used=18/128w stack_free_low=110w hb=false age=29477 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=1 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=5 stack_used=192/768w stack_free_low=576w hb=true age=166 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=303 stack_used=32/384w stack_free_low=352w hb=true age=167 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=3 stack_used=196/384w stack_free_low=188w hb=true age=154 timeout=1000 stale=false warn=false
+health: uptime=30074ms reset=software wd=true feeds=120 live=5 hb=4 stale=0 stack_warn=0 rx=172 tx=4336 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=35088ms reset=software wd=true feeds=140 live=5 hb=4 stale=0 stack_warn=0 rx=209 tx=4506 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=36246ms reset=software wd=true feeds=144 live=5 hb=4 stale=0 stack_warn=0 rx=215 tx=4656 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=35829 stack_used=18/128w stack_free_low=110w hb=false age=36246 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=1 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=7 stack_used=192/768w stack_free_low=576w hb=true age=160 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=402 stack_used=32/384w stack_free_low=352w hb=true age=144 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=7 stack_used=196/384w stack_free_low=188w hb=true age=144 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=40102ms reset=software wd=true feeds=160 live=5 hb=4 stale=0 stack_warn=0 rx=232 tx=5534 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=43109ms reset=software wd=true feeds=171 live=5 hb=4 stale=0 stack_warn=0 rx=258 tx=5692 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=42599 stack_used=18/128w stack_free_low=110w hb=false age=43109 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=1 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=9 stack_used=200/768w stack_free_low=568w hb=true age=143 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=493 stack_used=32/384w stack_free_low=352w hb=true age=142 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=8 stack_used=196/384w stack_free_low=188w hb=true age=244 timeout=1000 stale=false warn=false
+PONG
+health: uptime=45186ms reset=software wd=true feeds=180 live=5 hb=4 stale=0 stack_warn=0 rx=264 tx=6564 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=49949ms reset=software wd=true feeds=198 live=5 hb=4 stale=0 stack_warn=0 rx=301 tx=6728 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=49346 stack_used=18/128w stack_free_low=110w hb=false age=49950 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=2 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=10 stack_used=200/768w stack_free_low=568w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=582 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Ready prio=4/4 runtime=10 stack_used=196/384w stack_free_low=188w hb=true age=250 timeout=1000 stale=false warn=false
+health: uptime=50276ms reset=software wd=true feeds=200 live=5 hb=4 stale=0 stack_warn=0 rx=301 tx=7593 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=55290ms reset=software wd=true feeds=220 live=5 hb=4 stale=0 stack_warn=0 rx=330 tx=7759 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=56955ms reset=software wd=true feeds=226 live=5 hb=4 stale=0 stack_warn=0 rx=344 tx=7913 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=56244 stack_used=18/128w stack_free_low=110w hb=false age=56956 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=2 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=11 stack_used=200/768w stack_free_low=568w hb=true age=145 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=686 stack_used=32/384w stack_free_low=352w hb=true age=145 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=13 stack_used=196/384w stack_free_low=188w hb=true age=152 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=60304ms reset=software wd=true feeds=240 live=5 hb=4 stale=0 stack_warn=0 rx=361 tx=8793 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=63943ms reset=software wd=true feeds=254 live=5 hb=4 stale=0 stack_warn=0 rx=387 tx=8951 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=63138 stack_used=18/128w stack_free_low=110w hb=false age=63944 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=2 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=12 stack_used=200/768w stack_free_low=568w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=777 stack_used=32/384w stack_free_low=352w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=15 stack_used=196/384w stack_free_low=188w hb=true age=126 timeout=1000 stale=false warn=false
+health: uptime=65318ms reset=software wd=true feeds=260 live=5 hb=4 stale=0 stack_warn=0 rx=387 tx=9819 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=70332ms reset=software wd=true feeds=280 live=5 hb=4 stale=0 stack_warn=0 rx=424 tx=9989 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=70860ms reset=software wd=true feeds=282 live=5 hb=4 stale=0 stack_warn=0 rx=430 tx=10139 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=69947 stack_used=18/128w stack_free_low=110w hb=false age=70860 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=2 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=12 stack_used=200/768w stack_free_low=568w hb=true age=90 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=880 stack_used=32/384w stack_free_low=352w hb=true age=115 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=19 stack_used=196/384w stack_free_low=188w hb=true age=15 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=75346ms reset=software wd=true feeds=300 live=5 hb=4 stale=0 stack_warn=0 rx=459 tx=11022 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=77634ms reset=software wd=true feeds=309 live=5 hb=4 stale=0 stack_warn=0 rx=473 tx=11177 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=76627 stack_used=18/128w stack_free_low=110w hb=false age=77634 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=3 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=14 stack_used=200/768w stack_free_low=568w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=970 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=21 stack_used=196/384w stack_free_low=188w hb=true age=25 timeout=1000 stale=false warn=false
+PONG
+health: uptime=80360ms reset=software wd=true feeds=320 live=5 hb=4 stale=0 stack_warn=0 rx=479 tx=12051 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=84519ms reset=software wd=true feeds=336 live=5 hb=4 stale=0 stack_warn=0 rx=516 tx=12216 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=83418 stack_used=18/128w stack_free_low=110w hb=false age=84520 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=4 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=15 stack_used=200/768w stack_free_low=568w hb=true age=165 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1059 stack_used=32/384w stack_free_low=352w hb=true age=165 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=24 stack_used=196/384w stack_free_low=188w hb=true age=146 timeout=1000 stale=false warn=false
+health: uptime=85374ms reset=software wd=true feeds=340 live=5 hb=4 stale=0 stack_warn=0 rx=516 tx=13086 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=90388ms reset=software wd=true feeds=360 live=5 hb=4 stale=0 stack_warn=0 rx=553 tx=13257 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=91327ms reset=software wd=true feeds=363 live=5 hb=4 stale=0 stack_warn=0 rx=559 tx=13408 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=90119 stack_used=18/128w stack_free_low=110w hb=false age=91328 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=5 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=16 stack_used=200/768w stack_free_low=568w hb=true age=179 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1159 stack_used=32/384w stack_free_low=352w hb=true age=126 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=29 stack_used=196/384w stack_free_low=188w hb=true age=176 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=95405ms reset=software wd=true feeds=380 live=5 hb=4 stale=0 stack_warn=0 rx=576 tx=14290 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=98106ms reset=software wd=true feeds=390 live=5 hb=4 stale=0 stack_warn=0 rx=602 tx=14449 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=96804 stack_used=18/128w stack_free_low=110w hb=false age=98107 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=5 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=17 stack_used=200/768w stack_free_low=568w hb=true age=133 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1249 stack_used=32/384w stack_free_low=352w hb=true age=133 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=32 stack_used=196/384w stack_free_low=188w hb=true age=188 timeout=1000 stale=false warn=false
+PONG
+health: uptime=100433ms reset=software wd=true feeds=400 live=5 hb=4 stale=0 stack_warn=0 rx=608 tx=15325 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=105003ms reset=software wd=true feeds=418 live=5 hb=4 stale=0 stack_warn=0 rx=645 tx=15491 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=103605 stack_used=18/128w stack_free_low=110w hb=false age=105003 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=6 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=17 stack_used=200/768w stack_free_low=568w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1342 stack_used=32/384w stack_free_low=352w hb=true age=147 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=33 stack_used=196/384w stack_free_low=188w hb=true age=56 timeout=1000 stale=false warn=false
+health: uptime=105447ms reset=software wd=true feeds=420 live=5 hb=4 stale=0 stack_warn=0 rx=645 tx=16363 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=110461ms reset=software wd=true feeds=440 live=5 hb=4 stale=0 stack_warn=0 rx=682 tx=16535 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=111819ms reset=software wd=true feeds=445 live=5 hb=4 stale=0 stack_warn=0 rx=688 tx=16687 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=110313 stack_used=18/128w stack_free_low=110w hb=false age=111820 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=7 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=19 stack_used=200/768w stack_free_low=568w hb=true age=9 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1447 stack_used=32/384w stack_free_low=352w hb=true age=145 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=34 stack_used=196/384w stack_free_low=188w hb=true age=95 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=115475ms reset=software wd=true feeds=460 live=5 hb=4 stale=0 stack_warn=0 rx=705 tx=17569 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=118692ms reset=software wd=true feeds=472 live=5 hb=4 stale=0 stack_warn=0 rx=731 tx=17729 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=117092 stack_used=18/128w stack_free_low=110w hb=false age=118692 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=8 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=19 stack_used=200/768w stack_free_low=568w hb=true age=147 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1538 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=35 stack_used=196/384w stack_free_low=188w hb=true age=204 timeout=1000 stale=false warn=false
+PONG
+health: uptime=120519ms reset=software wd=true feeds=480 live=5 hb=4 stale=0 stack_warn=0 rx=737 tx=18608 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=125483ms reset=software wd=true feeds=499 live=5 hb=4 stale=0 stack_warn=0 rx=774 tx=18774 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=123790 stack_used=18/128w stack_free_low=110w hb=false age=125483 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=8 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=20 stack_used=200/768w stack_free_low=568w hb=true age=135 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1630 stack_used=32/384w stack_free_low=352w hb=true age=135 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=35 stack_used=196/384w stack_free_low=188w hb=true age=201 timeout=1000 stale=false warn=false
+health: uptime=125560ms reset=software wd=true feeds=500 live=5 hb=4 stale=0 stack_warn=0 rx=774 tx=19647 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=130574ms reset=software wd=true feeds=520 live=5 hb=4 stale=0 stack_warn=0 rx=803 tx=19815 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=132445ms reset=software wd=true feeds=527 live=5 hb=4 stale=0 stack_warn=0 rx=817 tx=19971 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=130644 stack_used=18/128w stack_free_low=110w hb=false age=132445 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=9 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=23 stack_used=200/768w stack_free_low=568w hb=true age=147 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1734 stack_used=32/384w stack_free_low=352w hb=true age=147 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=36 stack_used=196/384w stack_free_low=188w hb=true age=108 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=135588ms reset=software wd=true feeds=540 live=5 hb=4 stale=0 stack_warn=0 rx=834 tx=20856 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=139425ms reset=software wd=true feeds=555 live=5 hb=4 stale=0 stack_warn=0 rx=860 tx=21016 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=137532 stack_used=18/128w stack_free_low=110w hb=false age=139425 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=9 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=24 stack_used=200/768w stack_free_low=568w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1825 stack_used=32/384w stack_free_low=352w hb=true age=135 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=36 stack_used=196/384w stack_free_low=188w hb=true age=74 timeout=1000 stale=false warn=false
+health: uptime=140602ms reset=software wd=true feeds=560 live=5 hb=4 stale=0 stack_warn=0 rx=860 tx=21888 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=145616ms reset=software wd=true feeds=580 live=5 hb=4 stale=0 stack_warn=0 rx=897 tx=22060 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=146359ms reset=software wd=true feeds=582 live=5 hb=4 stale=0 stack_warn=0 rx=903 tx=22212 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=144358 stack_used=18/128w stack_free_low=110w hb=false age=146360 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=10 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=25 stack_used=200/768w stack_free_low=568w hb=true age=198 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1930 stack_used=32/384w stack_free_low=352w hb=true age=130 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=37 stack_used=196/384w stack_free_low=188w hb=true age=230 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=150687ms reset=software wd=true feeds=600 live=5 hb=4 stale=0 stack_warn=0 rx=932 tx=23102 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=153174ms reset=software wd=true feeds=609 live=5 hb=4 stale=0 stack_warn=0 rx=946 tx=23258 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=151079 stack_used=18/128w stack_free_low=110w hb=false age=153174 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=10 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=26 stack_used=200/768w stack_free_low=568w hb=true age=142 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2022 stack_used=32/384w stack_free_low=352w hb=true age=142 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=38 stack_used=196/384w stack_free_low=188w hb=true age=224 timeout=1000 stale=false warn=false
+PONG
+health: uptime=155752ms reset=software wd=true feeds=620 live=5 hb=4 stale=0 stack_warn=0 rx=952 tx=24138 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=160102ms reset=software wd=true feeds=637 live=5 hb=4 stale=0 stack_warn=0 rx=989 tx=24304 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=157913 stack_used=18/128w stack_free_low=110w hb=false age=160102 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=10 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=26 stack_used=200/768w stack_free_low=568w hb=true age=141 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2114 stack_used=32/384w stack_free_low=352w hb=true age=142 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=39 stack_used=196/384w stack_free_low=188w hb=true age=87 timeout=1000 stale=false warn=false
+health: uptime=160766ms reset=software wd=true feeds=640 live=5 hb=4 stale=0 stack_warn=0 rx=989 tx=25177 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=165780ms reset=software wd=true feeds=660 live=5 hb=4 stale=0 stack_warn=0 rx=1026 tx=25349 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=166930ms reset=software wd=true feeds=664 live=5 hb=4 stale=0 stack_warn=0 rx=1032 tx=25502 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=164634 stack_used=18/128w stack_free_low=110w hb=false age=166930 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=10 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=28 stack_used=200/768w stack_free_low=568w hb=true age=15 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2218 stack_used=32/384w stack_free_low=352w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=40 stack_used=196/384w stack_free_low=188w hb=true age=136 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=170794ms reset=software wd=true feeds=680 live=5 hb=4 stale=0 stack_warn=0 rx=1049 tx=26388 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=173794ms reset=software wd=true feeds=691 live=5 hb=4 stale=0 stack_warn=0 rx=1075 tx=26549 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=171405 stack_used=18/128w stack_free_low=110w hb=false age=173794 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=11 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=29 stack_used=200/768w stack_free_low=568w hb=true age=143 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2310 stack_used=32/384w stack_free_low=352w hb=true age=143 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=40 stack_used=196/384w stack_free_low=188w hb=true age=237 timeout=1000 stale=false warn=false
+PONG
+health: uptime=175872ms reset=software wd=true feeds=700 live=5 hb=4 stale=0 stack_warn=0 rx=1081 tx=27430 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=180668ms reset=software wd=true feeds=719 live=5 hb=4 stale=0 stack_warn=0 rx=1118 tx=27597 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=178185 stack_used=18/128w stack_free_low=110w hb=false age=180669 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=11 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=30 stack_used=200/768w stack_free_low=568w hb=true age=169 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2402 stack_used=32/384w stack_free_low=352w hb=true age=168 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=33 timeout=1000 stale=false warn=false
+health: uptime=180886ms reset=software wd=true feeds=720 live=5 hb=4 stale=0 stack_warn=0 rx=1118 tx=28471 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=185900ms reset=software wd=true feeds=740 live=5 hb=4 stale=0 stack_warn=0 rx=1147 tx=28640 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=187574ms reset=software wd=true feeds=746 live=5 hb=4 stale=0 stack_warn=0 rx=1161 tx=28797 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=184984 stack_used=18/128w stack_free_low=110w hb=false age=187574 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=12 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=31 stack_used=200/768w stack_free_low=568w hb=true age=152 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2507 stack_used=32/384w stack_free_low=352w hb=true age=152 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=161 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=190914ms reset=software wd=true feeds=760 live=5 hb=4 stale=0 stack_warn=0 rx=1178 tx=29684 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=194523ms reset=software wd=true feeds=774 live=5 hb=4 stale=0 stack_warn=0 rx=1204 tx=29845 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=191837 stack_used=18/128w stack_free_low=110w hb=false age=194523 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=13 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=32 stack_used=200/768w stack_free_low=568w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2600 stack_used=32/384w stack_free_low=352w hb=true age=135 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=95 timeout=1000 stale=false warn=false
+health: uptime=195928ms reset=software wd=true feeds=780 live=5 hb=4 stale=0 stack_warn=0 rx=1204 tx=30719 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=200942ms reset=software wd=true feeds=800 live=5 hb=4 stale=0 stack_warn=0 rx=1241 tx=30892 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=201471ms reset=software wd=true feeds=802 live=5 hb=4 stale=0 stack_warn=0 rx=1247 tx=31045 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=198676 stack_used=18/128w stack_free_low=110w hb=false age=201471 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=14 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=33 stack_used=200/768w stack_free_low=568w hb=true age=113 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2707 stack_used=32/384w stack_free_low=352w hb=true age=115 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=15 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=205956ms reset=software wd=true feeds=820 live=5 hb=4 stale=0 stack_warn=0 rx=1276 tx=31935 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=208442ms reset=software wd=true feeds=829 live=5 hb=4 stale=0 stack_warn=0 rx=1290 tx=32092 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=205554 stack_used=18/128w stack_free_low=110w hb=false age=208442 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=14 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=33 stack_used=200/768w stack_free_low=568w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2800 stack_used=32/384w stack_free_low=352w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=223 timeout=1000 stale=false warn=false
+PONG
+health: uptime=211019ms reset=software wd=true feeds=840 live=5 hb=4 stale=0 stack_warn=0 rx=1296 tx=32973 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=215368ms reset=software wd=true feeds=857 live=5 hb=4 stale=0 stack_warn=0 rx=1333 tx=33140 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=212386 stack_used=18/128w stack_free_low=110w hb=false age=215368 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=15 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=35 stack_used=200/768w stack_free_low=568w hb=true age=160 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2891 stack_used=32/384w stack_free_low=352w hb=true age=160 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=85 timeout=1000 stale=false warn=false
+health: uptime=216033ms reset=software wd=true feeds=860 live=5 hb=4 stale=0 stack_warn=0 rx=1333 tx=34014 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=221047ms reset=software wd=true feeds=880 live=5 hb=4 stale=0 stack_warn=0 rx=1370 tx=34187 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=222209ms reset=software wd=true feeds=884 live=5 hb=4 stale=0 stack_warn=0 rx=1376 tx=34340 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=219116 stack_used=18/128w stack_free_low=110w hb=false age=222209 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=17 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=37 stack_used=200/768w stack_free_low=568w hb=true age=170 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=2998 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=149 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=226061ms reset=software wd=true feeds=900 live=5 hb=4 stale=0 stack_warn=0 rx=1393 tx=35227 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=229102ms reset=software wd=true feeds=912 live=5 hb=4 stale=0 stack_warn=0 rx=1419 tx=35388 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=225916 stack_used=18/128w stack_free_low=110w hb=false age=229102 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=17 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=39 stack_used=200/768w stack_free_low=568w hb=true age=154 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3090 stack_used=32/384w stack_free_low=352w hb=true age=154 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=28 timeout=1000 stale=false warn=false
+PONG
+health: uptime=231075ms reset=software wd=true feeds=920 live=5 hb=4 stale=0 stack_warn=0 rx=1425 tx=36268 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=236032ms reset=software wd=true feeds=939 live=5 hb=4 stale=0 stack_warn=0 rx=1462 tx=36435 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=232752 stack_used=18/128w stack_free_low=110w hb=false age=236032 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=18 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=40 stack_used=200/768w stack_free_low=568w hb=true age=131 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3181 stack_used=32/384w stack_free_low=352w hb=true age=131 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=41 stack_used=196/384w stack_free_low=188w hb=true age=193 timeout=1000 stale=false warn=false
+health: uptime=236109ms reset=software wd=true feeds=940 live=5 hb=4 stale=0 stack_warn=0 rx=1462 tx=37310 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=241123ms reset=software wd=true feeds=960 live=5 hb=4 stale=0 stack_warn=0 rx=1491 tx=37479 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=243010ms reset=software wd=true feeds=967 live=5 hb=4 stale=0 stack_warn=0 rx=1505 tx=37636 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=239623 stack_used=18/128w stack_free_low=110w hb=false age=243010 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=18 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=43 stack_used=200/768w stack_free_low=568w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3285 stack_used=32/384w stack_free_low=352w hb=true age=149 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=42 stack_used=196/384w stack_free_low=188w hb=true age=124 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=246137ms reset=software wd=true feeds=980 live=5 hb=4 stale=0 stack_warn=0 rx=1522 tx=38523 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=249981ms reset=software wd=true feeds=995 live=5 hb=4 stale=0 stack_warn=0 rx=1548 tx=38684 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=246498 stack_used=18/128w stack_free_low=110w hb=false age=249981 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=19 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=43 stack_used=200/768w stack_free_low=568w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3379 stack_used=32/384w stack_free_low=352w hb=true age=147 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=42 stack_used=196/384w stack_free_low=188w hb=true age=81 timeout=1000 stale=false warn=false
+health: uptime=251151ms reset=software wd=true feeds=1000 live=5 hb=4 stale=0 stack_warn=0 rx=1548 tx=39558 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=256165ms reset=software wd=true feeds=1020 live=5 hb=4 stale=0 stack_warn=0 rx=1585 tx=39732 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=256901ms reset=software wd=true feeds=1022 live=5 hb=4 stale=0 stack_warn=0 rx=1591 tx=39886 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=253310 stack_used=18/128w stack_free_low=110w hb=false age=256901 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=20 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=45 stack_used=200/768w stack_free_low=568w hb=true age=185 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3485 stack_used=32/384w stack_free_low=352w hb=true age=123 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=42 stack_used=196/384w stack_free_low=188w hb=true age=223 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=261229ms reset=software wd=true feeds=1040 live=5 hb=4 stale=0 stack_warn=0 rx=1620 tx=40778 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=263738ms reset=software wd=true feeds=1049 live=5 hb=4 stale=0 stack_warn=0 rx=1634 tx=40936 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=260052 stack_used=18/128w stack_free_low=110w hb=false age=263738 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=21 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=46 stack_used=200/768w stack_free_low=568w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3577 stack_used=32/384w stack_free_low=352w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=43 stack_used=196/384w stack_free_low=188w hb=true age=246 timeout=1000 stale=false warn=false
+PONG
+health: uptime=266316ms reset=software wd=true feeds=1060 live=5 hb=4 stale=0 stack_warn=0 rx=1640 tx=41818 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=270679ms reset=software wd=true feeds=1077 live=5 hb=4 stale=0 stack_warn=0 rx=1677 tx=41986 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=266897 stack_used=18/128w stack_free_low=110w hb=false age=270679 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=21 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=47 stack_used=200/768w stack_free_low=568w hb=true age=145 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3671 stack_used=32/384w stack_free_low=352w hb=true age=145 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=43 stack_used=196/384w stack_free_low=188w hb=true age=100 timeout=1000 stale=false warn=false
+health: uptime=271330ms reset=software wd=true feeds=1080 live=5 hb=4 stale=0 stack_warn=0 rx=1677 tx=42862 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=276344ms reset=software wd=true feeds=1100 live=5 hb=4 stale=0 stack_warn=0 rx=1714 tx=43036 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=277483ms reset=software wd=true feeds=1104 live=5 hb=4 stale=0 stack_warn=0 rx=1720 tx=43190 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=273596 stack_used=18/128w stack_free_low=110w hb=false age=277483 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=21 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=49 stack_used=200/768w stack_free_low=568w hb=true age=177 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3775 stack_used=32/384w stack_free_low=352w hb=true age=126 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=43 stack_used=196/384w stack_free_low=188w hb=true age=126 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=281358ms reset=software wd=true feeds=1120 live=5 hb=4 stale=0 stack_warn=0 rx=1737 tx=44078 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=284367ms reset=software wd=true feeds=1131 live=5 hb=4 stale=0 stack_warn=0 rx=1763 tx=44240 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=280387 stack_used=18/128w stack_free_low=110w hb=false age=284367 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=22 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=50 stack_used=200/768w stack_free_low=568w hb=true age=144 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3866 stack_used=32/384w stack_free_low=352w hb=true age=144 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=43 stack_used=196/384w stack_free_low=188w hb=true age=246 timeout=1000 stale=false warn=false
+PONG
+health: uptime=286445ms reset=software wd=true feeds=1140 live=5 hb=4 stale=0 stack_warn=0 rx=1769 tx=45122 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=291206ms reset=software wd=true feeds=1158 live=5 hb=4 stale=0 stack_warn=0 rx=1806 tx=45290 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=287130 stack_used=18/128w stack_free_low=110w hb=false age=291207 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=23 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=51 stack_used=200/768w stack_free_low=568w hb=true age=135 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=3959 stack_used=32/384w stack_free_low=352w hb=true age=135 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=248 timeout=1000 stale=false warn=false
+health: uptime=291534ms reset=software wd=true feeds=1160 live=5 hb=4 stale=0 stack_warn=0 rx=1806 tx=46166 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=296548ms reset=software wd=true feeds=1180 live=5 hb=4 stale=0 stack_warn=0 rx=1835 tx=46336 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=298223ms reset=software wd=true feeds=1186 live=5 hb=4 stale=0 stack_warn=0 rx=1849 tx=46494 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=294039 stack_used=18/128w stack_free_low=110w hb=false age=298223 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=23 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=52 stack_used=200/768w stack_free_low=568w hb=true age=139 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4065 stack_used=32/384w stack_free_low=352w hb=true age=138 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=161 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=301562ms reset=software wd=true feeds=1200 live=5 hb=4 stale=0 stack_warn=0 rx=1866 tx=47382 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=305171ms reset=software wd=true feeds=1214 live=5 hb=4 stale=0 stack_warn=0 rx=1892 tx=47544 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=300893 stack_used=18/128w stack_free_low=110w hb=false age=305171 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=23 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=54 stack_used=200/768w stack_free_low=568w hb=true age=138 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4157 stack_used=32/384w stack_free_low=352w hb=true age=138 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=95 timeout=1000 stale=false warn=false
+health: uptime=306576ms reset=software wd=true feeds=1220 live=5 hb=4 stale=0 stack_warn=0 rx=1892 tx=48419 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=311590ms reset=software wd=true feeds=1240 live=5 hb=4 stale=0 stack_warn=0 rx=1929 tx=48593 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=312117ms reset=software wd=true feeds=1242 live=5 hb=4 stale=0 stack_warn=0 rx=1935 tx=48747 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=307731 stack_used=18/128w stack_free_low=110w hb=false age=312117 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=24 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=55 stack_used=200/768w stack_free_low=568w hb=true age=94 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4263 stack_used=32/384w stack_free_low=352w hb=true age=114 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=14 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=316604ms reset=software wd=true feeds=1260 live=5 hb=4 stale=0 stack_warn=0 rx=1964 tx=49637 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=318899ms reset=software wd=true feeds=1269 live=5 hb=4 stale=0 stack_warn=0 rx=1978 tx=49795 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=314420 stack_used=18/128w stack_free_low=110w hb=false age=318899 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=24 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=57 stack_used=200/768w stack_free_low=568w hb=true age=154 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4355 stack_used=32/384w stack_free_low=352w hb=true age=154 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=32 timeout=1000 stale=false warn=false
+PONG
+health: uptime=321618ms reset=software wd=true feeds=1280 live=5 hb=4 stale=0 stack_warn=0 rx=1984 tx=50676 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=325704ms reset=software wd=true feeds=1296 live=5 hb=4 stale=0 stack_warn=0 rx=2021 tx=50844 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=321132 stack_used=18/128w stack_free_low=110w hb=false age=325704 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=24 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=57 stack_used=200/768w stack_free_low=568w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4447 stack_used=32/384w stack_free_low=352w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=73 timeout=1000 stale=false warn=false
+health: uptime=326632ms reset=software wd=true feeds=1300 live=5 hb=4 stale=0 stack_warn=0 rx=2021 tx=51719 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=331646ms reset=software wd=true feeds=1320 live=5 hb=4 stale=0 stack_warn=0 rx=2058 tx=51893 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=332591ms reset=software wd=true feeds=1323 live=5 hb=4 stale=0 stack_warn=0 rx=2064 tx=52047 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=327912 stack_used=18/128w stack_free_low=110w hb=false age=332591 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=24 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=59 stack_used=200/768w stack_free_low=568w hb=true age=199 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4552 stack_used=32/384w stack_free_low=352w hb=true age=131 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=181 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=336668ms reset=software wd=true feeds=1340 live=5 hb=4 stale=0 stack_warn=0 rx=2081 tx=52935 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=339382ms reset=software wd=true feeds=1350 live=5 hb=4 stale=0 stack_warn=0 rx=2107 tx=53097 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=334610 stack_used=18/128w stack_free_low=110w hb=false age=339382 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=24 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=59 stack_used=200/768w stack_free_low=568w hb=true age=154 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4645 stack_used=32/384w stack_free_low=352w hb=true age=154 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=44 stack_used=196/384w stack_free_low=188w hb=true age=201 timeout=1000 stale=false warn=false
+PONG
+health: uptime=341710ms reset=software wd=true feeds=1360 live=5 hb=4 stale=0 stack_warn=0 rx=2113 tx=53979 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=346304ms reset=software wd=true feeds=1378 live=5 hb=4 stale=0 stack_warn=0 rx=2150 tx=54147 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=341438 stack_used=18/128w stack_free_low=110w hb=false age=346304 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=24 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=60 stack_used=200/768w stack_free_low=568w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4737 stack_used=32/384w stack_free_low=352w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=45 stack_used=196/384w stack_free_low=188w hb=true age=81 timeout=1000 stale=false warn=false
+health: uptime=346724ms reset=software wd=true feeds=1380 live=5 hb=4 stale=0 stack_warn=0 rx=2150 tx=55022 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=351738ms reset=software wd=true feeds=1400 live=5 hb=4 stale=0 stack_warn=0 rx=2187 tx=55196 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=353109ms reset=software wd=true feeds=1405 live=5 hb=4 stale=0 stack_warn=0 rx=2193 tx=55350 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=348135 stack_used=18/128w stack_free_low=110w hb=false age=353109 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=25 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=62 stack_used=200/768w stack_free_low=568w hb=true age=13 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4843 stack_used=32/384w stack_free_low=352w hb=true age=158 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=45 stack_used=196/384w stack_free_low=188w hb=true age=108 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=356752ms reset=software wd=true feeds=1420 live=5 hb=4 stale=0 stack_warn=0 rx=2210 tx=56237 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=359978ms reset=software wd=true feeds=1432 live=5 hb=4 stale=0 stack_warn=0 rx=2236 tx=56399 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=354909 stack_used=18/128w stack_free_low=110w hb=false age=359978 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=25 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=63 stack_used=200/768w stack_free_low=568w hb=true age=146 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=4937 stack_used=32/384w stack_free_low=352w hb=true age=145 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=45 stack_used=196/384w stack_free_low=188w hb=true age=213 timeout=1000 stale=false warn=false
+PONG
+health: uptime=361806ms reset=software wd=true feeds=1440 live=5 hb=4 stale=0 stack_warn=0 rx=2242 tx=57281 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=366816ms reset=software wd=true feeds=1459 live=5 hb=4 stale=0 stack_warn=0 rx=2279 tx=57449 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=361655 stack_used=18/128w stack_free_low=110w hb=false age=366817 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=25 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=64 stack_used=200/768w stack_free_low=568w hb=true age=152 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5027 stack_used=32/384w stack_free_low=352w hb=true age=152 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=46 stack_used=196/384w stack_free_low=188w hb=true age=247 timeout=1000 stale=false warn=false
+health: uptime=366894ms reset=software wd=true feeds=1460 live=5 hb=4 stale=0 stack_warn=0 rx=2279 tx=58325 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=371908ms reset=software wd=true feeds=1480 live=5 hb=4 stale=0 stack_warn=0 rx=2308 tx=58495 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=373794ms reset=software wd=true feeds=1487 live=5 hb=4 stale=0 stack_warn=0 rx=2322 tx=58653 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=368523 stack_used=18/128w stack_free_low=110w hb=false age=373794 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=26 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=65 stack_used=200/768w stack_free_low=568w hb=true age=147 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5133 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=47 stack_used=196/384w stack_free_low=188w hb=true age=123 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=376922ms reset=software wd=true feeds=1500 live=5 hb=4 stale=0 stack_warn=0 rx=2339 tx=59541 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=380742ms reset=software wd=true feeds=1515 live=5 hb=4 stale=0 stack_warn=0 rx=2365 tx=59703 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=375379 stack_used=18/128w stack_free_low=110w hb=false age=380742 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=27 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=67 stack_used=200/768w stack_free_low=568w hb=true age=142 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5223 stack_used=32/384w stack_free_low=352w hb=true age=142 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=47 stack_used=196/384w stack_free_low=188w hb=true age=57 timeout=1000 stale=false warn=false
+health: uptime=381936ms reset=software wd=true feeds=1520 live=5 hb=4 stale=0 stack_warn=0 rx=2365 tx=60578 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=386950ms reset=software wd=true feeds=1540 live=5 hb=4 stale=0 stack_warn=0 rx=2402 tx=60752 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=387686ms reset=software wd=true feeds=1542 live=5 hb=4 stale=0 stack_warn=0 rx=2408 tx=60906 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=382214 stack_used=18/128w stack_free_low=110w hb=false age=387686 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=27 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=67 stack_used=200/768w stack_free_low=568w hb=true age=168 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5331 stack_used=32/384w stack_free_low=352w hb=true age=123 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=47 stack_used=196/384w stack_free_low=188w hb=true age=223 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=392014ms reset=software wd=true feeds=1560 live=5 hb=4 stale=0 stack_warn=0 rx=2437 tx=61798 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=394522ms reset=software wd=true feeds=1569 live=5 hb=4 stale=0 stack_warn=0 rx=2451 tx=61956 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=388956 stack_used=18/128w stack_free_low=110w hb=false age=394522 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=27 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=69 stack_used=200/768w stack_free_low=568w hb=true age=153 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5423 stack_used=32/384w stack_free_low=352w hb=true age=152 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=48 stack_used=196/384w stack_free_low=188w hb=true age=245 timeout=1000 stale=false warn=false
+PONG
+health: uptime=397100ms reset=software wd=true feeds=1580 live=5 hb=4 stale=0 stack_warn=0 rx=2457 tx=62838 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=401471ms reset=software wd=true feeds=1597 live=5 hb=4 stale=0 stack_warn=0 rx=2494 tx=63006 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=395809 stack_used=18/128w stack_free_low=110w hb=false age=401471 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=27 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=70 stack_used=200/768w stack_free_low=568w hb=true age=140 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5518 stack_used=32/384w stack_free_low=352w hb=true age=139 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=48 stack_used=196/384w stack_free_low=188w hb=true age=108 timeout=1000 stale=false warn=false
+health: uptime=402114ms reset=software wd=true feeds=1600 live=5 hb=4 stale=0 stack_warn=0 rx=2494 tx=63882 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=407128ms reset=software wd=true feeds=1620 live=5 hb=4 stale=0 stack_warn=0 rx=2531 tx=64056 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=408291ms reset=software wd=true feeds=1624 live=5 hb=4 stale=0 stack_warn=0 rx=2537 tx=64210 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=402523 stack_used=18/128w stack_free_low=110w hb=false age=408292 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=27 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=71 stack_used=200/768w stack_free_low=568w hb=true age=159 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5623 stack_used=32/384w stack_free_low=352w hb=true age=150 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=48 stack_used=196/384w stack_free_low=188w hb=true age=150 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=412142ms reset=software wd=true feeds=1640 live=5 hb=4 stale=0 stack_warn=0 rx=2554 tx=65098 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=415150ms reset=software wd=true feeds=1651 live=5 hb=4 stale=0 stack_warn=0 rx=2580 tx=65260 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=409287 stack_used=18/128w stack_free_low=110w hb=false age=415150 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=28 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=72 stack_used=200/768w stack_free_low=568w hb=true age=137 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5716 stack_used=32/384w stack_free_low=352w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=48 stack_used=196/384w stack_free_low=188w hb=true age=245 timeout=1000 stale=false warn=false
+PONG
+health: uptime=417228ms reset=software wd=true feeds=1660 live=5 hb=4 stale=0 stack_warn=0 rx=2586 tx=66142 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=421985ms reset=software wd=true feeds=1678 live=5 hb=4 stale=0 stack_warn=0 rx=2623 tx=66310 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=416026 stack_used=18/128w stack_free_low=110w hb=false age=421985 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=29 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=73 stack_used=200/768w stack_free_low=568w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5809 stack_used=32/384w stack_free_low=352w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=244 timeout=1000 stale=false warn=false
+health: uptime=422313ms reset=software wd=true feeds=1680 live=5 hb=4 stale=0 stack_warn=0 rx=2623 tx=67186 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=427327ms reset=software wd=true feeds=1700 live=5 hb=4 stale=0 stack_warn=0 rx=2652 tx=67356 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=429011ms reset=software wd=true feeds=1706 live=5 hb=4 stale=0 stack_warn=0 rx=2666 tx=67514 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=422944 stack_used=18/128w stack_free_low=110w hb=false age=429011 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=29 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=74 stack_used=200/768w stack_free_low=568w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=5916 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=171 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=432341ms reset=software wd=true feeds=1720 live=5 hb=4 stale=0 stack_warn=0 rx=2683 tx=68402 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=435964ms reset=software wd=true feeds=1734 live=5 hb=4 stale=0 stack_warn=0 rx=2709 tx=68564 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=429802 stack_used=18/128w stack_free_low=110w hb=false age=435964 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=29 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=75 stack_used=200/768w stack_free_low=568w hb=true age=136 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6010 stack_used=32/384w stack_free_low=352w hb=true age=135 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=110 timeout=1000 stale=false warn=false
+health: uptime=437355ms reset=software wd=true feeds=1740 live=5 hb=4 stale=0 stack_warn=0 rx=2709 tx=69440 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=442369ms reset=software wd=true feeds=1760 live=5 hb=4 stale=0 stack_warn=0 rx=2746 tx=69614 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=442907ms reset=software wd=true feeds=1762 live=5 hb=4 stale=0 stack_warn=0 rx=2752 tx=69768 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=436637 stack_used=18/128w stack_free_low=110w hb=false age=442907 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=29 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=76 stack_used=200/768w stack_free_low=568w hb=true age=92 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6117 stack_used=32/384w stack_free_low=352w hb=true age=125 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=25 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=447383ms reset=software wd=true feeds=1780 live=5 hb=4 stale=0 stack_warn=0 rx=2781 tx=70658 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=449874ms reset=software wd=true feeds=1789 live=5 hb=4 stale=0 stack_warn=0 rx=2795 tx=70816 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=443511 stack_used=18/128w stack_free_low=110w hb=false age=449874 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=29 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=76 stack_used=200/768w stack_free_low=568w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6209 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=228 timeout=1000 stale=false warn=false
+PONG
+health: uptime=452451ms reset=software wd=true feeds=1800 live=5 hb=4 stale=0 stack_warn=0 rx=2801 tx=71698 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=456810ms reset=software wd=true feeds=1817 live=5 hb=4 stale=0 stack_warn=0 rx=2838 tx=71866 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=450353 stack_used=18/128w stack_free_low=110w hb=false age=456810 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=31 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=77 stack_used=200/768w stack_free_low=568w hb=true age=142 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6300 stack_used=32/384w stack_free_low=352w hb=true age=143 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=96 timeout=1000 stale=false warn=false
+health: uptime=457465ms reset=software wd=true feeds=1820 live=5 hb=4 stale=0 stack_warn=0 rx=2838 tx=72741 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=462479ms reset=software wd=true feeds=1840 live=5 hb=4 stale=0 stack_warn=0 rx=2875 tx=72915 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=463633ms reset=software wd=true feeds=1844 live=5 hb=4 stale=0 stack_warn=0 rx=2881 tx=73069 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=457070 stack_used=18/128w stack_free_low=110w hb=false age=463634 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=32 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=79 stack_used=200/768w stack_free_low=568w hb=true age=9 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6404 stack_used=32/384w stack_free_low=352w hb=true age=141 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=141 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=467493ms reset=software wd=true feeds=1860 live=5 hb=4 stale=0 stack_warn=0 rx=2898 tx=73955 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=470575ms reset=software wd=true feeds=1872 live=5 hb=4 stale=0 stack_warn=0 rx=2924 tx=74117 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=463917 stack_used=18/128w stack_free_low=110w hb=false age=470575 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=33 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=79 stack_used=200/768w stack_free_low=568w hb=true age=169 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6497 stack_used=32/384w stack_free_low=352w hb=true age=170 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=69 timeout=1000 stale=false warn=false
+PONG
+health: uptime=472507ms reset=software wd=true feeds=1880 live=5 hb=4 stale=0 stack_warn=0 rx=2930 tx=74998 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+health: uptime=477521ms reset=software wd=true feeds=1900 live=5 hb=4 stale=0 stack_warn=0 rx=2961 tx=75166 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=477561ms reset=software wd=true feeds=1900 live=5 hb=4 stale=0 stack_warn=0 rx=2967 tx=75320 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=470795 stack_used=18/128w stack_free_low=110w hb=false age=477561 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=36 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=80 stack_used=200/768w stack_free_low=568w hb=true age=164 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6601 stack_used=32/384w stack_free_low=352w hb=true age=26 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=41 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=482535ms reset=software wd=true feeds=1920 live=5 hb=4 stale=0 stack_warn=0 rx=2996 tx=76210 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=484420ms reset=software wd=true feeds=1927 live=5 hb=4 stale=0 stack_warn=0 rx=3010 tx=76368 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=477560 stack_used=18/128w stack_free_low=110w hb=false age=484420 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=36 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=82 stack_used=200/768w stack_free_low=568w hb=true age=153 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6693 stack_used=32/384w stack_free_low=352w hb=true age=152 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=121 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=487549ms reset=software wd=true feeds=1940 live=5 hb=4 stale=0 stack_warn=0 rx=3027 tx=77256 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=491408ms reset=software wd=true feeds=1955 live=5 hb=4 stale=0 stack_warn=0 rx=3053 tx=77418 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=484453 stack_used=18/128w stack_free_low=110w hb=false age=491408 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=37 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=83 stack_used=200/768w stack_free_low=568w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6787 stack_used=32/384w stack_free_low=352w hb=true age=147 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=96 timeout=1000 stale=false warn=false
+health: uptime=492563ms reset=software wd=true feeds=1960 live=5 hb=4 stale=0 stack_warn=0 rx=3053 tx=78293 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=497577ms reset=software wd=true feeds=1980 live=5 hb=4 stale=0 stack_warn=0 rx=3090 tx=78467 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=498315ms reset=software wd=true feeds=1982 live=5 hb=4 stale=0 stack_warn=0 rx=3096 tx=78621 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=491252 stack_used=18/128w stack_free_low=110w hb=false age=498315 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=37 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=85 stack_used=200/768w stack_free_low=568w hb=true age=179 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6893 stack_used=32/384w stack_free_low=352w hb=true age=125 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=225 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=502643ms reset=software wd=true feeds=2000 live=5 hb=4 stale=0 stack_warn=0 rx=3125 tx=79513 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=505361ms reset=software wd=true feeds=2010 live=5 hb=4 stale=0 stack_warn=0 rx=3139 tx=79671 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=498204 stack_used=18/128w stack_free_low=110w hb=false age=505361 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=37 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=86 stack_used=200/768w stack_free_low=568w hb=true age=153 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=6986 stack_used=32/384w stack_free_low=352w hb=true age=152 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=49 stack_used=196/384w stack_free_low=188w hb=true age=205 timeout=1000 stale=false warn=false
+PONG
+health: uptime=507689ms reset=software wd=true feeds=2020 live=5 hb=4 stale=0 stack_warn=0 rx=3145 tx=80553 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=512375ms reset=software wd=true feeds=2038 live=5 hb=4 stale=0 stack_warn=0 rx=3182 tx=80721 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=505124 stack_used=18/128w stack_free_low=110w hb=false age=512375 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=37 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=87 stack_used=200/768w stack_free_low=568w hb=true age=200 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7077 stack_used=32/384w stack_free_low=352w hb=true age=200 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=50 stack_used=196/384w stack_free_low=188w hb=true age=172 timeout=1000 stale=false warn=false
+health: uptime=512703ms reset=software wd=true feeds=2040 live=5 hb=4 stale=0 stack_warn=0 rx=3182 tx=81597 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=517717ms reset=software wd=true feeds=2060 live=5 hb=4 stale=0 stack_warn=0 rx=3211 tx=81767 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=519438ms reset=software wd=true feeds=2066 live=5 hb=4 stale=0 stack_warn=0 rx=3225 tx=81925 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=512080 stack_used=18/128w stack_free_low=110w hb=false age=519438 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=38 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=89 stack_used=200/768w stack_free_low=568w hb=true age=175 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7182 stack_used=32/384w stack_free_low=352w hb=true age=175 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=50 stack_used=196/384w stack_free_low=188w hb=true age=208 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=522766ms reset=software wd=true feeds=2080 live=5 hb=4 stale=0 stack_warn=0 rx=3242 tx=82813 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=526444ms reset=software wd=true feeds=2094 live=5 hb=4 stale=0 stack_warn=0 rx=3268 tx=82975 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=518990 stack_used=18/128w stack_free_low=110w hb=false age=526444 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=39 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=90 stack_used=200/768w stack_free_low=568w hb=true age=166 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7274 stack_used=32/384w stack_free_low=352w hb=true age=165 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=164 timeout=1000 stale=false warn=false
+health: uptime=527780ms reset=software wd=true feeds=2100 live=5 hb=4 stale=0 stack_warn=0 rx=3268 tx=83851 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=532794ms reset=software wd=true feeds=2120 live=5 hb=4 stale=0 stack_warn=0 rx=3305 tx=84025 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=533350ms reset=software wd=true feeds=2122 live=5 hb=4 stale=0 stack_warn=0 rx=3311 tx=84179 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=525789 stack_used=18/128w stack_free_low=110w hb=false age=533351 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=39 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=92 stack_used=200/768w stack_free_low=568w hb=true age=151 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7380 stack_used=32/384w stack_free_low=352w hb=true age=143 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=43 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=537808ms reset=software wd=true feeds=2140 live=5 hb=4 stale=0 stack_warn=0 rx=3340 tx=85070 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=540351ms reset=software wd=true feeds=2150 live=5 hb=4 stale=0 stack_warn=0 rx=3354 tx=85228 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=532696 stack_used=18/128w stack_free_low=110w hb=false age=540351 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=40 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=92 stack_used=200/768w stack_free_low=568w hb=true age=173 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7472 stack_used=32/384w stack_free_low=352w hb=true age=174 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=30 timeout=1000 stale=false warn=false
+PONG
+health: uptime=542822ms reset=software wd=true feeds=2160 live=5 hb=4 stale=0 stack_warn=0 rx=3360 tx=86109 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=547248ms reset=software wd=true feeds=2177 live=5 hb=4 stale=0 stack_warn=0 rx=3397 tx=86277 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=539500 stack_used=18/128w stack_free_low=110w hb=false age=547248 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=40 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=94 stack_used=200/768w stack_free_low=568w hb=true age=162 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7563 stack_used=32/384w stack_free_low=352w hb=true age=163 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=163 timeout=1000 stale=false warn=false
+health: uptime=547836ms reset=software wd=true feeds=2180 live=5 hb=4 stale=0 stack_warn=0 rx=3397 tx=87153 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=552850ms reset=software wd=true feeds=2200 live=5 hb=4 stale=0 stack_warn=0 rx=3434 tx=87327 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=554246ms reset=software wd=true feeds=2205 live=5 hb=4 stale=0 stack_warn=0 rx=3440 tx=87481 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=546393 stack_used=18/128w stack_free_low=110w hb=false age=554246 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=40 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=96 stack_used=200/768w stack_free_low=568w hb=true age=131 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7667 stack_used=32/384w stack_free_low=352w hb=true age=183 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=133 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=557864ms reset=software wd=true feeds=2220 live=5 hb=4 stale=0 stack_warn=0 rx=3457 tx=88369 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=561360ms reset=software wd=true feeds=2233 live=5 hb=4 stale=0 stack_warn=0 rx=3483 tx=88531 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=553411 stack_used=18/128w stack_free_low=110w hb=false age=561360 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=40 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=97 stack_used=200/768w stack_free_low=568w hb=true age=161 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7761 stack_used=32/384w stack_free_low=352w hb=true age=160 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=232 timeout=1000 stale=false warn=false
+PONG
+health: uptime=562937ms reset=software wd=true feeds=2240 live=5 hb=4 stale=0 stack_warn=0 rx=3489 tx=89413 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+health: uptime=567951ms reset=software wd=true feeds=2260 live=5 hb=4 stale=0 stack_warn=0 rx=3520 tx=89581 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=568503ms reset=software wd=true feeds=2262 live=5 hb=4 stale=0 stack_warn=0 rx=3526 tx=89735 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=560447 stack_used=18/128w stack_free_low=110w hb=false age=568503 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=40 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=98 stack_used=200/768w stack_free_low=568w hb=true age=49 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7868 stack_used=32/384w stack_free_low=352w hb=true age=139 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=39 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=572965ms reset=software wd=true feeds=2280 live=5 hb=4 stale=0 stack_warn=0 rx=3555 tx=90625 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=575587ms reset=software wd=true feeds=2290 live=5 hb=4 stale=0 stack_warn=0 rx=3569 tx=90783 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=567438 stack_used=18/128w stack_free_low=110w hb=false age=575587 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=40 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=100 stack_used=200/768w stack_free_low=568w hb=true age=193 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=7959 stack_used=32/384w stack_free_low=352w hb=true age=192 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=109 timeout=1000 stale=false warn=false
+PONG
+health: uptime=577979ms reset=software wd=true feeds=2300 live=5 hb=4 stale=0 stack_warn=0 rx=3575 tx=91666 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+soak
+OK
+OK
+STAT uptime=582668ms reset=software wd=true feeds=2318 live=5 hb=4 stale=0 stack_warn=0 rx=3612 tx=91834 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=574426 stack_used=18/128w stack_free_low=110w hb=false age=582668 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=41 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=100 stack_used=200/768w stack_free_low=568w hb=true age=180 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=8050 stack_used=32/384w stack_free_low=352w hb=true age=180 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=176 timeout=1000 stale=false warn=false
+health: uptime=582995ms reset=software wd=true feeds=2320 live=5 hb=4 stale=0 stack_warn=0 rx=3612 tx=92711 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+health: uptime=588009ms reset=software wd=true feeds=2340 live=5 hb=4 stale=0 stack_warn=0 rx=3641 tx=92881 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=589726ms reset=software wd=true feeds=2346 live=5 hb=4 stale=0 stack_warn=0 rx=3655 tx=93039 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=581376 stack_used=18/128w stack_free_low=110w hb=false age=589727 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=41 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=102 stack_used=200/768w stack_free_low=568w hb=true age=164 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=8157 stack_used=32/384w stack_free_low=352w hb=true age=163 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=204 timeout=1000 stale=false warn=false
+PONG
+soak
+health: uptime=593054ms reset=software wd=true feeds=2360 live=5 hb=4 stale=0 stack_warn=0 rx=3672 tx=93928 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+OK
+STAT uptime=596768ms reset=software wd=true feeds=2374 live=5 hb=4 stale=0 stack_warn=0 rx=3698 tx=94090 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=588323 stack_used=18/128w stack_free_low=110w hb=false age=596768 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=42 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=102 stack_used=200/768w stack_free_low=568w hb=true age=177 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=8250 stack_used=32/384w stack_free_low=352w hb=true age=178 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=51 stack_used=196/384w stack_free_low=188w hb=true age=201 timeout=1000 stale=false warn=false
+health: uptime=598096ms reset=software wd=true feeds=2380 live=5 hb=4 stale=0 stack_warn=0 rx=3698 tx=94967 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+soak
+OK
+OK
+health: uptime=603110ms reset=software wd=true feeds=2400 live=5 hb=4 stale=0 stack_warn=0 rx=3735 tx=95141 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+STAT uptime=603871ms reset=software wd=true feeds=2402 live=5 hb=4 stale=0 stack_warn=0 rx=3741 tx=95295 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=595317 stack_used=18/128w stack_free_low=110w hb=false age=603871 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=42 stack_used=46/512w stack_free_low=466w hb=true age=1 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=105 stack_used=200/768w stack_free_low=568w hb=true age=121 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=8356 stack_used=32/384w stack_free_low=352w hb=true age=148 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=52 stack_used=196/384w stack_free_low=188w hb=true age=248 timeout=1000 stale=false warn=false
+PONG
+soak
+OK
+health: uptime=608199ms reset=software wd=true feeds=2420 live=5 hb=4 stale=0 stack_warn=0 rx=3770 tx=96188 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+OK
+STAT uptime=610951ms reset=software wd=true feeds=2430 live=5 hb=4 stale=0 stack_warn=0 rx=3784 tx=96346 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=602304 stack_used=18/128w stack_free_low=110w hb=false age=610951 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=43 stack_used=46/512w stack_free_low=466w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=105 stack_used=200/768w stack_free_low=568w hb=true age=157 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=8447 stack_used=32/384w stack_free_low=352w hb=true age=158 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=52 stack_used=196/384w stack_free_low=188w hb=true age=239 timeout=1000 stale=false warn=false
+health: uptime=613279ms reset=software wd=true feeds=2440 live=5 hb=4 stale=0 stack_warn=0 rx=3784 tx=97223 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0

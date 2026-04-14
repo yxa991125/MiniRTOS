@@ -1,0 +1,12 @@
+﻿"metric","runs","skipped","avg_min_cy","avg_p50_cy","avg_p95_cy","avg_max_cy","max_observed_cy","sample_p50_cy","sample_p95_cy"
+"context_switch_a_to_b","1","1","428","428","428","428","437","428","429"
+"mutex_lock_unlock","1","0","38","38","38","38","509",,
+"mutex_waiter_wake_latency","1","0","1345","1345","1345","1345","2258",,
+"priority_inheritance_enter_latency","1","0","1536","1536","1536","1536","2445",,
+"priority_inheritance_exit_latency","1","0","2208","2208","2208","2208","3116",,
+"queue_end_to_end_latency","1","0","934","934","934","934","934",,
+"queue_wake_latency","1","0","708","708","708","708","708",,
+"semaphore_give_to_taskb_wake","1","0","789","789","789","789","1313",,
+"sleep_1tick_extra","1","0","1081","1081","1081","1081","1096",,
+"soft_timer_callback_to_task","1","0","683","683","683","683","686",,
+"tim2_irq_to_task","1","0","720","720","720","720","720",,

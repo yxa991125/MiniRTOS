@@ -1,0 +1,5 @@
+D:\Code\microOS\CortexOS\scripts\run_app_smoke.ps1 : Exception calling "Open" with "0" argument(s): "Access to the port
+ 'COM14' is denied."
+    + CategoryInfo          : NotSpecified: (:) [run_app_smoke.ps1], MethodInvocationException
+    + FullyQualifiedErrorId : UnauthorizedAccessException,run_app_smoke.ps1
+ 

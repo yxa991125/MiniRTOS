@@ -1,13 +1,14 @@
-[build]
-target = "thumbv7em-none-eabihf"
-
 [alias]
-bench-dev = "run --features bench"
-bench-release = "run --release --features bench"
-bench-release-build = "build --release --features bench"
+bench-dev = "build --no-default-features --features board-f411-nucleo,bench --target thumbv7em-none-eabihf"
+bench-release = "build --release --no-default-features --features board-f411-nucleo,bench --target thumbv7em-none-eabihf"
+bench-release-build = "build --release --no-default-features --features board-f411-nucleo,bench --target thumbv7em-none-eabihf"
 
 [target.thumbv7em-none-eabihf]
-runner = "probe-rs run --chip STM32F411RETx --protocol swd --speed 100"
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+]
+
+[target.thumbv7m-none-eabi]
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]

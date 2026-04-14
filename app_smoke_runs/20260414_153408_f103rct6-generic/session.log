@@ -1,0 +1,10 @@
+PONG
+smoke
+STAT uptime=1105937ms reset=pin_reset wd=false feeds=0 live=5 hb=4 stale=1 stack_warn=0 rx=24 tx=77 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=1105885 stack_used=18/128w stack_free_low=110w hb=false age=1105939 timeout=0 stale=false warn=false
+TASK pid=1 state=Running prio=1/1 runtime=5 stack_used=286/768w stack_free_low=482w hb=true age=5 timeout=60000 stale=false warn=false
+TASK pid=2 state=Ready prio=2/2 runtime=0 stack_used=62/512w stack_free_low=450w hb=true age=7 timeout=60000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=9 stack_used=36/384w stack_free_low=348w hb=true age=9 timeout=60000 stale=false warn=false
+TASK pid=4 state=Ready prio=4/4 runtime=41 stack_used=270/384w stack_free_low=114w hb=true age=1100900 timeout=60000 stale=true warn=false
+OK
+OK

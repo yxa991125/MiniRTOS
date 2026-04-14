@@ -1,3 +1,5 @@
+use crate::task::scheduler::MAX_PRIORITY;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TaskState {
     Ready,
@@ -9,8 +11,10 @@ pub enum TaskState {
 #[repr(C)]
 pub struct Tcb {
     pub pid: usize,
-    pub sp: *mut u32,        // Stack pointer
+    pub sp: *mut u32, // Stack pointer
+    pub base_priority: u8,
     pub priority: u8,
+    pub priority_boosts: [u8; MAX_PRIORITY],
     pub state: TaskState,
     pub remaining_slice: u32,
     pub wake_tick: u32,
@@ -26,6 +30,10 @@ pub struct Tcb {
     pub stack_end: *mut u32,   // End of the stack
     pub entry: fn(usize) -> !,
     pub arg: usize,
+    pub runtime_ticks: u32,
+    pub heartbeat_registered: bool,
+    pub heartbeat_timeout_ticks: u32,
+    pub heartbeat_last_seen_tick: u32,
 }
 
 impl Tcb {
@@ -43,7 +51,9 @@ impl Tcb {
         Self {
             pid,
             sp,
+            base_priority: priority,
             priority,
+            priority_boosts: [0; MAX_PRIORITY],
             state: TaskState::Ready,
             remaining_slice,
             wake_tick: 0,
@@ -59,6 +69,10 @@ impl Tcb {
             stack_end,
             entry,
             arg,
+            runtime_ticks: 0,
+            heartbeat_registered: false,
+            heartbeat_timeout_ticks: 0,
+            heartbeat_last_seen_tick: 0,
         }
     }
 }

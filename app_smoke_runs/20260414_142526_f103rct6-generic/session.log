@@ -1,0 +1,9 @@
+[reset] probe-rs reset --chip STM32F103RC --protocol swd --speed 100
+boot ok (F103)
+reset=software
+MSP=0x20004f90 PSP=0x20002ea0 VTOR=0x00000000
+VEC PendSV=0x08007879 SysTick=0x0800017d
+cpu=8000000Hz
+app tasks created: rx=1 cmd=2 tx=3 health=4, start_first_task()
+PONG
+health: uptime=5027ms reset=software wd=false feeds=0 live=5 hb=4 stale=0 stack_warn=0 rx=6 tx=70 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0

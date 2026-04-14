@@ -1,0 +1,13 @@
+health: uptime=511318ms reset=pin_reset wd=true feeds=2040 live=5 hb=4 stale=0 stack_warn=0 rx=44 tx=16156 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=516331ms reset=pin_reset wd=true feeds=2060 live=5 hb=4 stale=0 stack_warn=0 rx=44 tx=16309 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptimehealth: uptime=541396ms reset=pin_reset wd=true feeds=2160 live=5 hb=4 stale=0 stack_warn=0 rx=44 tx=17074 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+PONG
+smoke
+STAT uptime=543959ms reset=pin_reset wd=true feeds=2170 live=5 hb=4 stale=0 stack_warn=0 rx=68 tx=17240 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=542470 stack_used=18/128w stack_free_low=110w hb=false age=543959 timeout=0 stale=false warn=false
+TASK pid=1 state=Blocked prio=1/1 runtime=0 stack_used=66/512w stack_free_low=446w hb=true age=0 timeout=1000 stale=false warn=false
+TASK pid=2 state=Running prio=2/2 runtime=1 stack_used=288/768w stack_free_low=480w hb=true age=5 timeout=1000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=1488 stack_used=32/384w stack_free_low=352w hb=true age=5 timeout=1000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=0 stack_used=252/384w stack_free_low=132w hb=true age=51 timeout=1000 stale=false warn=false
+OK
+OK

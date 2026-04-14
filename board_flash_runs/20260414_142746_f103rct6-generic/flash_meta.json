@@ -1,0 +1,11 @@
+﻿{
+    "board":  "f103rct6-generic",
+    "chip":  "STM32F103RC",
+    "image":  "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\release\\CortexOS",
+    "speed":  100,
+    "reset_after":  false,
+    "verify":  true,
+    "git_sha":  "908a519317cb41402f9a954a0438f699bb0bbb73",
+    "download_command":  "probe-rs download --chip STM32F103RC --protocol swd --speed 100 D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\release\\CortexOS --verify",
+    "output_dir":  "board_flash_runs\\20260414_142746_f103rct6-generic"
+}

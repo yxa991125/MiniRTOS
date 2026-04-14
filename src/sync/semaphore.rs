@@ -1,6 +1,6 @@
 use core::cell::RefCell;
 
-use cortex_m::interrupt::{free, Mutex};
+use cortex_m::interrupt::{Mutex, free};
 
 use crate::task::scheduler;
 

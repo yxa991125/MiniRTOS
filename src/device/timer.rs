@@ -3,7 +3,7 @@ use crate::timer::systick;
 use stm32f4xx_hal::rcc::Rcc;
 use stm32f4xx_hal::time::Hertz;
 use stm32f4xx_hal::timer::{CounterHz, Error as HalTimerError, Event, Instance, TimerExt};
-use stm32f4xx_hal::{nb, Listen};
+use stm32f4xx_hal::{Listen, nb};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TimerMode {

@@ -1,0 +1,14 @@
+﻿{
+    "timestamp":  "20260414_145802",
+    "include_bench":  false,
+    "include_f103_debug":  false,
+    "skip_smoke":  false,
+    "f103_port":  "COM16",
+    "f411_port":  "",
+    "flash_on_smoke":  true,
+    "auto_disable_flash_when_probe_missing":  false,
+    "smoke_read_timeout_ms":  3000,
+    "smoke_startup_window_ms":  2500,
+    "git_sha":  "908a519317cb41402f9a954a0438f699bb0bbb73",
+    "output_dir":  "regression_runs\\20260414_145802"
+}

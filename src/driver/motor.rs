@@ -1,7 +1,7 @@
 use crate::device::gpio::GpioOutput;
 use crate::device::pwm::PwmChannel;
-use stm32f4xx_hal::hal::digital::OutputPin;
-use stm32f4xx_hal::hal::pwm::SetDutyCycle;
+use embedded_hal::digital::OutputPin;
+use embedded_hal::pwm::SetDutyCycle;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MotorDir {

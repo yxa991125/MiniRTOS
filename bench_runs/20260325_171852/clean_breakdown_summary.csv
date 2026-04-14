@@ -1,0 +1,4 @@
+﻿"metric","runs","clean_spikes_total","label1","dominant1_total","label2","dominant2_total","label3","dominant3_total","label4","dominant4_total","max1_cy","max2_cy","max3_cy","max4_cy"
+"queue_end_to_end_latency_clean_breakdown","1","0","send","0","unblock","0","resume","0","recv","0","0","0","0","0"
+"queue_wake_latency_clean_breakdown","1","0","unblock","0","resume","0",,"0",,"0","0","0",,
+"tim2_irq_to_task_clean_breakdown","1","0","unblock","0","resume","0",,"0",,"0","0","0",,

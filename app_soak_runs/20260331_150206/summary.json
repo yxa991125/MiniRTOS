@@ -1,0 +1,21 @@
+﻿{
+    "timestamp":  "20260331_150206",
+    "port":  "COM6",
+    "duration_sec":  5,
+    "flashed":  true,
+    "boot_seen":  true,
+    "task_banner_seen":  true,
+    "commands_sent":  4,
+    "commands_passed":  4,
+    "commands_failed":  0,
+    "health_lines":  2,
+    "max_feeds":  40,
+    "max_stale":  0,
+    "max_rx_overflow":  0,
+    "max_tx_overflow":  0,
+    "max_cmd_drop":  0,
+    "fault_lines":  0,
+    "error_lines":  0,
+    "command_failures":  "",
+    "log":  "app_soak_runs\\20260331_150206\\session.log"
+}

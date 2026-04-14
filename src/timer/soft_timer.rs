@@ -1,6 +1,6 @@
 use core::cell::RefCell;
 
-use cortex_m::interrupt::{free, Mutex};
+use cortex_m::interrupt::{Mutex, free};
 
 use super::systick;
 
@@ -20,8 +20,7 @@ struct SoftTimer {
 
 static TIMERS: Mutex<RefCell<[Option<SoftTimer>; MAX_TIMERS]>> =
     Mutex::new(RefCell::new([const { None }; MAX_TIMERS]));
-static PENDING: Mutex<RefCell<PendingQueue>> =
-    Mutex::new(RefCell::new(PendingQueue::new()));
+static PENDING: Mutex<RefCell<PendingQueue>> = Mutex::new(RefCell::new(PendingQueue::new()));
 
 pub fn init() {
     free(|cs| {

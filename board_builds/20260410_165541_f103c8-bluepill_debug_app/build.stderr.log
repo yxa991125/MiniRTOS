@@ -1,0 +1,775 @@
+   Compiling nb v1.1.0
+   Compiling void v1.0.2
+   Compiling vcell v0.1.3
+   Compiling bitfield v0.13.2
+   Compiling critical-section v1.2.0
+   Compiling stm32f1 v0.16.0
+   Compiling gcd v2.3.0
+   Compiling embedded-hal v1.0.0
+   Compiling cortex-m-rt v0.7.5
+   Compiling cortex-m v0.7.7
+   Compiling panic-halt v1.0.0
+   Compiling CortexOS v0.1.0 (D:\Code\microOS\CortexOS)
+   Compiling bare-metal v0.2.5
+   Compiling volatile-register v0.2.2
+   Compiling nb v0.1.3
+   Compiling fugit v0.3.9
+   Compiling embedded-hal v0.2.7
+warning: constant `IWDG_PR` is never used
+   --> src\bsp\f103c8_bluepill.rs:547:11
+    |
+547 |     const IWDG_PR: *mut u32 = 0x4000_3004 as *mut u32;
+    |           ^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `IWDG_RLR` is never used
+   --> src\bsp\f103c8_bluepill.rs:548:11
+    |
+548 |     const IWDG_RLR: *mut u32 = 0x4000_3008 as *mut u32;
+    |           ^^^^^^^^
+
+warning: constant `IWDG_SR` is never used
+   --> src\bsp\f103c8_bluepill.rs:549:11
+    |
+549 |     const IWDG_SR: *const u32 = 0x4000_300C as *const u32;
+    |           ^^^^^^^
+
+warning: function `start` is never used
+   --> src\bsp\f103c8_bluepill.rs:557:12
+    |
+557 |     pub fn start(timeout_ms: u32) -> bool {
+    |            ^^^^^
+
+warning: function `timeout_ms_to_reload` is never used
+   --> src\bsp\f103c8_bluepill.rs:585:8
+    |
+585 |     fn timeout_ms_to_reload(timeout_ms: u32) -> u32 {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: struct `GpioOutput` is never constructed
+ --> src\device\gpio.rs:3:12
+  |
+3 | pub struct GpioOutput<P> {
+  |            ^^^^^^^^^^
+
+warning: associated items `new`, `set_high`, `set_low`, and `release` are never used
+  --> src\device\gpio.rs:8:12
+   |
+ 7 | impl<P: OutputPin> GpioOutput<P> {
+   | -------------------------------- associated items in this implementation
+ 8 |     pub fn new(pin: P) -> Self {
+   |            ^^^
+...
+12 |     pub fn set_high(&mut self) -> Result<(), P::Error> {
+   |            ^^^^^^^^
+...
+16 |     pub fn set_low(&mut self) -> Result<(), P::Error> {
+   |            ^^^^^^^
+...
+20 |     pub fn release(self) -> P {
+   |            ^^^^^^^
+
+warning: method `toggle` is never used
+  --> src\device\gpio.rs:26:12
+   |
+25 | impl<P: OutputPin + StatefulOutputPin> GpioOutput<P> {
+   | ---------------------------------------------------- method in this implementation
+26 |     pub fn toggle(&mut self) -> Result<(), P::Error> {
+   |            ^^^^^^
+
+warning: struct `GpioInput` is never constructed
+  --> src\device\gpio.rs:35:12
+   |
+35 | pub struct GpioInput<P> {
+   |            ^^^^^^^^^
+
+warning: associated items `new`, `is_high`, `is_low`, and `release` are never used
+  --> src\device\gpio.rs:40:12
+   |
+39 | impl<P: InputPin> GpioInput<P> {
+   | ------------------------------ associated items in this implementation
+40 |     pub fn new(pin: P) -> Self {
+   |            ^^^
+...
+44 |     pub fn is_high(&mut self) -> Result<bool, P::Error> {
+   |            ^^^^^^^
+...
+48 |     pub fn is_low(&mut self) -> Result<bool, P::Error> {
+   |            ^^^^^^
+...
+52 |     pub fn release(self) -> P {
+   |            ^^^^^^^
+
+warning: struct `PwmChannel` is never constructed
+ --> src\device\pwm.rs:3:12
+  |
+3 | pub struct PwmChannel<P> {
+  |            ^^^^^^^^^^
+
+warning: multiple associated items are never used
+  --> src\device\pwm.rs:8:12
+   |
+ 7 | impl<P: SetDutyCycle> PwmChannel<P> {
+   | ----------------------------------- associated items in this implementation
+ 8 |     pub fn new(channel: P) -> Self {
+   |            ^^^
+...
+12 |     pub fn max_duty(&self) -> u16 {
+   |            ^^^^^^^^
+...
+16 |     pub fn set_duty(&mut self, duty: u16) -> Result<(), P::Error> {
+   |            ^^^^^^^^
+...
+20 |     pub fn set_duty_percent(&mut self, percent: u8) -> Result<(), P::Error> {
+   |            ^^^^^^^^^^^^^^^^
+...
+26 |     pub fn set_duty_fraction(&mut self, num: u16, denom: u16) -> Result<(), P::Error> {
+   |            ^^^^^^^^^^^^^^^^^
+...
+30 |     pub fn inner_mut(&mut self) -> &mut P {
+   |            ^^^^^^^^^
+...
+34 |     pub fn release(self) -> P {
+   |            ^^^^^^^
+
+warning: function `is_ready` is never used
+ --> src\device\uart.rs:5:8
+  |
+5 | pub fn is_ready() -> bool {
+  |        ^^^^^^^^
+
+warning: function `enqueue_tx_bytes` is never used
+  --> src\device\uart.rs:29:8
+   |
+29 | pub fn enqueue_tx_bytes(bytes: &[u8]) -> usize {
+   |        ^^^^^^^^^^^^^^^^
+
+warning: function `raw_write_bytes` is never used
+  --> src\device\uart.rs:45:8
+   |
+45 | pub fn raw_write_bytes(bytes: &[u8]) {
+   |        ^^^^^^^^^^^^^^^
+
+warning: struct `Encoder` is never constructed
+ --> src\driver\encoder.rs:4:12
+  |
+4 | pub struct Encoder {
+  |            ^^^^^^^
+
+warning: associated items `new`, `reset`, `add`, and `get` are never used
+  --> src\driver\encoder.rs:9:18
+   |
+ 8 | impl Encoder {
+   | ------------ associated items in this implementation
+ 9 |     pub const fn new() -> Self {
+   |                  ^^^
+...
+15 |     pub fn reset(&self) {
+   |            ^^^^^
+...
+19 |     pub fn add(&self, delta: i32) {
+   |            ^^^
+...
+23 |     pub fn get(&self) -> i32 {
+   |            ^^^
+
+warning: enum `MotorDir` is never used
+ --> src\driver\motor.rs:7:10
+  |
+7 | pub enum MotorDir {
+  |          ^^^^^^^^
+
+warning: struct `Motor` is never constructed
+  --> src\driver\motor.rs:12:12
+   |
+12 | pub struct Motor<PWM, DIR> {
+   |            ^^^^^
+
+warning: associated items `new`, `enable`, `disable`, `set_direction`, `set_speed_percent`, and `release` are never used
+  --> src\driver\motor.rs:25:12
+   |
+20 | / impl<PWM, DIR> Motor<PWM, DIR>
+21 | | where
+22 | |     PWM: SetDutyCycle,
+23 | |     DIR: OutputPin,
+   | |___________________- associated items in this implementation
+24 |   {
+25 |       pub fn new(pwm: PWM, dir: DIR) -> Self {
+   |              ^^^
+...
+38 |       pub fn enable(&mut self) -> Result<(), PWM::Error> {
+   |              ^^^^^^
+...
+43 |       pub fn disable(&mut self) -> Result<(), PWM::Error> {
+   |              ^^^^^^^
+...
+48 |       pub fn set_direction(&mut self, dir: MotorDir) -> Result<(), DIR::Error> {
+   |              ^^^^^^^^^^^^^
+...
+56 |       pub fn set_speed_percent(&mut self, percent: u8) -> Result<(), PWM::Error> {
+   |              ^^^^^^^^^^^^^^^^^
+...
+65 |       pub fn release(self) -> (PWM, DIR) {
+   |              ^^^^^^^
+
+warning: struct `DigitalSensor` is never constructed
+ --> src\driver\sensor.rs:3:12
+  |
+3 | pub struct DigitalSensor<P> {
+  |            ^^^^^^^^^^^^^
+
+warning: associated items `new`, `is_active`, and `release` are never used
+  --> src\driver\sensor.rs:8:12
+   |
+ 7 | impl<P: InputPin> DigitalSensor<P> {
+   | ---------------------------------- associated items in this implementation
+ 8 |     pub fn new(pin: P) -> Self {
+   |            ^^^
+...
+12 |     pub fn is_active(&mut self) -> Result<bool, P::Error> {
+   |            ^^^^^^^^^
+...
+16 |     pub fn release(self) -> P {
+   |            ^^^^^^^
+
+warning: methods `capacity` and `clear` are never used
+  --> src\ipc\mqueue.rs:29:12
+   |
+18 | impl<const N: usize> MsgQueue<N> {
+   | -------------------------------- methods in this implementation
+...
+29 |     pub fn capacity(&self) -> usize {
+   |            ^^^^^^^^
+...
+48 |     pub fn clear(&mut self) {
+   |            ^^^^^
+
+warning: methods `send_from_isr`, `is_empty`, and `is_full` are never used
+   --> src\ipc\mqueue.rs:95:12
+    |
+ 82 | impl<const N: usize> SyncMsgQueue<N> {
+    | ------------------------------------ methods in this implementation
+...
+ 95 |     pub fn send_from_isr(&self, msg: usize) -> Result<(), MsgQueueError> {
+    |            ^^^^^^^^^^^^^
+...
+108 |     pub fn is_empty(&self) -> bool {
+    |            ^^^^^^^^
+...
+112 |     pub fn is_full(&self) -> bool {
+    |            ^^^^^^^
+
+warning: methods `push`, `pop_from_isr`, `is_empty`, and `is_full` are never used
+  --> src\ipc\ringbuf.rs:19:12
+   |
+12 | impl<const N: usize> SyncRingBuf<N> {
+   | ----------------------------------- methods in this implementation
+...
+19 |     pub fn push(&self, byte: u8) -> Result<(), RingBufError> {
+   |            ^^^^
+...
+32 |     pub fn pop_from_isr(&self) -> Option<u8> {
+   |            ^^^^^^^^^^^^
+...
+49 |     pub fn is_empty(&self) -> bool {
+   |            ^^^^^^^^
+...
+53 |     pub fn is_full(&self) -> bool {
+   |            ^^^^^^^
+
+warning: methods `capacity` and `is_full` are never used
+  --> src\ipc\ringbuf_core.rs:25:12
+   |
+14 | impl<const N: usize> RingBuf<N> {
+   | ------------------------------- methods in this implementation
+...
+25 |     pub fn capacity(&self) -> usize {
+   |            ^^^^^^^^
+...
+35 |     pub fn is_full(&self) -> bool {
+   |            ^^^^^^^
+
+warning: type alias `TimerHandle` is never used
+  --> src\kernel.rs:20:10
+   |
+20 | pub type TimerHandle = usize;
+   |          ^^^^^^^^^^^
+
+warning: function `yield_now` is never used
+  --> src\kernel.rs:55:8
+   |
+55 | pub fn yield_now() {
+   |        ^^^^^^^^^
+
+warning: function `block_current` is never used
+  --> src\kernel.rs:65:8
+   |
+65 | pub fn block_current(timeout_ms: Option<u32>) {
+   |        ^^^^^^^^^^^^^
+
+warning: function `unblock` is never used
+  --> src\kernel.rs:70:8
+   |
+70 | pub fn unblock(pid: TaskId) -> bool {
+   |        ^^^^^^^
+
+warning: function `delete_task` is never used
+  --> src\kernel.rs:75:8
+   |
+75 | pub fn delete_task(pid: TaskId) -> bool {
+   |        ^^^^^^^^^^^
+
+warning: function `exit_current` is never used
+  --> src\kernel.rs:80:8
+   |
+80 | pub fn exit_current() -> ! {
+   |        ^^^^^^^^^^^^
+
+warning: function `set_priority` is never used
+  --> src\kernel.rs:85:8
+   |
+85 | pub fn set_priority(pid: TaskId, new_prio: u8) -> bool {
+   |        ^^^^^^^^^^^^
+
+warning: function `current_pid` is never used
+  --> src\kernel.rs:90:8
+   |
+90 | pub fn current_pid() -> Option<TaskId> {
+   |        ^^^^^^^^^^^
+
+warning: function `task_priority` is never used
+  --> src\kernel.rs:95:8
+   |
+95 | pub fn task_priority(pid: TaskId) -> Option<u8> {
+   |        ^^^^^^^^^^^^^
+
+warning: function `current_priority` is never used
+   --> src\kernel.rs:100:8
+    |
+100 | pub fn current_priority() -> Option<u8> {
+    |        ^^^^^^^^^^^^^^^^
+
+warning: function `clear_trace_counters` is never used
+   --> src\kernel.rs:120:8
+    |
+120 | pub fn clear_trace_counters() {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `set_trace_hook` is never used
+   --> src\kernel.rs:125:8
+    |
+125 | pub fn set_trace_hook(hook: Option<TraceHook>) {
+    |        ^^^^^^^^^^^^^^
+
+warning: function `enable_watchdog` is never used
+   --> src\kernel.rs:139:8
+    |
+139 | pub fn enable_watchdog(timeout_ms: u32) -> bool {
+    |        ^^^^^^^^^^^^^^^
+
+warning: function `delay_ms` is never used
+   --> src\kernel.rs:298:8
+    |
+298 | pub fn delay_ms(ms: u32) {
+    |        ^^^^^^^^
+
+warning: function `start_timer_oneshot` is never used
+   --> src\kernel.rs:303:8
+    |
+303 | pub fn start_timer_oneshot(
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: function `start_timer_periodic` is never used
+   --> src\kernel.rs:312:8
+    |
+312 | pub fn start_timer_periodic(
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `cancel_timer` is never used
+   --> src\kernel.rs:321:8
+    |
+321 | pub fn cancel_timer(handle: TimerHandle) -> bool {
+    |        ^^^^^^^^^^^^
+
+warning: function `dispatch_timers` is never used
+   --> src\kernel.rs:326:8
+    |
+326 | pub fn dispatch_timers() {
+    |        ^^^^^^^^^^^^^^^
+
+warning: constant `TICK_HZ` is never used
+   --> src\kernel.rs:330:11
+    |
+330 | pub const TICK_HZ: u32 = systick::TICK_HZ;
+    |           ^^^^^^^
+
+warning: function `log_line` is never used
+  --> src\log.rs:66:8
+   |
+66 | pub fn log_line(s: &str) {
+   |        ^^^^^^^^
+
+warning: struct `MemLayout` is never constructed
+ --> src\mem\layout.rs:2:12
+  |
+2 | pub struct MemLayout {
+  |            ^^^^^^^^^
+
+warning: associated items `new`, `flash_end`, and `ram_end` are never used
+  --> src\mem\layout.rs:11:18
+   |
+10 | impl MemLayout {
+   | -------------- associated items in this implementation
+11 |     pub const fn new(
+   |                  ^^^
+...
+28 |     pub const fn flash_end(&self) -> usize {
+   |                  ^^^^^^^^^
+...
+33 |     pub const fn ram_end(&self) -> usize {
+   |                  ^^^^^^^
+
+warning: constant `FLASH_START` is never used
+  --> src\mem\layout.rs:42:11
+   |
+42 | pub const FLASH_START: usize = 0x0800_0000;
+   |           ^^^^^^^^^^^
+
+warning: constant `FLASH_SIZE` is never used
+  --> src\mem\layout.rs:43:11
+   |
+43 | pub const FLASH_SIZE: usize = 512 * 1024;
+   |           ^^^^^^^^^^
+
+warning: constant `RAM_START` is never used
+  --> src\mem\layout.rs:44:11
+   |
+44 | pub const RAM_START: usize = 0x2000_0000;
+   |           ^^^^^^^^^
+
+warning: constant `RAM_SIZE` is never used
+  --> src\mem\layout.rs:45:11
+   |
+45 | pub const RAM_SIZE: usize = 128 * 1024;
+   |           ^^^^^^^^
+
+warning: function `layout` is never used
+  --> src\mem\layout.rs:47:8
+   |
+47 | pub fn layout() -> MemLayout {
+   |        ^^^^^^
+
+warning: enum `PoolError` is never used
+ --> src\mem\static_pool.rs:5:10
+  |
+5 | pub enum PoolError {
+  |          ^^^^^^^^^
+
+warning: struct `StaticPool` is never constructed
+  --> src\mem\static_pool.rs:11:12
+   |
+11 | pub struct StaticPool<const BLOCK_SIZE: usize, const BLOCK_COUNT: usize> {
+   |            ^^^^^^^^^^
+
+warning: multiple associated items are never used
+  --> src\mem\static_pool.rs:22:18
+   |
+21 | impl<const BLOCK_SIZE: usize, const BLOCK_COUNT: usize> StaticPool<BLOCK_SIZE, BLOCK_COUNT> {
+   | ------------------------------------------------------------------------------------------- associated items in this implementation
+22 |     pub const fn new() -> Self {
+   |                  ^^^
+...
+30 |     const fn block_stride() -> usize {
+   |              ^^^^^^^^^^^^
+...
+35 |     pub const fn block_size(&self) -> usize {
+   |                  ^^^^^^^^^^
+...
+40 |     pub const fn block_count(&self) -> usize {
+   |                  ^^^^^^^^^^^
+...
+45 |     pub fn available(&self) -> usize {
+   |            ^^^^^^^^^
+...
+51 |     pub fn alloc(&self, size: usize, align: usize) -> Result<*mut u8, PoolError> {
+   |            ^^^^^
+...
+73 |     pub fn alloc_for<T>(&self) -> Result<*mut T, PoolError> {
+   |            ^^^^^^^^^
+...
+85 |     pub fn free_ptr(&self, ptr: *mut u8) -> Result<(), PoolError> {
+   |            ^^^^^^^^
+
+warning: constant `POOL_ALIGN` is never used
+   --> src\mem\static_pool.rs:111:7
+    |
+111 | const POOL_ALIGN: usize = 8;
+    |       ^^^^^^^^^^
+
+warning: struct `AlignedBlock` is never constructed
+   --> src\mem\static_pool.rs:115:8
+    |
+115 | struct AlignedBlock<const N: usize>([u8; N]);
+    |        ^^^^^^^^^^^^
+
+warning: associated items `new` and `as_mut_ptr` are never used
+   --> src\mem\static_pool.rs:118:14
+    |
+117 | impl<const N: usize> AlignedBlock<N> {
+    | ------------------------------------ associated items in this implementation
+118 |     const fn new() -> Self {
+    |              ^^^
+...
+123 |     fn as_mut_ptr(&mut self) -> *mut u8 {
+    |        ^^^^^^^^^^
+
+warning: function `led_available` is never used
+ --> src\platform\controls.rs:3:8
+  |
+3 | pub fn led_available() -> bool {
+  |        ^^^^^^^^^^^^^
+
+warning: function `pwm_available` is never used
+  --> src\platform\controls.rs:15:8
+   |
+15 | pub fn pwm_available() -> bool {
+   |        ^^^^^^^^^^^^^
+
+warning: enum `UartRole` is never used
+ --> src\platform\uart.rs:4:10
+  |
+4 | pub enum UartRole {
+  |          ^^^^^^^^
+
+warning: function `start` is never used
+ --> src\platform\watchdog.rs:3:8
+  |
+3 | pub fn start(timeout_ms: u32) -> bool {
+  |        ^^^^^
+
+warning: methods `is_set` and `try_wait` are never used
+  --> src\sync\event.rs:26:12
+   |
+19 | impl<const N: usize> Event<N> {
+   | ----------------------------- methods in this implementation
+...
+26 |     pub fn is_set(&self) -> bool {
+   |            ^^^^^^
+...
+62 |     pub fn try_wait(&self) -> bool {
+   |            ^^^^^^^^
+
+warning: enum `MutexError` is never used
+  --> src\sync\mutex.rs:28:10
+   |
+28 | pub enum MutexError {
+   |          ^^^^^^^^^^
+
+warning: struct `BlockingMutex` is never constructed
+  --> src\sync\mutex.rs:40:12
+   |
+40 | pub struct BlockingMutex<T, const N: usize> {
+   |            ^^^^^^^^^^^^^
+
+warning: associated items `new`, `acquire`, `release`, and `with_owner` are never used
+   --> src\sync\mutex.rs:45:18
+    |
+ 44 | impl<T, const N: usize> BlockingMutex<T, N> {
+    | ------------------------------------------- associated items in this implementation
+ 45 |     pub const fn new(value: T) -> Self {
+    |                  ^^^
+...
+ 51 |     pub fn acquire(&self, timeout_ms: Option<u32>) -> Result<(), MutexError> {
+    |            ^^^^^^^
+...
+126 |     pub fn release(&self) -> Result<(), MutexError> {
+    |            ^^^^^^^
+...
+183 |     pub fn with_owner<R>(&self, f: impl FnOnce(&mut T) -> R) -> Result<R, MutexError> {
+    |            ^^^^^^^^^^
+
+warning: struct `BlockingMutexInner` is never constructed
+   --> src\sync\mutex.rs:197:8
+    |
+197 | struct BlockingMutexInner<T, const N: usize> {
+    |        ^^^^^^^^^^^^^^^^^^
+
+warning: associated function `new` is never used
+   --> src\sync\mutex.rs:204:14
+    |
+203 | impl<T, const N: usize> BlockingMutexInner<T, N> {
+    | ------------------------------------------------ associated function in this implementation
+204 |     const fn new(value: T) -> Self {
+    |              ^^^
+
+warning: enum `AcquireDecision` is never used
+   --> src\sync\mutex.rs:213:6
+    |
+213 | enum AcquireDecision {
+    |      ^^^^^^^^^^^^^^^
+
+warning: struct `WaitQueue` is never constructed
+   --> src\sync\mutex.rs:220:8
+    |
+220 | struct WaitQueue<const N: usize> {
+    |        ^^^^^^^^^
+
+warning: associated items `new`, `contains`, `push`, `remove`, `pop_highest`, and `snapshot` are never used
+   --> src\sync\mutex.rs:226:14
+    |
+225 | impl<const N: usize> WaitQueue<N> {
+    | --------------------------------- associated items in this implementation
+226 |     const fn new() -> Self {
+    |              ^^^
+...
+233 |     fn contains(&self, pid: usize) -> bool {
+    |        ^^^^^^^^
+...
+237 |     fn push(&mut self, pid: usize) -> bool {
+    |        ^^^^
+...
+251 |     fn remove(&mut self, pid: usize) -> bool {
+    |        ^^^^^^
+...
+265 |     fn pop_highest(&mut self) -> Option<usize> {
+    |        ^^^^^^^^^^^
+...
+288 |     fn snapshot(&self, out: &mut [usize; N]) -> usize {
+    |        ^^^^^^^^
+
+warning: methods `available` and `max` are never used
+  --> src\sync\semaphore.rs:27:12
+   |
+19 | impl<const N: usize> Semaphore<N> {
+   | --------------------------------- methods in this implementation
+...
+27 |     pub fn available(&self) -> u32 {
+   |            ^^^^^^^^^
+...
+31 |     pub fn max(&self) -> u32 {
+   |            ^^^
+
+warning: variant `Brownout` is never constructed
+  --> src\task\diagnostics.rs:31:5
+   |
+23 | pub enum ResetReason {
+   |          ----------- variant in this enum
+...
+31 |     Brownout,
+   |     ^^^^^^^^
+   |
+   = note: `ResetReason` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: variant `PriorityUpdate` is never constructed
+  --> src\task\diagnostics.rs:89:5
+   |
+81 | pub enum TraceEventKind {
+   |          -------------- variant in this enum
+...
+89 |     PriorityUpdate,
+   |     ^^^^^^^^^^^^^^
+   |
+   = note: `TraceEventKind` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+warning: function `clear_trace_counters` is never used
+   --> src\task\scheduler.rs:278:8
+    |
+278 | pub fn clear_trace_counters() {
+    |        ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `set_trace_hook` is never used
+   --> src\task\scheduler.rs:282:8
+    |
+282 | pub fn set_trace_hook(hook: Option<TraceHook>) {
+    |        ^^^^^^^^^^^^^^
+
+warning: function `task_priority` is never used
+   --> src\task\scheduler.rs:287:8
+    |
+287 | pub fn task_priority(pid: usize) -> Option<u8> {
+    |        ^^^^^^^^^^^^^
+
+warning: function `current_priority` is never used
+   --> src\task\scheduler.rs:298:8
+    |
+298 | pub fn current_priority() -> Option<u8> {
+    |        ^^^^^^^^^^^^^^^^
+
+warning: function `tick` is never used
+   --> src\task\scheduler.rs:393:8
+    |
+393 | pub fn tick() {
+    |        ^^^^
+
+warning: function `set_priority` is never used
+   --> src\task\scheduler.rs:786:8
+    |
+786 | pub fn set_priority(pid: usize, new_prio: u8) -> bool {
+    |        ^^^^^^^^^^^^
+
+warning: function `add_priority_boost` is never used
+   --> src\task\scheduler.rs:827:8
+    |
+827 | pub fn add_priority_boost(pid: usize, boost_prio: u8) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^
+
+warning: function `remove_priority_boost` is never used
+   --> src\task\scheduler.rs:860:8
+    |
+860 | pub fn remove_priority_boost(pid: usize, boost_prio: u8) -> bool {
+    |        ^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `effective_priority` is never used
+   --> src\task\scheduler.rs:903:4
+    |
+903 | fn effective_priority(task: &Tcb) -> u8 {
+    |    ^^^^^^^^^^^^^^^^^^
+
+warning: function `update_effective_priority_locked` is never used
+   --> src\task\scheduler.rs:914:4
+    |
+914 | fn update_effective_priority_locked(
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `start_oneshot` is never used
+  --> src\timer\soft_timer.rs:35:8
+   |
+35 | pub fn start_oneshot(delay_ms: u32, callback: TimerCallback, arg: usize) -> Option<usize> {
+   |        ^^^^^^^^^^^^^
+
+warning: function `start_periodic` is never used
+  --> src\timer\soft_timer.rs:39:8
+   |
+39 | pub fn start_periodic(period_ms: u32, callback: TimerCallback, arg: usize) -> Option<usize> {
+   |        ^^^^^^^^^^^^^^
+
+warning: function `cancel` is never used
+  --> src\timer\soft_timer.rs:46:8
+   |
+46 | pub fn cancel(handle: usize) -> bool {
+   |        ^^^^^^
+
+warning: function `start_internal` is never used
+  --> src\timer\soft_timer.rs:95:4
+   |
+95 | fn start_internal(
+   |    ^^^^^^^^^^^^^^
+
+warning: function `delay_ms` is never used
+  --> src\timer\systick.rs:38:8
+   |
+38 | pub fn delay_ms(ms: u32) {
+   |        ^^^^^^^^
+
+error: linking with `rust-lld` failed: exit code: 1
+  |
+  = note: "rust-lld" "-flavor" "gnu" "C:\\Users\\XueAng\\AppData\\Local\\Temp\\rustcQPQKKB\\symbols.o" "<1 object files omitted>" "--as-needed" "-Bstatic" "-lcortexos_asm" "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\debug\\deps/{libembedded_hal-eb86cb62b2aacece,libstm32f1-52cb1094e9fbba95,libpanic_halt-c9eee3d692fad144,libcortex_m_rt-fbe080a5e7e47c6a,libcortex_m-df943ba90e747389,libembedded_hal-461f301ee32aaebe,libvoid-fd373d1bda4228a3,libnb-49e2fac488ad9af9,libnb-e3848a95c2191665,libcritical_section-f777e776bdb7c489,libvolatile_register-3639142242c6a31f,libvcell-dd8af1356710d392,libbare_metal-ea2d4ddeda4b799a}.rlib" "<sysroot>\\lib\\rustlib\\thumbv7m-none-eabi\\lib/{libcore-*,libcompiler_builtins-*}.rlib" "-L" "C:\\Users\\XueAng\\AppData\\Local\\Temp\\rustcQPQKKB\\raw-dylibs" "-Bdynamic" "--eh-frame-hdr" "-z" "noexecstack" "-L" "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\debug\\build\\CortexOS-1dfbd1fa7ca6d84c\\out" "-L" "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\debug\\build\\CortexOS-1dfbd1fa7ca6d84c\\out" "-L" "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\debug\\build\\cortex-m-ac96d6648e76b21e\\out" "-L" "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\debug\\build\\cortex-m-rt-460cc37017b8a228\\out" "-L" "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\debug\\build\\stm32f1-852ad0f824d458e3\\out" "-o" "D:\\Code\\microOS\\CortexOS\\target\\thumbv7m-none-eabi\\debug\\deps\\CortexOS-54b5e70f624fcf3e" "--gc-sections" "-Tlink.x"
+  = note: some arguments are omitted. use `--verbose` to show all linker arguments
+  = note: rust-lld: error: section '.rodata' will not fit in region 'FLASH': overflowed by 13792 bytes␍
+          rust-lld: error: section '.data' will not fit in region 'FLASH': overflowed by 15136 bytes␍
+          rust-lld: error: section '.gnu.sgstubs' will not fit in region 'FLASH': overflowed by 15136 bytes␍
+          
+
+warning: `CortexOS` (bin "CortexOS") generated 90 warnings
+error: could not compile `CortexOS` (bin "CortexOS") due to 1 previous error; 90 warnings emitted

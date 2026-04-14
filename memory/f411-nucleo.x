@@ -1,0 +1,9 @@
+/* STM32F411 Nucleo */
+MEMORY
+{
+  FLASH : ORIGIN = 0x08000000, LENGTH = 512K
+  RAM   : ORIGIN = 0x20000000, LENGTH = 128K
+}
+
+_stack_start = ORIGIN(RAM) + LENGTH(RAM);
+__STACK_START = _stack_start;

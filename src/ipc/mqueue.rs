@@ -1,6 +1,6 @@
 use core::cell::RefCell;
 
-use cortex_m::interrupt::{free, Mutex};
+use cortex_m::interrupt::{CriticalSection, Mutex, free};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MsgQueueError {
@@ -88,6 +88,13 @@ impl<const N: usize> SyncMsgQueue<N> {
 
     pub fn send(&self, msg: usize) -> Result<(), MsgQueueError> {
         free(|cs| self.inner.borrow(cs).borrow_mut().send(msg))
+    }
+
+    /// Fast ISR path: caller must already be in an interrupt context where
+    /// this queue cannot be concurrently accessed by a higher-priority handler.
+    pub fn send_from_isr(&self, msg: usize) -> Result<(), MsgQueueError> {
+        let cs: &CriticalSection = unsafe { &CriticalSection::new() };
+        self.inner.borrow(cs).borrow_mut().send(msg)
     }
 
     pub fn recv(&self) -> Option<usize> {

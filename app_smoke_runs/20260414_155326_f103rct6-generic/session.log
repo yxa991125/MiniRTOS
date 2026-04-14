@@ -1,0 +1,17 @@
+[reset] probe-rs reset --chip STM32F103RC --protocol swd --speed 100 --probe 0483:3748
+boot ok (F103)
+reset=software
+MSP=0x20004f90 PSP=0x20001e18 VTOR=0x00000000
+VEC PendSV=0x08007359 SysTick=0x0800017d
+cpu=8000000Hz
+app tasks created: rx=2 cmd=1 tx=3 health=4, start_first_task()
+PONG
+smoke
+STAT uptime=2724ms reset=software wd=false feeds=0 live=5 hb=4 stale=0 stack_warn=0 rx=24 tx=77 rxov=0 txov=0 rxerr=0 rx_pending=0 tx_pending=0 line_drop=0 cmd_drop=0 queue=0
+TASK pid=0 state=Running prio=7/7 runtime=2693 stack_used=18/128w stack_free_low=110w hb=false age=2726 timeout=0 stale=false warn=false
+TASK pid=1 state=Running prio=1/1 runtime=5 stack_used=286/768w stack_free_low=482w hb=true age=5 timeout=60000 stale=false warn=false
+TASK pid=2 state=Ready prio=2/2 runtime=0 stack_used=62/512w stack_free_low=450w hb=true age=7 timeout=60000 stale=false warn=false
+TASK pid=3 state=Ready prio=3/3 runtime=9 stack_used=36/384w stack_free_low=348w hb=true age=9 timeout=60000 stale=false warn=false
+TASK pid=4 state=Sleeping prio=4/4 runtime=20 stack_used=270/384w stack_free_low=114w hb=true age=207 timeout=60000 stale=false warn=false
+OK
+OK

@@ -1,0 +1,43 @@
+﻿boot ok (F411)
+reset=software
+MSP=0x2001ff88 PSP=0x00000000 VTOR=0x00000000
+VEC PendSV=0x0800850d SysTick=0x08000201
+cpu=84000000Hz
+app tasks created: rx=1 cmd=2 tx=3 health=4, start_first_task()
+health: uptime=5005ms reset=software wd=true feeds=20 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=64 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=10018ms reset=software wd=true feeds=40 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=208 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=15031ms reset=software wd=true feeds=60 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=354 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=20044ms reset=software wd=true feeds=80 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=500 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=25057ms reset=software wd=true feeds=100 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=646 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=30070ms reset=software wd=true feeds=120 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=793 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=35083ms reset=software wd=true feeds=140 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=940 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=40096ms reset=software wd=true feeds=160 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=1087 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=45109ms reset=software wd=true feeds=180 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=1235 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=50122ms reset=software wd=true feeds=200 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=1383 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=55135ms reset=software wd=true feeds=220 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=1531 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=60148ms reset=software wd=true feeds=240 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=1679 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=65161ms reset=software wd=true feeds=260 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=1827 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=70174ms reset=software wd=true feeds=280 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=1975 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=75187ms reset=software wd=true feeds=300 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=2123 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=80200ms reset=software wd=true feeds=320 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=2271 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=85213ms reset=software wd=true feeds=340 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=2419 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=90226ms reset=software wd=true feeds=360 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=2567 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=95239ms reset=software wd=true feeds=380 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=2715 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=100252ms reset=software wd=true feeds=400 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=2863 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=105265ms reset=software wd=true feeds=420 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=3012 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=110278ms reset=software wd=true feeds=440 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=3161 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=115291ms reset=software wd=true feeds=460 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=3310 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=120304ms reset=software wd=true feeds=480 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=3459 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=125317ms reset=software wd=true feeds=500 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=3608 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=130330ms reset=software wd=true feeds=520 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=3757 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=135343ms reset=software wd=true feeds=540 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=3906 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=140356ms reset=software wd=true feeds=560 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=4055 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=145369ms reset=software wd=true feeds=580 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=4204 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=150382ms reset=software wd=true feeds=600 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=4353 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=155395ms reset=software wd=true feeds=620 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=4502 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=160408ms reset=software wd=true feeds=640 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=4651 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=165421ms reset=software wd=true feeds=660 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=4800 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=170434ms reset=software wd=true feeds=680 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=4949 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=175447ms reset=software wd=true feeds=700 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=5098 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+health: uptime=180460ms reset=software wd=true feeds=720 live=5 hb=4 stale=0 stack_warn=0 rx=0 tx=5247 rxov=0 txov=0 rxerr=0 line_drop=0 cmd_drop=0
+

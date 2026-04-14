@@ -1,0 +1,6 @@
+﻿"run","metric","threshold_cy","overlap_samples","spikes","irq_spikes","clean_spikes","systick_spikes","tim2_spikes","max_irq_spike_cy","max_clean_spike_cy"
+"1","semaphore_give_to_taskb_wake_attribution","1000","10","9","9","0","9","0","1308","0"
+"1","tim2_irq_to_task_attribution","900","0","0","0","0","0","0","0","0"
+"1","queue_wake_latency_attribution","900","97","123","97","26","97","0","1243","1182"
+"1","queue_end_to_end_latency_attribution","1100","114","139","113","26","113","0","1498","1452"
+"1","mutex_lock_unlock_attribution","128","1","1","1","0","1","0","509","0"

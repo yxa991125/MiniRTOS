@@ -1,0 +1,2 @@
+﻿"timestamp","port","duration_sec","flashed","boot_seen","task_banner_seen","commands_sent","commands_passed","commands_failed","health_lines","max_feeds","max_stale","max_rx_overflow","max_tx_overflow","max_cmd_drop","fault_lines","error_lines","command_failures","log"
+"20260325_212839","COM6","10","True","True","True","8","8","0","4","60","0","0","0","0","0","0","","app_soak_runs\20260325_212839\session.log"

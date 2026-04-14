@@ -1,0 +1,4 @@
+﻿"tasks","runs","rounds","round_avg_min_cy","round_avg_p50_cy","round_avg_p95_cy","round_avg_max_cy","per_switch_avg_min_cy","per_switch_avg_p50_cy","per_switch_avg_p95_cy","per_switch_avg_max_cy","per_switch_max_observed_cy"
+"2","1","1000","800","800","800","800","400","400","400","400","1028"
+"32","1","1000","3212","3212","3212","3212","100","100","100","100","313"
+"8","1","1000","801","801","801","801","100","100","100","100","262"

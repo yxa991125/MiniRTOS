@@ -1,46 +1,47 @@
-use core::fmt;
+﻿use crate::platform::uart;
+pub use crate::platform::uart::UartStats;
+use crate::sync::event::EventError;
 
-use stm32f4xx_hal::gpio::PushPull;
-use stm32f4xx_hal::rcc::Rcc;
-use stm32f4xx_hal::serial::{self, config::Config, config::InvalidConfig, Serial, Tx, Rx};
-
-pub type UartSerial<UART> = Serial<UART>;
-pub type UartTx<UART> = Tx<UART>;
-pub type UartRx<UART> = Rx<UART>;
-
-pub struct UartPort<UART: serial::CommonPins + serial::Instance> {
-    serial: Serial<UART>,
+pub fn is_ready() -> bool {
+    uart::app_is_ready()
 }
 
-impl<UART: serial::CommonPins + serial::Instance> UartPort<UART> {
-    pub fn new(
-        uart: UART,
-        pins: (
-            impl Into<UART::Tx<PushPull>>,
-            impl Into<UART::Rx<PushPull>>,
-        ),
-        config: impl Into<Config>,
-        rcc: &mut Rcc,
-    ) -> Result<Self, InvalidConfig> {
-        let serial = Serial::new(uart, pins, config, rcc)?;
-        Ok(Self { serial })
-    }
-
-    pub fn split(self) -> (Tx<UART>, Rx<UART>) {
-        self.serial.split()
-    }
-
-    pub fn release(self) -> (UART, (Option<UART::Tx<PushPull>>, Option<UART::Rx<PushPull>>)) {
-        self.serial.release()
-    }
-
-    pub fn into_inner(self) -> Serial<UART> {
-        self.serial
-    }
+pub fn wait_for_rx(timeout_ms: Option<u32>) -> Result<(), EventError> {
+    uart::app_wait_for_rx(timeout_ms)
 }
 
-impl<UART: serial::CommonPins + serial::Instance> fmt::Write for UartPort<UART> {
-    fn write_str(&mut self, s: &str) -> fmt::Result {
-        self.serial.write_str(s)
-    }
+pub fn clear_rx_event() {
+    uart::app_clear_rx_event();
+}
+
+pub fn read_byte() -> Option<u8> {
+    uart::app_read_byte()
+}
+
+pub fn wait_for_tx(timeout_ms: Option<u32>) -> Result<(), EventError> {
+    uart::app_wait_for_tx(timeout_ms)
+}
+
+pub fn clear_tx_event() {
+    uart::app_clear_tx_event();
+}
+
+pub fn enqueue_tx_bytes(bytes: &[u8]) -> usize {
+    uart::app_enqueue_tx_bytes(bytes)
+}
+
+pub fn drain_tx() -> usize {
+    uart::app_drain_tx()
+}
+
+pub fn stats() -> UartStats {
+    uart::app_stats()
+}
+
+pub fn log_bytes(bytes: &[u8]) -> usize {
+    uart::log_bytes(bytes)
+}
+
+pub fn raw_write_bytes(bytes: &[u8]) {
+    uart::boot_write_bytes(bytes)
 }

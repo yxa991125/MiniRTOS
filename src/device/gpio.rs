@@ -1,4 +1,4 @@
-use stm32f4xx_hal::hal::digital::{InputPin, OutputPin, StatefulOutputPin};
+use embedded_hal::digital::{InputPin, OutputPin, StatefulOutputPin};
 
 pub struct GpioOutput<P> {
     pin: P,

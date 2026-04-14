@@ -1,0 +1,46 @@
+{
+  "boards": [
+    {
+      "name": "f411-nucleo",
+      "aliases": [
+        "board-f411-nucleo"
+      ],
+      "feature": "board-f411-nucleo",
+      "target": "thumbv7em-none-eabihf",
+      "chip": "STM32F411RETx",
+      "probe_protocol": "swd",
+      "supports": {
+        "bench": true,
+        "uart_probe": false
+      }
+    },
+    {
+      "name": "f103c8-bluepill",
+      "aliases": [
+        "board-f103c8-bluepill"
+      ],
+      "feature": "board-f103c8-bluepill",
+      "target": "thumbv7m-none-eabi",
+      "chip": "STM32F103C8",
+      "probe_protocol": "swd",
+      "supports": {
+        "bench": false,
+        "uart_probe": true
+      }
+    },
+    {
+      "name": "f103rct6-generic",
+      "aliases": [
+        "board-f103rct6-generic"
+      ],
+      "feature": "board-f103c8-bluepill",
+      "target": "thumbv7m-none-eabi",
+      "chip": "STM32F103RC",
+      "probe_protocol": "swd",
+      "supports": {
+        "bench": false,
+        "uart_probe": true
+      }
+    }
+  ]
+}

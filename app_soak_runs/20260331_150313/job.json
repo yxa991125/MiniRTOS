@@ -1,0 +1,11 @@
+﻿{
+    "pid":  17192,
+    "run_id":  "20260331_150313",
+    "output_dir":  "app_soak_runs\\20260331_150313",
+    "started_at":  "2026-03-31T15:03:13",
+    "port":  "COM6",
+    "duration_sec":  5,
+    "flashed":  true,
+    "stdout_log":  "app_soak_runs\\20260331_150313\\launcher.stdout.log",
+    "stderr_log":  "app_soak_runs\\20260331_150313\\launcher.stderr.log"
+}

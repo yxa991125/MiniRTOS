@@ -1,4 +1,4 @@
-use stm32f4xx_hal::hal::pwm::SetDutyCycle;
+use embedded_hal::pwm::SetDutyCycle;
 
 pub struct PwmChannel<P> {
     channel: P,
@@ -25,6 +25,10 @@ impl<P: SetDutyCycle> PwmChannel<P> {
 
     pub fn set_duty_fraction(&mut self, num: u16, denom: u16) -> Result<(), P::Error> {
         self.channel.set_duty_cycle_fraction(num, denom)
+    }
+
+    pub fn inner_mut(&mut self) -> &mut P {
+        &mut self.channel
     }
 
     pub fn release(self) -> P {

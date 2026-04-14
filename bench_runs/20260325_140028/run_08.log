@@ -1,0 +1,49 @@
+﻿boot ok (F411)
+MSP=0x2001ff80 PSP=0x00000000 VTOR=0x00000000
+VEC PendSV=0x0800ee09 SysTick=0x08000201
+bench init: profile=release samples=1000 cpu=84000000Hz timer=100Hz
+bench tasks created: task_a=1 task_b=2, start_first_task()
+bench: task_a entered
+bench: context-switch start
+bench: ctxsw first from=1 to=2 save_sp=0x20003068 next_sp=0x200060a0 pc=0x0800c439 xpsr=0x01000000
+bench: task_b entered
+bench:context_switch_a_to_b count=999 skipped=1 min=429cy/5us avg=431cy/5us p50=429cy/5us p95=430cy/5us max=943cy/11us
+bench: helper parked
+bench: semaphore start
+bench:semaphore_give_to_taskb_wake count=1000 min=768cy/9us avg=773cy/9us max=1307cy/15us
+bench:semaphore_give_to_taskb_wake_attribution threshold=1000cy overlap_samples=10 spikes=9 irq_spikes=9 clean_spikes=0 systick_spikes=9 tim2_spikes=0 max_irq_spike=1307cy max_clean_spike=0cy
+bench: sleep-wakeup start
+bench:sleep_1tick_extra count=1000 min=1076cy/12us avg=1081cy/12us max=1097cy/13us
+bench: irq-to-task start
+bench:tim2_irq_to_task count=1000 min=728cy/8us avg=728cy/8us max=728cy/8us
+bench:tim2_irq_to_task_attribution threshold=900cy overlap_samples=0 spikes=0 irq_spikes=0 clean_spikes=0 systick_spikes=0 tim2_spikes=0 max_irq_spike=0cy max_clean_spike=0cy
+bench:tim2_irq_to_task_clean_breakdown clean_spikes=0 unblock_dominant=0 resume_dominant=0 max_unblock=0cy max_resume=0cy
+bench: queue-latency start
+bench:queue_wake_latency count=1000 min=725cy/8us avg=725cy/8us max=725cy/8us
+bench:queue_wake_latency_attribution threshold=900cy overlap_samples=0 spikes=0 irq_spikes=0 clean_spikes=0 systick_spikes=0 tim2_spikes=0 max_irq_spike=0cy max_clean_spike=0cy
+bench:queue_wake_latency_clean_breakdown clean_spikes=0 unblock_dominant=0 resume_dominant=0 max_unblock=0cy max_resume=0cy
+bench:queue_end_to_end_latency count=1000 min=950cy/11us avg=950cy/11us max=950cy/11us
+bench:queue_end_to_end_latency_attribution threshold=1100cy overlap_samples=0 spikes=0 irq_spikes=0 clean_spikes=0 systick_spikes=0 tim2_spikes=0 max_irq_spike=0cy max_clean_spike=0cy
+bench:queue_end_to_end_latency_clean_breakdown clean_spikes=0 send_dominant=0 unblock_dominant=0 resume_dominant=0 recv_dominant=0 max_send=0cy max_unblock=0cy max_resume=0cy max_recv=0cy
+bench: mutex-latency start
+bench:mutex_lock_unlock count=1000 min=38cy/0us avg=38cy/0us max=43cy/0us
+bench:mutex_lock_unlock_attribution threshold=128cy overlap_samples=1 spikes=0 irq_spikes=0 clean_spikes=0 systick_spikes=0 tim2_spikes=0 max_irq_spike=0cy max_clean_spike=0cy
+bench:mutex_waiter_wake_latency count=1000 min=1329cy/15us avg=1333cy/15us max=1736cy/20us
+bench:priority_inheritance_enter_latency count=1000 min=1529cy/18us avg=1556cy/18us max=2440cy/29us
+bench:priority_inheritance_exit_latency count=1000 min=2205cy/26us avg=2209cy/26us max=2613cy/31us
+bench:mutex_priority_inheritance supported=1 mode=blocking_mutex
+bench: soft-timer-callback start
+bench:soft_timer_callback_to_task count=1000 min=656cy/7us avg=678cy/8us max=683cy/8us
+bench: timeout-wheel start
+bench:timeout_wheel_sleep_1tick pass=4 fail=0 expected=1..2ticks observed_min=1 observed_max=1
+bench:timeout_wheel_cross_bucket pass=4 fail=0 expected=2..3ticks observed_min=2 observed_max=2
+bench:timeout_wheel_long_delay pass=4 fail=0 expected=261..262ticks observed_min=261 observed_max=261
+bench:timeout_wheel_early_unblock pass=4 fail=0 expected=3..4ticks observed_min=3 observed_max=3
+bench:timeout_wheel_wraparound pass=1 fail=0
+bench: scheduler-scale start
+bench:scheduler_scale tasks=2 rounds=1000 round_min=3cy/0us round_avg=809cy/9us round_max=2097cy/24us per_switch_min=1cy/0us per_switch_avg=404cy/4us per_switch_max=1048cy/12us
+bench:scheduler_scale tasks=8 rounds=1000 round_min=3cy/0us round_avg=810cy/9us round_max=2124cy/25us per_switch_min=0cy/0us per_switch_avg=101cy/1us per_switch_max=265cy/3us
+bench:scheduler_scale tasks=32 rounds=1000 round_min=3cy/0us round_avg=3655cy/43us round_max=7757cy/92us per_switch_min=0cy/0us per_switch_avg=114cy/1us per_switch_max=242cy/2us
+bench:scheduler_o1_check steady_per_switch_avg_8_32=101/114cy ratio=1128permille baseline_2task=404cy verdict=likely_o1
+bench complete
+

@@ -1,190 +1,182 @@
-#![no_std]
+﻿#![no_std]
 #![no_main]
 
-use panic_halt as _;
-
-use core::fmt::Write;
-
+#[cfg(not(feature = "uart-probe"))]
+use core::ptr;
+#[cfg(not(feature = "uart-probe"))]
 use cortex_m::peripheral::syst::SystClkSource;
 use cortex_m_rt::entry;
-#[cfg(not(feature = "bench"))]
-use core::sync::atomic::{AtomicU32, Ordering};
+use panic_halt as _;
 
-use stm32f4xx_hal::{
-    gpio::GpioExt,
-    pac,
-    prelude::*,
-    rcc::Config as RccConfig,
-    rcc::RccExt,
-    serial::{config::Config as UartConfig, Serial},
-};
-
-mod task;
-mod kernel;
-mod log;
-#[cfg(not(feature = "bench"))]
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
 mod app;
-#[cfg(feature = "bench")]
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+mod app_protocol;
+#[cfg(all(feature = "bench", not(feature = "uart-probe")))]
 mod bench;
-mod timer;
+#[cfg(not(feature = "uart-probe"))]
+mod bsp;
+#[cfg(not(feature = "uart-probe"))]
 mod device;
-mod ipc;
-mod mem;
+#[cfg(not(feature = "uart-probe"))]
 mod driver;
+#[cfg(not(feature = "uart-probe"))]
+mod ipc;
+#[cfg(not(feature = "uart-probe"))]
+mod kernel;
+#[cfg(not(feature = "uart-probe"))]
+mod log;
+#[cfg(not(feature = "uart-probe"))]
+mod mem;
+#[cfg(not(feature = "uart-probe"))]
+mod platform;
+#[cfg(not(feature = "uart-probe"))]
 mod sync;
+#[cfg(not(feature = "uart-probe"))]
+mod task;
+#[cfg(not(feature = "uart-probe"))]
+mod timer;
+#[cfg(feature = "uart-probe")]
+mod uart_probe;
 
-#[cfg(not(feature = "bench"))]
-static TIM2_TICKS: AtomicU32 = AtomicU32::new(0);
-#[cfg(not(feature = "bench"))]
-static TIM3_TICKS: AtomicU32 = AtomicU32::new(0);
+#[cfg(all(feature = "bench", feature = "uart-probe"))]
+compile_error!("features `bench` and `uart-probe` cannot be enabled together");
 
-#[cfg(not(feature = "bench"))]
-fn tim2_tick() {
-    TIM2_TICKS.fetch_add(1, Ordering::Relaxed);
-}
-
-#[cfg(not(feature = "bench"))]
-fn tim3_tick() {
-    TIM3_TICKS.fetch_add(1, Ordering::Relaxed);
-}
-
-/// 强制 8-byte 对齐的任务栈包装（Cortex-M 异常/PSP 更稳妥）
 #[repr(align(8))]
 struct AlignedStack<const N: usize>([u32; N]);
 
 #[cfg(feature = "bench")]
-const STACK_TASK1_WORDS: usize = 1024;
+const STACK_TASK1_WORDS: usize = 4096;
 #[cfg(feature = "bench")]
-const STACK_TASK2_WORDS: usize = 512;
-#[cfg(not(feature = "bench"))]
-const STACK_TASK1_WORDS: usize = 256;
-#[cfg(not(feature = "bench"))]
-const STACK_TASK2_WORDS: usize = 256;
+const STACK_TASK2_WORDS: usize = 1024;
 
-// benchmark ????? `core::fmt` ???????????????????
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+const STACK_UART_RX_WORDS: usize = 512;
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+const STACK_APP_CMD_WORDS: usize = 768;
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+const STACK_UART_TX_WORDS: usize = 384;
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+const STACK_HEALTH_WORDS: usize = 384;
+
+#[cfg(feature = "bench")]
 static mut STACK_TASK1: AlignedStack<STACK_TASK1_WORDS> = AlignedStack([0; STACK_TASK1_WORDS]);
+#[cfg(feature = "bench")]
 static mut STACK_TASK2: AlignedStack<STACK_TASK2_WORDS> = AlignedStack([0; STACK_TASK2_WORDS]);
+
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+static mut STACK_UART_RX: AlignedStack<STACK_UART_RX_WORDS> =
+    AlignedStack([0; STACK_UART_RX_WORDS]);
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+static mut STACK_APP_CMD: AlignedStack<STACK_APP_CMD_WORDS> =
+    AlignedStack([0; STACK_APP_CMD_WORDS]);
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+static mut STACK_UART_TX: AlignedStack<STACK_UART_TX_WORDS> =
+    AlignedStack([0; STACK_UART_TX_WORDS]);
+#[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
+static mut STACK_HEALTH: AlignedStack<STACK_HEALTH_WORDS> = AlignedStack([0; STACK_HEALTH_WORDS]);
 
 #[entry]
 fn main() -> ! {
-    let dp = pac::Peripherals::take().unwrap();
+    #[cfg(feature = "uart-probe")]
+    {
+        return uart_probe::run();
+    }
+
+    #[cfg(not(feature = "uart-probe"))]
+    {
     let mut cp = cortex_m::Peripherals::take().unwrap();
+    let board = bsp::current::BoardContext::take().expect("failed to initialize board");
+    board.emit_boot_banner();
 
-    // 1) 时钟
-    let mut rcc = dp.RCC.freeze(
-        RccConfig::hsi()
-            .sysclk(84.MHz())
-            .pclk1(42.MHz())
-            .pclk2(84.MHz()),
-    );
-
-    // 2) USART2 (PA2/PA3) 串口（用于看到“启动是否正常”）
-    let gpioa = dp.GPIOA.split(&mut rcc);
-
-    let tx_pin = gpioa.pa2.into_alternate::<7>();
-    let rx_pin = gpioa.pa3.into_alternate::<7>();
-
-    let serial = Serial::new(
-        dp.USART2,
-        (tx_pin, rx_pin),
-        UartConfig::default().baudrate(115_200.bps()),
-        &mut rcc,
-    )
-    .unwrap();
-
-    let (mut tx, _rx) = serial.split();
-    writeln!(tx, "boot ok (F411)").ok();
-
-    // 3) SysTick 1ms
-    let sysclk_hz = rcc.clocks.sysclk().raw();
+    let sysclk_hz = board.sysclk_hz();
     cp.SYST.set_clock_source(SystClkSource::Core);
     cp.SYST.set_reload(sysclk_hz / 1000 - 1);
     cp.SYST.clear_current();
 
     unsafe {
-        let scb: &mut cortex_m::peripheral::scb::RegisterBlock =
-            &mut *(cortex_m::peripheral::SCB::PTR as *mut cortex_m::peripheral::scb::RegisterBlock);
+        let scb = &mut *(cortex_m::peripheral::SCB::PTR as *mut cortex_m::peripheral::scb::RegisterBlock);
         scb.shpr[10].write(0xFF);
         scb.shpr[11].write(0xFE);
+        let shcsr = 0xE000_ED24 as *mut u32;
+        ptr::write_volatile(shcsr, ptr::read_volatile(shcsr) | (1 << 16) | (1 << 17) | (1 << 18));
     }
 
-    use cortex_m::register::{msp, psp};
-    use cortex_m::peripheral::SCB;
-
-    let msp_v = msp::read();
-    let psp_v = psp::read();
-    let vtor = unsafe { (*SCB::PTR).vtor.read() };
-
-    writeln!(tx, "MSP=0x{:08x} PSP=0x{:08x} VTOR=0x{:08x}", msp_v, psp_v, vtor).ok();
-
-    // 同时把 SysTick/PendSV 的向量表项也读出来（index 14/15）
-    let pendsv_vec = unsafe { *((vtor as *const u32).add(14)) };
-    let systick_vec = unsafe { *((vtor as *const u32).add(15)) };
-    writeln!(tx, "VEC PendSV=0x{:08x} SysTick=0x{:08x}", pendsv_vec, systick_vec).ok();
-
-    log::init(tx);
-
+    log::init();
     cp.SYST.enable_interrupt();
     cp.SYST.enable_counter();
 
-    // 4) 初始化调度器
     kernel::init();
+    kernel::set_reset_reason(board.reset_reason());
 
     #[cfg(feature = "bench")]
-    bench::init(&mut cp.DCB, &mut cp.DWT, dp.TIM2, &mut rcc, sysclk_hz);
-
-    #[cfg(not(feature = "bench"))]
-    // TIM2 硬件定时器示例：1kHz 周期中断
-    timer::hw_timer::init_tim2(
-        dp.TIM2,
-        &mut rcc,
-        1_000,
-        device::timer::TimerMode::Periodic,
-        tim2_tick,
-    );
-
-    #[cfg(not(feature = "bench"))]
-    // TIM3 硬件定时器示例：500Hz 周期中断
-    timer::hw_timer::init_tim3(
-        dp.TIM3,
-        &mut rcc,
-        500,
-        device::timer::TimerMode::Periodic,
-        tim3_tick,
-    );
-
-    #[cfg(not(feature = "bench"))]
-    // 5) LED（PA5）与应用初始化
     {
-        let led = gpioa.pa5.into_push_pull_output();
-        app::init_led(led);
+        let mut board = board;
+        board.init_bench(&mut cp.DCB, &mut cp.DWT);
     }
 
-    // 6) 用 raw pointer -> slice 的方式拿到栈（避免 &mut static）
-    let (stack1, stack2): (&'static mut [u32], &'static mut [u32]) = unsafe {
-        let stack1_ptr = core::ptr::addr_of_mut!(STACK_TASK1.0) as *mut u32;
-        let stack2_ptr = core::ptr::addr_of_mut!(STACK_TASK2.0) as *mut u32;
-
-        let stack1 = core::slice::from_raw_parts_mut(stack1_ptr, STACK_TASK1_WORDS);
-        let stack2 = core::slice::from_raw_parts_mut(stack2_ptr, STACK_TASK2_WORDS);
-
-        (stack1, stack2)
-    };
-    
     #[cfg(feature = "bench")]
     {
-        kernel::create_task(bench::task_a, 0, stack1, 1);
-        kernel::create_task(bench::task_b, 0, stack2, 1);
-        log::log_line("bench tasks created, start_first_task()");
+        let (stack1, stack2): (&'static mut [u32], &'static mut [u32]) = unsafe {
+            let stack1_ptr = core::ptr::addr_of_mut!(STACK_TASK1.0) as *mut u32;
+            let stack2_ptr = core::ptr::addr_of_mut!(STACK_TASK2.0) as *mut u32;
+            (
+                core::slice::from_raw_parts_mut(stack1_ptr, STACK_TASK1_WORDS),
+                core::slice::from_raw_parts_mut(stack2_ptr, STACK_TASK2_WORDS),
+            )
+        };
+
+        let task_a_pid = kernel::create_task(bench::task_a, 0, stack1, 1)
+            .expect("failed to create bench::task_a");
+        let task_b_pid = kernel::create_task(bench::task_b, 0, stack2, 1)
+            .expect("failed to create bench::task_b");
+        bench::register_boot_tasks(task_a_pid, task_b_pid);
+        log::with_logger(|tx| {
+            use core::fmt::Write;
+            let _ = writeln!(
+                tx,
+                "bench tasks created: task_a={} task_b={}, start_first_task()",
+                task_a_pid, task_b_pid
+            );
+        });
     }
 
-    #[cfg(not(feature = "bench"))]
+    #[cfg(all(not(feature = "bench"), not(feature = "uart-probe")))]
     {
-        kernel::create_task(app::task1, 0, stack1, 1);
-        kernel::create_task(app::task2, 0, stack2, 2);
-        log::log_line("tasks created, start_first_task()");
+        let (rx_stack, cmd_stack, tx_stack, health_stack) = unsafe {
+            let rx_ptr = core::ptr::addr_of_mut!(STACK_UART_RX.0) as *mut u32;
+            let cmd_ptr = core::ptr::addr_of_mut!(STACK_APP_CMD.0) as *mut u32;
+            let tx_ptr = core::ptr::addr_of_mut!(STACK_UART_TX.0) as *mut u32;
+            let health_ptr = core::ptr::addr_of_mut!(STACK_HEALTH.0) as *mut u32;
+
+            (
+                core::slice::from_raw_parts_mut(rx_ptr, STACK_UART_RX_WORDS),
+                core::slice::from_raw_parts_mut(cmd_ptr, STACK_APP_CMD_WORDS),
+                core::slice::from_raw_parts_mut(tx_ptr, STACK_UART_TX_WORDS),
+                core::slice::from_raw_parts_mut(health_ptr, STACK_HEALTH_WORDS),
+            )
+        };
+
+        let [rx_pid, cmd_pid, tx_pid, health_pid] =
+            app::create_default_tasks(rx_stack, cmd_stack, tx_stack, health_stack)
+                .expect("failed to create default app tasks");
+
+        log::with_logger(|tx| {
+            use core::fmt::Write;
+            let _ = writeln!(
+                tx,
+                "app tasks created: rx={} cmd={} tx={} health={}, start_first_task()",
+                rx_pid, cmd_pid, tx_pid, health_pid
+            );
+        });
+
+        #[cfg(all(not(debug_assertions), feature = "board-f411-nucleo"))]
+        {
+            // Start watchdog after app tasks are registered.
+            let _ = kernel::enable_watchdog(1_500);
+        }
     }
 
-    // 8) 启动第一个任务（不返回）
     kernel::start();
+    }
 }

@@ -1,0 +1,27 @@
+﻿{
+    "timestamp":  "20260414_155142",
+    "include_bench":  false,
+    "include_f103_debug":  false,
+    "skip_smoke":  false,
+    "f103_port":  "COM17",
+    "f411_port":  "COM6",
+    "f103_probe":  "",
+    "f411_probe":  "",
+    "smoke_board_ports":  [
+
+                          ],
+    "smoke_board_probes":  [
+
+                           ],
+    "build_matrix":  [
+                         "f411-nucleo:debug:app:required",
+                         "f411-nucleo:release:app:required",
+                         "f103c8-bluepill:release:app:required"
+                     ],
+    "flash_on_smoke":  false,
+    "auto_disable_flash_when_probe_missing":  false,
+    "smoke_read_timeout_ms":  5000,
+    "smoke_startup_window_ms":  3000,
+    "git_sha":  "908a519317cb41402f9a954a0438f699bb0bbb73",
+    "output_dir":  "regression_runs\\20260414_155142"
+}

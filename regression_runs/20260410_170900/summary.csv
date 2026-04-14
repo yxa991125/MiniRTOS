@@ -1,0 +1,7 @@
+﻿"step","status","required","exit_code","duration_s","command","stdout","stderr","note"
+"build_f411_debug_app","PASS","True","0","4.07","powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_board.ps1 -Board f411-nucleo -Profile debug -Mode app","regression_runs\20260410_170900\01_build_f411_debug_app.stdout.log","regression_runs\20260410_170900\01_build_f411_debug_app.stderr.log",""
+"build_f411_release_app","PASS","True","0","4.09","powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_board.ps1 -Board f411-nucleo -Profile release -Mode app","regression_runs\20260410_170900\02_build_f411_release_app.stdout.log","regression_runs\20260410_170900\02_build_f411_release_app.stderr.log",""
+"build_f103_debug_app","SKIP","False","0","0","","","","disabled by default (64K conservative FLASH often overflows in debug profile)"
+"build_f103_release_app","PASS","True","0","4.06","powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build_board.ps1 -Board f103c8-bluepill -Profile release -Mode app","regression_runs\20260410_170900\04_build_f103_release_app.stdout.log","regression_runs\20260410_170900\04_build_f103_release_app.stderr.log",""
+"smoke_f103_app","SKIP","False","0","0","","","","SkipSmoke enabled"
+"smoke_f411_app","SKIP","False","0","0","","","","SkipSmoke enabled"
