@@ -1,3 +1,0 @@
-building board=f411-nucleo profile=release mode=app
-image: target\thumbv7em-none-eabihf\release\CortexOS
-meta:  board_builds\20260410_170905_f411-nucleo_release_app\build_meta.json

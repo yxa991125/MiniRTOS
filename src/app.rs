@@ -25,8 +25,33 @@ const WAIT_TIMEOUT: Option<u32> = None;
 #[cfg(not(feature = "board-f103c8-bluepill"))]
 const WAIT_TIMEOUT: Option<u32> = Some(200);
 const HEALTH_PERIOD_MS: u32 = 250;
+#[cfg(feature = "board-f103c8-bluepill")]
+const HEALTH_REPORT_MS: u32 = 30_000;
+#[cfg(not(feature = "board-f103c8-bluepill"))]
 const HEALTH_REPORT_MS: u32 = 5_000;
 const STACK_WARNING_WORDS: usize = 64;
+#[cfg(feature = "board-f103c8-bluepill")]
+const RX_BURST_MAX: usize = 32;
+#[cfg(feature = "board-f103c8-bluepill")]
+const CMD_BURST_MAX: usize = 8;
+#[cfg(feature = "board-f103c8-bluepill")]
+const TX_BURST_DRAIN_THRESHOLD: usize = 64;
+#[cfg(feature = "board-f103c8-bluepill")]
+const PRIORITY_CMD: u8 = 2;
+#[cfg(feature = "board-f103c8-bluepill")]
+const PRIORITY_RX: u8 = 3;
+#[cfg(feature = "board-f103c8-bluepill")]
+const PRIORITY_TX: u8 = 4;
+#[cfg(feature = "board-f103c8-bluepill")]
+const PRIORITY_HEALTH: u8 = 1;
+#[cfg(not(feature = "board-f103c8-bluepill"))]
+const PRIORITY_CMD: u8 = 1;
+#[cfg(not(feature = "board-f103c8-bluepill"))]
+const PRIORITY_RX: u8 = 2;
+#[cfg(not(feature = "board-f103c8-bluepill"))]
+const PRIORITY_TX: u8 = 3;
+#[cfg(not(feature = "board-f103c8-bluepill"))]
+const PRIORITY_HEALTH: u8 = 4;
 
 #[derive(Clone, Copy)]
 struct CommandSlot {
@@ -58,31 +83,54 @@ pub fn create_default_tasks(
     tx_stack: &'static mut [u32],
     health_stack: &'static mut [u32],
 ) -> Option<[usize; 4]> {
-    // Keep command handling ahead of service tasks so line replies are not
-    // delayed behind UART TX draining or periodic health reporting.
-    let cmd_pid = kernel::create_task(app_cmd_task, 0, cmd_stack, 1)?;
-    let rx_pid = kernel::create_task(uart_rx_task, 0, rx_stack, 2)?;
-    let tx_pid = kernel::create_task(uart_tx_task, 0, tx_stack, 3)?;
-    let health_pid = kernel::create_task(health_task, 0, health_stack, 4)?;
+    let cmd_pid = kernel::create_task(app_cmd_task, 0, cmd_stack, PRIORITY_CMD)?;
+    let rx_pid = kernel::create_task(uart_rx_task, 0, rx_stack, PRIORITY_RX)?;
+    let tx_pid = kernel::create_task(uart_tx_task, 0, tx_stack, PRIORITY_TX)?;
+    let health_pid = kernel::create_task(health_task, 0, health_stack, PRIORITY_HEALTH)?;
 
-    let _ = kernel::register_task_heartbeat(rx_pid, HEARTBEAT_TIMEOUT_MS);
-    let _ = kernel::register_task_heartbeat(cmd_pid, HEARTBEAT_TIMEOUT_MS);
-    let _ = kernel::register_task_heartbeat(tx_pid, HEARTBEAT_TIMEOUT_MS);
-    let _ = kernel::register_task_heartbeat(health_pid, HEARTBEAT_TIMEOUT_MS);
+    #[cfg(feature = "board-f103c8-bluepill")]
+    {
+        // On F103 stage, keep heartbeat monitoring focused on the health task.
+        let _ = kernel::register_task_heartbeat(health_pid, HEARTBEAT_TIMEOUT_MS);
+    }
+
+    #[cfg(not(feature = "board-f103c8-bluepill"))]
+    {
+        let _ = kernel::register_task_heartbeat(rx_pid, HEARTBEAT_TIMEOUT_MS);
+        let _ = kernel::register_task_heartbeat(cmd_pid, HEARTBEAT_TIMEOUT_MS);
+        let _ = kernel::register_task_heartbeat(tx_pid, HEARTBEAT_TIMEOUT_MS);
+        let _ = kernel::register_task_heartbeat(health_pid, HEARTBEAT_TIMEOUT_MS);
+    }
 
     Some([rx_pid, cmd_pid, tx_pid, health_pid])
 }
 
 fn uart_rx_task(_arg: usize) -> ! {
+    #[cfg(not(feature = "board-f103c8-bluepill"))]
     let _ = kernel::register_current_heartbeat(HEARTBEAT_TIMEOUT_MS);
     let mut assembler = LineAssembler::<MAX_LINE_LEN>::new();
+    #[cfg(feature = "board-f103c8-bluepill")]
+    let mut last_rx_errors = uart::stats().rx_errors;
 
     loop {
         #[cfg(feature = "board-f103c8-bluepill")]
         {
-            let mut had_rx = false;
-            while let Some(byte) = uart::read_byte() {
-                had_rx = true;
+            let mut processed = 0usize;
+            while processed < RX_BURST_MAX {
+                let Some(byte) = uart::read_byte() else {
+                    break;
+                };
+                processed += 1;
+
+                let rx_errors = uart::stats().rx_errors;
+                if rx_errors != last_rx_errors {
+                    // If hardware reported a receive error during the current command,
+                    // discard the whole line instead of trying to parse damaged bytes.
+                    assembler.drop_current_line();
+                    LINE_DROPS.fetch_add(1, Ordering::Relaxed);
+                    last_rx_errors = rx_errors;
+                }
+
                 match assembler.push_byte(byte) {
                     LineAssemblerEvent::None => {}
                     LineAssemblerEvent::Dropped => {
@@ -95,7 +143,8 @@ fn uart_rx_task(_arg: usize) -> ! {
                     }
                 }
             }
-            if !had_rx {
+
+            if processed == 0 || processed >= RX_BURST_MAX {
                 kernel::sleep_ms(1);
             }
         }
@@ -125,20 +174,42 @@ fn uart_rx_task(_arg: usize) -> ! {
 }
 
 fn app_cmd_task(_arg: usize) -> ! {
+    #[cfg(not(feature = "board-f103c8-bluepill"))]
     let _ = kernel::register_current_heartbeat(HEARTBEAT_TIMEOUT_MS);
     let mut local = [0u8; MAX_LINE_LEN];
 
     loop {
-        let mut did_work = false;
-        while let Some(slot_idx) = CMD_QUEUE.recv() {
-            did_work = true;
-            if let Some(len) = take_command(slot_idx, &mut local) {
-                handle_command(&local[..len]);
+        #[cfg(feature = "board-f103c8-bluepill")]
+        {
+            let mut processed = 0usize;
+            while processed < CMD_BURST_MAX {
+                let Some(slot_idx) = CMD_QUEUE.recv() else {
+                    break;
+                };
+                processed += 1;
+                if let Some(len) = take_command(slot_idx, &mut local) {
+                    handle_command(&local[..len]);
+                }
+            }
+
+            if processed == 0 || processed >= CMD_BURST_MAX {
+                kernel::sleep_ms(1);
             }
         }
 
-        if !did_work {
-            kernel::sleep_ms(1);
+        #[cfg(not(feature = "board-f103c8-bluepill"))]
+        {
+            let mut did_work = false;
+            while let Some(slot_idx) = CMD_QUEUE.recv() {
+                did_work = true;
+                if let Some(len) = take_command(slot_idx, &mut local) {
+                    handle_command(&local[..len]);
+                }
+            }
+
+            if !did_work {
+                kernel::sleep_ms(1);
+            }
         }
 
         let _ = kernel::task_heartbeat();
@@ -146,12 +217,14 @@ fn app_cmd_task(_arg: usize) -> ! {
 }
 
 fn uart_tx_task(_arg: usize) -> ! {
+    #[cfg(not(feature = "board-f103c8-bluepill"))]
     let _ = kernel::register_current_heartbeat(HEARTBEAT_TIMEOUT_MS);
 
     loop {
         #[cfg(feature = "board-f103c8-bluepill")]
         {
-            if uart::drain_tx() == 0 {
+            let drained = uart::drain_tx();
+            if drained == 0 || drained >= TX_BURST_DRAIN_THRESHOLD {
                 kernel::sleep_ms(1);
             }
         }
@@ -287,7 +360,6 @@ fn free_command_slot(slot_idx: usize) {
 
 fn handle_command(line: &[u8]) {
     let Ok(text) = str::from_utf8(line) else {
-        app_log_line(format_args!("ERR utf8"));
         return;
     };
 

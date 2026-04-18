@@ -9,7 +9,7 @@ if (-not (Get-Variable -Scope Script -Name BoardProfilesRoot -ErrorAction Silent
 }
 
 function Get-BoardProfilesPath {
-    return (Join-Path (Split-Path -Parent $script:BoardProfilesRoot) 'board_profiles.json')
+    return (Join-Path (Split-Path -Parent $script:BoardProfilesRoot) 'config/board_profiles.json')
 }
 
 function Get-BoardProfiles {

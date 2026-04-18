@@ -62,6 +62,11 @@ impl<const N: usize> LineAssembler<N> {
         }
     }
 
+    pub fn drop_current_line(&mut self) {
+        self.len = 0;
+        self.dropping = true;
+    }
+
     pub fn push_byte(&mut self, byte: u8) -> LineAssemblerEvent<N> {
         match byte {
             b'\r' => LineAssemblerEvent::None,
@@ -81,6 +86,12 @@ impl<const N: usize> LineAssembler<N> {
                 LineAssemblerEvent::Line(line)
             }
             _ => {
+                // Ignore non-printable bytes to make the line parser resilient
+                // to occasional UART noise on low-cost USB-UART links.
+                if !(byte.is_ascii_graphic() || byte == b' ') {
+                    return LineAssemblerEvent::None;
+                }
+
                 if self.dropping {
                     return LineAssemblerEvent::None;
                 }

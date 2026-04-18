@@ -1,4 +1,0 @@
-﻿"run","metric","phase_count","clean_spikes","label1","dominant1","label2","dominant2","label3","dominant3","label4","dominant4","max_label1","max1_cy","max_label2","max2_cy","max_label3","max3_cy","max_label4","max4_cy"
-"1","tim2_irq_to_task_clean_breakdown","2","0","unblock","0","resume","0",,,,,"unblock","0","resume","0",,,,
-"1","queue_wake_latency_clean_breakdown","2","26","unblock","0","resume","26",,,,,"unblock","245","resume","937",,,,
-"1","queue_end_to_end_latency_clean_breakdown","4","26","send","0","unblock","0","resume","26","recv","0","send","72","unblock","245","resume","1043","recv","92"

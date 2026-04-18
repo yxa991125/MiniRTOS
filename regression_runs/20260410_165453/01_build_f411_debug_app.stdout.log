@@ -1,3 +1,0 @@
-building board=f411-nucleo profile=debug mode=app
-image: target\thumbv7em-none-eabihf\debug\CortexOS
-meta:  board_builds\20260410_165454_f411-nucleo_debug_app\build_meta.json

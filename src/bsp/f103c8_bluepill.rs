@@ -84,7 +84,9 @@ const RCC_CSR: *mut u32 = (RCC_BASE + 0x24) as *mut u32;
 const AFIO_MAPR: *mut u32 = 0x4001_0004 as *mut u32;
 const GPIOA_CRL: *mut u32 = 0x4001_0800 as *mut u32;
 const GPIOA_CRH: *mut u32 = 0x4001_0804 as *mut u32;
+const GPIOA_ODR: *mut u32 = 0x4001_080C as *mut u32;
 const GPIOB_CRH: *mut u32 = 0x4001_0C04 as *mut u32;
+const GPIOB_ODR: *mut u32 = 0x4001_0C0C as *mut u32;
 const GPIOC_CRH: *mut u32 = 0x4001_1004 as *mut u32;
 const GPIOC_BSRR: *mut u32 = 0x4001_1010 as *mut u32;
 
@@ -148,29 +150,38 @@ fn configure_board_peripherals() {
         #[cfg(feature = "uart-probe")]
         {
             // PA2  = alternate push-pull 50MHz (USART2_TX)
-            // PA3  = floating input          (USART2_RX)
+            // PA3  = input pull-up           (USART2_RX)
             let mut a_crl = GPIOA_CRL.read_volatile();
             a_crl &= !((0x0F << 8) | (0x0F << 12));
-            a_crl |= (0x0B << 8) | (0x04 << 12);
+            a_crl |= (0x0B << 8) | (0x08 << 12);
             GPIOA_CRL.write_volatile(a_crl);
+            let mut a_odr = GPIOA_ODR.read_volatile();
+            a_odr |= 1 << 3;
+            GPIOA_ODR.write_volatile(a_odr);
         }
 
         // PA8  = alternate push-pull 50MHz (TIM1 CH1)
         // PA9  = alternate push-pull 50MHz (USART1_TX)
-        // PA10 = floating input          (USART1_RX)
+        // PA10 = input pull-up           (USART1_RX)
         let mut a_crh = GPIOA_CRH.read_volatile();
         a_crh &= !((0x0F << 0) | (0x0F << 4) | (0x0F << 8));
-        a_crh |= (0x0B << 0) | (0x0B << 4) | (0x04 << 8);
+        a_crh |= (0x0B << 0) | (0x0B << 4) | (0x08 << 8);
         GPIOA_CRH.write_volatile(a_crh);
+        let mut a_odr = GPIOA_ODR.read_volatile();
+        a_odr |= 1 << 10;
+        GPIOA_ODR.write_volatile(a_odr);
 
         #[cfg(feature = "uart-probe")]
         {
             // PB10 = alternate push-pull 50MHz (USART3_TX)
-            // PB11 = floating input          (USART3_RX)
+            // PB11 = input pull-up           (USART3_RX)
             let mut b_crh = GPIOB_CRH.read_volatile();
             b_crh &= !((0x0F << 8) | (0x0F << 12));
-            b_crh |= (0x0B << 8) | (0x04 << 12);
+            b_crh |= (0x0B << 8) | (0x08 << 12);
             GPIOB_CRH.write_volatile(b_crh);
+            let mut b_odr = GPIOB_ODR.read_volatile();
+            b_odr |= 1 << 11;
+            GPIOB_ODR.write_volatile(b_odr);
         }
 
         // PC13 as push-pull output 2MHz; default off (high, active-low LED)
@@ -328,8 +339,8 @@ pub mod uart {
     const CR1_RXNEIE: u32 = 1 << 5;
     const CR1_UE: u32 = 1 << 13;
 
-    // 8 MHz / 115200 -> BRR = 0x45
-    const USART1_BRR_115200_AT_8MHZ: u32 = 0x45;
+    // 8 MHz / 19200 -> BRR = 0x1A1
+    const USART1_BRR_19200_AT_8MHZ: u32 = 0x1A1;
 
     #[cfg(feature = "uart-probe")]
     const ACTIVE_UART_BASES: &[usize] = &[USART1_BASE, USART2_BASE, USART3_BASE];
@@ -338,6 +349,7 @@ pub mod uart {
 
     pub const RX_BUF_SIZE: usize = 256;
     pub const TX_BUF_SIZE: usize = 1024;
+    const TX_DRAIN_BURST_BYTES: usize = 64;
 
     static APP_UART_READY: AtomicBool = AtomicBool::new(false);
     static RX_RING: SyncRingBuf<RX_BUF_SIZE> = SyncRingBuf::new();
@@ -386,7 +398,7 @@ pub mod uart {
             for &base in ACTIVE_UART_BASES {
                 cr2(base).write_volatile(0);
                 cr3(base).write_volatile(0);
-                brr(base).write_volatile(USART1_BRR_115200_AT_8MHZ);
+                brr(base).write_volatile(USART1_BRR_19200_AT_8MHZ);
                 cr1(base).write_volatile(CR1_UE | CR1_TE | CR1_RE);
             }
         }
@@ -496,15 +508,27 @@ pub mod uart {
         let mut total = 0usize;
 
         loop {
-            let count = TX_RING.pop_slice(&mut buf);
+            if total >= TX_DRAIN_BURST_BYTES {
+                break;
+            }
+
+            let remaining = TX_DRAIN_BURST_BYTES - total;
+            let chunk = remaining.min(buf.len());
+            let count = TX_RING.pop_slice(&mut buf[..chunk]);
             if count == 0 {
-                return total;
+                break;
             }
 
             boot_write_bytes(&buf[..count]);
             total += count;
             TX_BYTES.fetch_add(count as u32, Ordering::Relaxed);
         }
+
+        if TX_RING.len() > 0 {
+            let _ = TX_EVENT.set();
+        }
+
+        total
     }
 
     pub fn app_stats() -> UartStats {
@@ -538,7 +562,6 @@ pub mod uart {
             let byte = unsafe { dr(base).read_volatile() as u8 };
             if has_error {
                 RX_ERRORS.fetch_add(1, Ordering::Relaxed);
-                continue;
             }
 
             if RX_RING.push_from_isr(byte).is_ok() {

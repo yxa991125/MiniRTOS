@@ -1,9 +1,0 @@
-﻿{
-    "pid":  24492,
-    "run_id":  "20260331_150206",
-    "output_dir":  "app_soak_runs\\20260331_150206",
-    "started_at":  "2026-03-31T15:02:06",
-    "port":  "COM6",
-    "duration_sec":  5,
-    "flashed":  true
-}

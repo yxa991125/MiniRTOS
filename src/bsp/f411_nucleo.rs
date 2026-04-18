@@ -264,6 +264,7 @@ pub mod uart {
 
     pub const RX_BUF_SIZE: usize = 256;
     pub const TX_BUF_SIZE: usize = 1024;
+    const TX_DRAIN_BURST_BYTES: usize = 64;
 
     static APP_UART_READY: AtomicBool = AtomicBool::new(false);
     static RX_RING: SyncRingBuf<RX_BUF_SIZE> = SyncRingBuf::new();
@@ -356,15 +357,27 @@ pub mod uart {
         let mut total = 0usize;
 
         loop {
-            let count = TX_RING.pop_slice(&mut buf);
+            if total >= TX_DRAIN_BURST_BYTES {
+                break;
+            }
+
+            let remaining = TX_DRAIN_BURST_BYTES - total;
+            let chunk = remaining.min(buf.len());
+            let count = TX_RING.pop_slice(&mut buf[..chunk]);
             if count == 0 {
-                return total;
+                break;
             }
 
             boot_write_bytes(&buf[..count]);
             total += count;
             TX_BYTES.fetch_add(count as u32, Ordering::Relaxed);
         }
+
+        if TX_RING.len() > 0 {
+            let _ = TX_EVENT.set();
+        }
+
+        total
     }
 
     pub fn app_stats() -> UartStats {
@@ -410,7 +423,6 @@ pub mod uart {
             let byte = unsafe { dr().read_volatile() as u8 };
             if has_error {
                 RX_ERRORS.fetch_add(1, Ordering::Relaxed);
-                continue;
             }
 
             if RX_RING.push_from_isr(byte).is_ok() {

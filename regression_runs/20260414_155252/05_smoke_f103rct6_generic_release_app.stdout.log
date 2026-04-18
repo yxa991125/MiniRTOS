@@ -1,3 +1,0 @@
-flashing board=f103rct6-generic image=D:\Code\microOS\CortexOS\target\thumbv7m-none-eabi\release\CortexOS
-meta: board_flash_runs\20260414_155306_f103rct6-generic\flash_meta.json
-smoke ok: app_smoke_runs\20260414_155326_f103rct6-generic

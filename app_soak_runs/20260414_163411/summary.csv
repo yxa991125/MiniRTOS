@@ -1,2 +1,0 @@
-﻿"timestamp","board","chip","probe","port","duration_sec","flashed","reset","boot_seen","task_banner_seen","commands_sent","commands_passed","commands_failed","health_lines","max_feeds","max_stale","max_rx_overflow","max_tx_overflow","max_cmd_drop","fault_lines","error_lines","command_failures","log"
-"20260414_163411","f103rct6-generic","STM32F103RC","","COM17","5","False","False","False","False","3","3","0","0","0","0","0","0","0","0","0","","app_soak_runs\20260414_163411\session.log"

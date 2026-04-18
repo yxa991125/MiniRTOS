@@ -1,3 +1,0 @@
-building board=f103c8-bluepill profile=release mode=app
-image: target\thumbv7m-none-eabi\release\CortexOS
-meta:  board_builds\20260414_154753_f103c8-bluepill_release_app\build_meta.json

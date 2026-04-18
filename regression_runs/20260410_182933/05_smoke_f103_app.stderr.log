@@ -1,8 +1,0 @@
-D:\Code\microOS\CortexOS\scripts\run_app_smoke.ps1 : app smoke failed; see app_smoke_runs\20260410_183106_f103rct6-gene
-ric
-At D:\Code\microOS\CortexOS\scripts\run_app_smoke.ps1:218 char:5
-+     Write-Error "app smoke failed; see $outDir"
-+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (:) [Write-Error], WriteErrorException
-    + FullyQualifiedErrorId : Microsoft.PowerShell.Commands.WriteErrorException,run_app_smoke.ps1
- 

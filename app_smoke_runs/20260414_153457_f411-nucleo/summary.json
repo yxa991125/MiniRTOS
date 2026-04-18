@@ -1,8 +1,0 @@
-﻿{
-    "board":  "f411-nucleo",
-    "boot_seen":  false,
-    "task_banner_seen":  false,
-    "commands_sent":  5,
-    "commands_passed":  5,
-    "commands_failed":  0
-}

@@ -1,0 +1,64 @@
+{
+  "boards": [
+    {
+      "name": "f411-nucleo",
+      "aliases": [
+        "board-f411-nucleo"
+      ],
+      "feature": "board-f411-nucleo",
+      "target": "thumbv7em-none-eabihf",
+      "chip": "STM32F411RETx",
+      "baud": 115200,
+      "probe_protocol": "swd",
+      "smoke_read_timeout_ms": 3000,
+      "smoke_startup_window_ms": 2500,
+      "soak_read_slice_ms": 1800,
+      "soak_pause_ms": 100,
+      "soak_stat_every": 5,
+      "supports": {
+        "bench": true,
+        "uart_probe": false
+      }
+    },
+    {
+      "name": "f103c8-bluepill",
+      "aliases": [
+        "board-f103c8-bluepill"
+      ],
+      "feature": "board-f103c8-bluepill",
+      "target": "thumbv7m-none-eabi",
+      "chip": "STM32F103C8",
+      "baud": 19200,
+      "probe_protocol": "swd",
+      "smoke_read_timeout_ms": 10000,
+      "smoke_startup_window_ms": 3000,
+      "soak_read_slice_ms": 4000,
+      "soak_pause_ms": 200,
+      "soak_stat_every": 0,
+      "supports": {
+        "bench": false,
+        "uart_probe": true
+      }
+    },
+    {
+      "name": "f103rct6-generic",
+      "aliases": [
+        "board-f103rct6-generic"
+      ],
+      "feature": "board-f103c8-bluepill",
+      "target": "thumbv7m-none-eabi",
+      "chip": "STM32F103RC",
+      "baud": 19200,
+      "probe_protocol": "swd",
+      "smoke_read_timeout_ms": 10000,
+      "smoke_startup_window_ms": 3000,
+      "soak_read_slice_ms": 4000,
+      "soak_pause_ms": 200,
+      "soak_stat_every": 0,
+      "supports": {
+        "bench": false,
+        "uart_probe": true
+      }
+    }
+  ]
+}

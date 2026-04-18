@@ -1,5 +1,0 @@
-D:\Code\microOS\CortexOS\scripts\run_app_smoke.ps1 : Exception calling "Open" with "0" argument(s): "The port 'COM17,f4
-11-nucleo:COM6' does not exist."
-    + CategoryInfo          : NotSpecified: (:) [run_app_smoke.ps1], MethodInvocationException
-    + FullyQualifiedErrorId : IOException,run_app_smoke.ps1
- 
